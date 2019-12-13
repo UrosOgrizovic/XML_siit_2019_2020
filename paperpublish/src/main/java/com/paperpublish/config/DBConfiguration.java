@@ -9,10 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.xmldb.api.base.Collection;
-
-@Configuration
-@EnableWebSecurity
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+//
+//@Configuration
+//@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class DBConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override

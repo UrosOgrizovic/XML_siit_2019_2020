@@ -1,50 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<SciencePapers>
-    <SciencePaper documentId="1,1">
-        <PaperData numberOfReferences="52" 
+<Papers:SciencePapers xmlns:Papers="http://localhost:8080/SciencePapers"
+    xmlns:Users="http://localhost:8080/Users"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://localhost:8080/SciencePapers file:/D:/FAKS/7.semestar/xml/projekat/science_paper.xsd"
+    >
+    <Papers:SciencePaper documentId="1,1">
+        <Papers:PaperData numberOfReferences="52" 
             contact="permissions@emeraldinsight.com" numberOfDownloads="1059">
-            <Title documentTitle="1">Document phenomenology: a framework for holistic analysis</Title>
-            <ShortTitle>Document phenomenology</ShortTitle>
-               <PublicationDate>2016-12-01</PublicationDate>
-            <Citation>Tim Gorichanaz, Kiersten F. Latham, (2016) "Document phenomenology: a framework for holistic
+            <Papers:Title documentTitle="1">Document phenomenology: a framework for holistic analysis</Papers:Title>
+            <Papers:ShortTitle>Document phenomenology</Papers:ShortTitle>
+                <Papers:PublicationDate>2016-12-01</Papers:PublicationDate>
+            <Papers:Citation>Tim Gorichanaz, Kiersten F. Latham, (2016) "Document phenomenology: a framework for holistic
                 analysis", Journal of Documentation, Vol. 72 Issue: 6, pp.1114-1133, 
-            </Citation>
-            <DocumentLink>
+            </Papers:Citation>
+            <Papers:DocumentLink>
                 https://doi.org/10.1108/JD-01-2016-0007
-            </DocumentLink>
+            </Papers:DocumentLink>
             
             
-                <Author>
-                    <FullName>Tim Gorichanaz</FullName>
-                    <Institution>
-                        <Name>Drexel University</Name>
-                        <Address>Philadelphia, Pennsylvania, USA</Address>
-                    </Institution>
-                    <EMail></EMail>
-                </Author>
-                <Author>
-                    <FullName>Kiersten F. Latham</FullName>
-                    <Institution>
-                        <Name>Drexel University</Name>
-                        <Address>Philadelphia, Pennsylvania, USA</Address>
-                    </Institution>
-                    <EMail></EMail>
-                </Author>
-            <DownloadInformation>
-                    <RecommendedPaper>
+            <Papers:Author>
+                <Papers:authorUserName>UserName0</Papers:authorUserName>
+            </Papers:Author>
+            <Papers:Author>
+                <Papers:authorUserName>UserName1</Papers:authorUserName>
+            </Papers:Author>
+            
+            <Papers:DownloadInformation>
+                    <Papers:RecommendedPaper>
                         (2016),"Landscapes as documents: The relationship between traditional Sámi terminology and the
                         concepts of document and documentation", Journal of Documentation, Vol. 72 Iss 6 pp. 1181-1196
-                    </RecommendedPaper>
-                    <RecommendedPaper>
+                    </Papers:RecommendedPaper>
+                    <Papers:RecommendedPaper>
                         (2016),"Information seeking and searching strategies as plans and patterns of action: A conceptual
                         analysis", Journal of Documentation, Vol. 72 Iss 6 pp. 1154-1180
-                    </RecommendedPaper>
+                    </Papers:RecommendedPaper>
                 
-            </DownloadInformation>
-        </PaperData>
+            </Papers:DownloadInformation>
+        </Papers:PaperData>
  
-        <Paragraf>
-                <content>
+        <Papers:Paragraf>
+                <Papers:content>
                         <!--<bold>Document phenomenology:
                         a framework for holistic analysis
                     </bold>
@@ -59,83 +54,74 @@
                         <bold>Paper type</bold> Conceptual paper-->     
                     
                     
-                    <quote citation="1">Life is as infinitely great ...</quote>
+                    <Papers:quote citation="1">Life is as infinitely great ...</Papers:quote>
                     <!--                        
                    <bold>Purpose</bold>
                     Do documents exist? Or, perhaps more to the point: how do documents exist...
                         -->
                     
-                </content>
-            </Paragraf>
-            <Paragraf>
-                <content>
+                </Papers:content>
+            </Papers:Paragraf>
+            <Papers:Paragraf>
+                <Papers:content>
                     in the days of their progenitor but today furnish a different one altogether...
-                    <quote citation="2">not inherent, but rather the product of will, eith..</quote>
-                </content>
-            </Paragraf>
+                    <Papers:quote citation="2">not inherent, but rather the product of will, eith..</Papers:quote>
+                </Papers:content>
+            </Papers:Paragraf>
 
-            <Citations>
-                <citation cID="1">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
-                    Information Science, Vol. 57 No. 8, pp. 1033-1045.</citation>
-                <citation cID="2">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
-                    Information Science, Vol. 57 No. 8, pp. 1033-1045.</citation>
-            </Citations>
+            <Papers:Citations>
+                <Papers:citation cID="1">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
+                    Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:citation>
+                <Papers:citation cID="2">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
+                    Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:citation>
+            </Papers:Citations>
         
-        <CitedBy>
+        <Papers:CitedBy>
                 SladićGoran, Goran Sladić, Cverdelj-FogarašiIgor, Igor Cverdelj-Fogaraši, GostojićStevan, Stevan
                 Gostojić, SavićGoran, Goran Savić, SegedinacMilan, Milan Segedinac, ZarićMiroslav, Miroslav
                 Zarić. 2017. Multilayer document model for semantic document management services. Journal of
                 Documentation 73:5, 803-824.
                 GorichanazTim, Tim Gorichanaz. 2017. Information and experience, a dialogue. Journal of
                 Documentation 73:3, 500-508.
-        </CitedBy>
-    </SciencePaper>
-    <SciencePaper documentId="1,1">
-        <PaperData numberOfReferences="52" 
+        </Papers:CitedBy>
+    </Papers:SciencePaper>
+    <Papers:SciencePaper documentId="1,2">
+        <Papers:PaperData numberOfReferences="52" 
             contact="permissions@emeraldinsight.com" numberOfDownloads="1059">
-            <Title documentTitle="2">Document phenomenology: a framework for holistic analysis</Title>
-            <ShortTitle>Document phenomenology</ShortTitle>
-            <PublicationDate>2016-12-01</PublicationDate>
-            <Citation>Tim Gorichanaz, Kiersten F. Latham, (2016) "Document phenomenology: a framework for holistic
+            <Papers:Title documentTitle="2">Document phenomenology: a framework for holistic analysis</Papers:Title>
+            <Papers:ShortTitle>Document phenomenology</Papers:ShortTitle>
+            <Papers:PublicationDate>2016-12-01</Papers:PublicationDate>
+            <Papers:Citation>Tim Gorichanaz, Kiersten F. Latham, (2016) "Document phenomenology: a framework for holistic
                 analysis", Journal of Documentation, Vol. 72 Issue: 6, pp.1114-1133, 
-            </Citation>
-            <DocumentLink>
+            </Papers:Citation>
+            <Papers:DocumentLink>
                 https://doi.org/10.1108/JD-01-2016-0007
-            </DocumentLink>
+            </Papers:DocumentLink>
             
             
-            <Author>
-                <FullName>Tim Gorichanaz</FullName>
-                <Institution>
-                    <Name>Drexel University</Name>
-                    <Address>Philadelphia, Pennsylvania, USA</Address>
-                </Institution>
-                <EMail></EMail>
-            </Author>
-            <Author>
-                <FullName>Kiersten F. Latham</FullName>
-                <Institution>
-                    <Name>Drexel University</Name>
-                    <Address>Philadelphia, Pennsylvania, USA</Address>
-                </Institution>
-                <EMail></EMail>
-            </Author>
-            <DownloadInformation>
-                <RecommendedPaper>
+            <Papers:Author>
+                <Papers:authorUserName>UserName0</Papers:authorUserName>
+            </Papers:Author>
+            <Papers:Author>
+                <Papers:authorUserName>UserName1</Papers:authorUserName>
+            </Papers:Author>
+            
+            <Papers:DownloadInformation>
+                <Papers:RecommendedPaper>
                     (2016),"Landscapes as documents: The relationship between traditional Sámi terminology and the
                     concepts of document and documentation", Journal of Documentation, Vol. 72 Iss 6 pp. 1181-1196
-                </RecommendedPaper>
-                <RecommendedPaper>
+                </Papers:RecommendedPaper>
+                <Papers:RecommendedPaper>
                     (2016),"Information seeking and searching strategies as plans and patterns of action: A conceptual
                     analysis", Journal of Documentation, Vol. 72 Iss 6 pp. 1154-1180
-                </RecommendedPaper>
+                </Papers:RecommendedPaper>
                 
-            </DownloadInformation>
-        </PaperData>
+            </Papers:DownloadInformation>
+        </Papers:PaperData>
         
-        <Paragraf>
-            <content>
-                    <!--<bold>Document phenomenology:
+        <Papers:Paragraf>
+            <Papers:content>
+                <!--<bold>Document phenomenology:
                         a framework for holistic analysis
                     </bold>
                         <bold>Tim Gorichanaz</bold>
@@ -149,33 +135,35 @@
                         <bold>Paper type</bold> Conceptual paper-->     
                 
                 
-                <quote citation="1">Life is as infinitely great ...</quote>
-                    <!--                        
+                <Papers:quote citation="1">Life is as infinitely great ...</Papers:quote>
+                <!--                        
                    <bold>Purpose</bold>
                     Do documents exist? Or, perhaps more to the point: how do documents exist...
                         -->
                 
-            </content>
-        </Paragraf>
-        <Paragraf>
-            <content>
-                    in the days of their progenitor but today furnish a different one altogether...
-                <quote citation="1">not inherent, but rather the product of will, eith..</quote>
-            </content>
-        </Paragraf>
+            </Papers:content>
+        </Papers:Paragraf>
+        <Papers:Paragraf>
+            <Papers:content>
+                in the days of their progenitor but today furnish a different one altogether...
+                <Papers:quote citation="2">not inherent, but rather the product of will, eith..</Papers:quote>
+            </Papers:content>
+        </Papers:Paragraf>
         
-        <Citations>
-            <citation cID="1">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
-                Information Science, Vol. 57 No. 8, pp. 1033-1045.</citation>
-        </Citations>
+        <Papers:Citations>
+            <Papers:citation cID="1">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
+                Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:citation>
+            <Papers:citation cID="2">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
+                Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:citation>
+        </Papers:Citations>
         
-        <CitedBy>
+        <Papers:CitedBy>
             SladićGoran, Goran Sladić, Cverdelj-FogarašiIgor, Igor Cverdelj-Fogaraši, GostojićStevan, Stevan
             Gostojić, SavićGoran, Goran Savić, SegedinacMilan, Milan Segedinac, ZarićMiroslav, Miroslav
             Zarić. 2017. Multilayer document model for semantic document management services. Journal of
             Documentation 73:5, 803-824.
             GorichanazTim, Tim Gorichanaz. 2017. Information and experience, a dialogue. Journal of
             Documentation 73:3, 500-508.
-        </CitedBy>
-    </SciencePaper>
-</SciencePapers>
+        </Papers:CitedBy>
+    </Papers:SciencePaper>
+</Papers:SciencePapers>

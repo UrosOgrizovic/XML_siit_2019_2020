@@ -10,6 +10,8 @@ import org.xmldb.api.base.Database;
 import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.CollectionManagementService;
 import org.xmldb.api.modules.XMLResource;
+import org.xmldb.api.modules.XPathQueryService;
+import org.xmldb.api.modules.XUpdateQueryService;
 
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBContext;
@@ -30,9 +32,15 @@ public class ConnectionProperties {
 
     public static final String initDataPath = "src/main/resources/data/";
     public static final String SCIENCE_PAPER_ID = "science_paper.xml";
+    public static final String ROLES_ID = "Roles.xml";
+    public static final String USERS_ID = "Users.xml";
 
     public static final String PACKAGE_PATH = "com.paperpublish.model.";
     public static final String SCIENCE_PAPER_PACKAGE = "sciencepapers";
+    public static final String ROLES_PACKAGE = "users";
+    public static final String USERS_PACKAGE = "users";
+
+    public static final String USERS_NAMESPACE = "http://localhost:8080/Users";
 
     private static ConnectionProperties instance = null;
 
@@ -70,6 +78,29 @@ public class ConnectionProperties {
     @Bean
     public static Collection getCol() {
         return col;
+    }
+
+    public static XPathQueryService getXPathService(Collection collection){
+        XPathQueryService xpathService = null;
+        try {
+            xpathService = (XPathQueryService) collection.getService("XPathQueryService", "1.0");
+            xpathService.setProperty("indent", "yes");
+        } catch (XMLDBException e) {
+            e.printStackTrace();
+        }
+
+        return xpathService;
+    }
+
+    public static XUpdateQueryService getXUpdateQueryService(Collection collection){
+        XUpdateQueryService xupdateService = null;
+        try {
+            xupdateService = (XUpdateQueryService) collection.getService("XUpdateQueryService", "1.0");
+            xupdateService.setProperty("indent", "yes");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return xupdateService;
     }
 
     public static InputStream openStream(String fileName) throws IOException {
@@ -166,6 +197,16 @@ public class ConnectionProperties {
     public static void initData() throws Exception{
         XMLResource resource = (XMLResource) col.createResource(SCIENCE_PAPER_ID,XMLResource.RESOURCE_TYPE);
         File f = new File(initDataPath + SCIENCE_PAPER_ID);
+        resource.setContent(f);
+        col.storeResource(resource);
+
+        resource = (XMLResource) col.createResource(ROLES_ID,XMLResource.RESOURCE_TYPE);
+        f = new File(initDataPath + ROLES_ID);
+        resource.setContent(f);
+        col.storeResource(resource);
+
+        resource = (XMLResource) col.createResource(USERS_ID,XMLResource.RESOURCE_TYPE);
+        f = new File(initDataPath + USERS_ID);
         resource.setContent(f);
         col.storeResource(resource);
     }

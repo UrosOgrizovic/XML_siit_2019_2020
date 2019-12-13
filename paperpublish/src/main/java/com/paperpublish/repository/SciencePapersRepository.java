@@ -1,9 +1,9 @@
 package com.paperpublish.repository;
 
 import com.paperpublish.model.sciencepapers.SciencePapers;
-import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.utils.ConnectionProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.modules.XMLResource;
@@ -17,6 +17,7 @@ import java.util.List;
 public class SciencePapersRepository {
 
     @Autowired
+    @Lazy
     Collection collection;
 
     public SciencePapers getAll() throws Exception {

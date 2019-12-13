@@ -13,21 +13,20 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Java class for TAuthors complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
+ * &lt;complexType name="TAuthors">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="SciencePaper" type="{http://localhost:8080/SciencePapers}TSciencePaper" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="authorUserName" type="{http://www.w3.org/2001/XMLSchema}anyType" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,42 +36,41 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "sciencePaper"
+@XmlType(name = "TAuthors", propOrder = {
+    "authorUserName"
 })
-@XmlRootElement(name = "SciencePapers")
-public class SciencePapers {
+public class TAuthors {
 
-    @XmlElement(name = "SciencePaper")
-    protected List<TSciencePaper> sciencePaper;
+    @XmlElement(required = true)
+    protected List<Object> authorUserName;
 
     /**
-     * Gets the value of the sciencePaper property.
+     * Gets the value of the authorUserName property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the sciencePaper property.
+     * This is why there is not a <CODE>set</CODE> method for the authorUserName property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getSciencePaper().add(newItem);
+     *    getAuthorUserName().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link TSciencePaper }
+     * {@link Object }
      * 
      * 
      */
-    public List<TSciencePaper> getSciencePaper() {
-        if (sciencePaper == null) {
-            sciencePaper = new ArrayList<TSciencePaper>();
+    public List<Object> getAuthorUserName() {
+        if (authorUserName == null) {
+            authorUserName = new ArrayList<Object>();
         }
-        return this.sciencePaper;
+        return this.authorUserName;
     }
 
 }
