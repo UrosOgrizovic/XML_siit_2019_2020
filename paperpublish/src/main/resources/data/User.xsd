@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:Users="http://localhost:8080/Users"
+    targetNamespace="http://localhost:8080/Users" elementFormDefault="qualified">
+
+    <xs:element name="Users">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Users:User" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="userName">
+            <xs:selector xpath="Users:User/Users:UserName"/>
+            <xs:field xpath="."/>
+        </xs:unique>
+        
+        <xs:unique name="email">
+            <xs:selector xpath="Users:User/Users:EMail"/>
+            <xs:field xpath="."/>
+        </xs:unique>
+    </xs:element>
+
+    <xs:element name="User">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="UserName">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="Password" type="xs:string"/>
+                <xs:element name="FullName" type="xs:string"/>
+                <xs:element name="Institution" type="xs:string"/>
+                <xs:element name="EMail">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string"/>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element ref="Users:Roles"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Roles">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Role" default="ROLE_USER" minOccurs="1" maxOccurs="unbounded">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:enumeration value="ROLE_USER"/>
+                            <xs:enumeration value="ROLE_EDITOR"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+
+        <xs:unique name="role">
+            <xs:selector xpath="Users:Role"/>
+            <xs:field xpath="."/>
+        </xs:unique>
+    </xs:element>
+</xs:schema>

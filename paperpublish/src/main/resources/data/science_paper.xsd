@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://localhost:8080/SciencePapers"
+    xmlns:Papers="http://localhost:8080/SciencePapers" xmlns:Users="http://localhost:8080/Users">
+
+    <xs:import namespace="http://localhost:8080/Users" schemaLocation="User.xsd"/>
+    <xs:element name="SciencePapers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="SciencePaper" type="Papers:TSciencePaper" minOccurs="0"
+                    maxOccurs="unbounded">
+
+                    <xs:keyref refer="Papers:citation_refrence" name="qute">
+                        <xs:selector xpath=".//*"/>
+                        <xs:field xpath="@citation"/>
+                    </xs:keyref>
+                    <xs:unique name="paragrafIdKey">
+                        <xs:selector xpath=".//*"></xs:selector>
+                        <xs:field xpath="@paragrafId"></xs:field>
+                    </xs:unique>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="paperId">
+            <xs:selector xpath=".//*"/>
+            <xs:field xpath="@documentId"/>
+        </xs:unique>
+        <xs:unique name="paperTitle">
+            <xs:selector xpath=".//*"/>
+            <xs:field xpath="@documentTitle"/>
+        </xs:unique>
+    </xs:element>
+    <xs:complexType name="TSciencePaper">
+        <xs:sequence>
+            <xs:element name="PaperData" type="Papers:TPaperData"> </xs:element>
+            <xs:element maxOccurs="unbounded" name="Paragraf" type="Papers:TParagraf"/> 
+            
+            <xs:element name="Citations" type="Papers:TCitations" minOccurs="0">
+                <xs:key name="citation_refrence">
+                    <xs:selector xpath=".//*"/>
+                    <xs:field xpath="@cID"/>
+                </xs:key>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="CitedBy" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute default="XML" name="documentType">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="RDF"/>
+                    <xs:enumeration value="XML"/>
+                    <xs:enumeration value="XHTML"/>
+                    <xs:whiteSpace value="preserve"/>
+                    <xs:enumeration value="PDF"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="documentId" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="\d{1,2},\d{1,2}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="received" type="xs:date"/>
+        <xs:attribute name="revised" type="xs:date"/>
+        <xs:attribute name="accepted" type="xs:date"/>
+        <xs:attribute name="pp"/>
+        
+    </xs:complexType>
+
+    <xs:complexType name="TPaperData">
+        <xs:sequence>
+            <xs:element name="Title" form="qualified">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="documentTitle" type="xs:string" use="required"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ShortTitle" type="xs:string"/>
+            <xs:element name="PublicationDate" type="xs:date"/>
+            <xs:element name="Citation" type="xs:string"/>
+            <xs:element name="DocumentLink" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="Author" type="Papers:TAuthors">
+
+                <xs:keyref name="authors" refer="Users:userName">
+                    <xs:selector xpath="Papers:Author/Papers:authorUserName"/>
+                    <xs:field xpath="."/>
+                </xs:keyref>
+            </xs:element>
+            <xs:element name="DownloadInformation" type="Papers:TDownloadInformation"/>
+        </xs:sequence>
+        <xs:attribute name="numberOfReferences" type="xs:positiveInteger"/>
+        <xs:attribute name="contact" type="xs:string"/>
+        <xs:attribute name="numberOfDownloads" type="xs:positiveInteger"/>
+    </xs:complexType>
+    
+    <xs:complexType name="TParagraf" mixed="true">
+        <xs:all>
+            <xs:element name="image" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="title" type="xs:string"/>
+                        <xs:element name="content">
+                            <xs:simpleType>
+                                <xs:restriction base="xs:base64Binary"/>
+                            </xs:simpleType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="list">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="element" type="xs:string"/>
+                    </xs:sequence>
+                    <xs:attribute default="unorderd" name="type">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="orderd"/>
+                                <xs:enumeration value="unorderd"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="table" maxOccurs="1" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element form="qualified" maxOccurs="unbounded" name="row">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element maxOccurs="unbounded" name="cell" type="xs:string"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="content" minOccurs="0">
+                <xs:complexType mixed="true">
+                    <xs:sequence maxOccurs="unbounded" minOccurs="0">
+                        <xs:element name="quote" maxOccurs="unbounded" minOccurs="0">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute name="citation" type="xs:string"
+                                            use="required"/>
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:all>
+        <xs:attribute name="paragrafId" use="required" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="TCitations">
+        <xs:sequence>
+            <xs:element name="citation" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="cID" type="xs:string" use="required"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TAuthors">
+        <xs:sequence>
+            <xs:element name="authorUserName" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TDownloadInformation">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="RecommendedPaper" type="xs:string"
+            />
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

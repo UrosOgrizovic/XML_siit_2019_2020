@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Roles xmlns="http://localhost:8080/Users"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://localhost:8080/Users file:/D:/FAKS/7.semestar/xml/projekat/User.xsd">
+    <Role>ROLE_USER</Role>
+    <Role>ROLE_EDITOR</Role>
+</Roles>

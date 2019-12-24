@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://localhost:8080/Letter" xmlns="http://localhost:8080/Letter"
+    xmlns:Papers="http://localhost:8080/SciencePapers">
+
+    <xs:import namespace="http://localhost:8080/SciencePapers" schemaLocation="science_paper.xsd" id="SciencePapers"/>
+    <xs:element name="CoverLetter" type="TCoverLetter">
+        <xs:keyref name="paper_title" refer="Papers:paperId">
+            <xs:selector xpath=".//*"/>
+            <xs:field xpath="@journalName"/>
+        </xs:keyref>
+    </xs:element>
+    
+    <xs:complexType name="TCoverLetter">
+        <xs:sequence>
+            <xs:element name="Content" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="Author" type="TAuthor"/>
+
+        </xs:sequence>
+        <xs:attribute name="journalName" type="xs:string" use="required"/>
+        <xs:attribute name="journalAddress" type="xs:string" use="optional"/>
+        <xs:attribute name="manuscriptTitle" type="xs:string"/>
+        <xs:attribute default="review" name="articleType">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="review"/>
+                    <xs:enumeration value="research"/>
+                    <xs:enumeration value="caseStudy"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="submissionDate" type="xs:date"/>
+    </xs:complexType>
+    <xs:complexType name="TAuthor">
+        <xs:sequence>
+            <xs:element name="FullName" type="xs:string"/>
+            <xs:element name="Institution" type="xs:string"/>
+            <xs:element name="EMail" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

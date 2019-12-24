@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Users xmlns="http://localhost:8080/Users"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://localhost:8080/Users file:/D:/FAKS/7.semestar/xml/projekat/User.xsd">
+    <User>
+        <UserName>user</UserName>
+        <Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</Password>
+        <FullName>User One</FullName>
+        <Institution>Ns UNS</Institution>
+        <EMail>EMail0</EMail>
+        <Roles>
+            <Role>ROLE_USER</Role>
+        </Roles>
+    </User>
+    <User>
+        <UserName>admin</UserName>
+        <Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</Password>
+        <FullName>Editor</FullName>
+        <Institution>NS UNS</Institution>
+        <EMail>EMail1</EMail>
+        <Roles>
+            <Role>ROLE_EDITOR</Role>
+        </Roles>
+    </User>
+</Users>
