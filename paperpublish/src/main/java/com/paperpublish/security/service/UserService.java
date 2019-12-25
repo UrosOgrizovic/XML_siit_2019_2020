@@ -1,20 +1,18 @@
 package com.paperpublish.security.service;
 
-import com.paperpublish.model.DTO.UserDTO;
-import com.paperpublish.model.users.ObjectFactory;
-import com.paperpublish.model.users.Roles;
-import com.paperpublish.model.users.User;
-import com.paperpublish.security.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import com.paperpublish.model.DTO.UserDTO;
+import com.paperpublish.model.users.ObjectFactory;
+import com.paperpublish.model.users.Roles;
+import com.paperpublish.model.users.User;
+import com.paperpublish.model.users.Users;
+import com.paperpublish.security.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -32,7 +30,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username);
     }
 
-    public void registerUser(UserDTO userDTO){
+    public Long registerUser(UserDTO userDTO){
         User newUser = (new ObjectFactory()).createUser();
         Roles roles = (new ObjectFactory()).createRoles();
         roles.getRole().add("ROLE_USER");
@@ -41,8 +39,31 @@ public class UserService implements UserDetailsService {
         newUser.setFullName(userDTO.getName());
         newUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         newUser.setRoles(roles);
-        userRepository.save(newUser);
+        return userRepository.save(newUser);
     }
-    
-    
+      
+    public Users getAll() {
+    	Users users = null;
+    	try {
+			users = userRepository.getAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return users;
+    }
+
+	public void update(UserDTO userDTO) throws Exception {
+		User user = (new ObjectFactory()).createUser();
+		user.setUserName(userDTO.getUsername());
+		user.setEMail(userDTO.getEmail());
+		user.setFullName(userDTO.getName());
+		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+		
+		try {
+			userRepository.update(user);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
 }

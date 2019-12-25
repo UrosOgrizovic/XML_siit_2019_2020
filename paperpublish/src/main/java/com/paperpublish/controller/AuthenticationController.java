@@ -54,10 +54,14 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity register(@RequestBody UserDTO userDTO){
-        userService.registerUser(userDTO);
-
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> register(@RequestBody UserDTO userDTO){
+        Long res = userService.registerUser(userDTO);
+        if (res != -1) {
+        	return ResponseEntity.ok().build();
+        } else if (res == -1) {
+        	return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
     @GetMapping(value = "/testUser")
