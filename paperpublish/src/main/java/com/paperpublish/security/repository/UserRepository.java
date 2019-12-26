@@ -147,4 +147,22 @@ public class UserRepository{
 	    }
 		return indexOfUser;
 	}
+
+	public void delete(String username) throws Exception {
+		if (this.findByUsername(username) == null) {
+			throw new ResourceNotFoundException("User with username: '" + username + "' not found");
+		}
+		XUpdateQueryService updateQueryService = ConnectionProperties.getXUpdateQueryService(collection);
+		try {
+			List<User> users = getAll().getUser();
+	        int indexOfUser = getIndexOfUserInListOfUsers(users, username);
+	        updateQueryService.updateResource(ConnectionProperties.USERS_ID,
+                    String.format(XUpdateTemplate.REMOVE, ConnectionProperties.USERS_NAMESPACE, "//Users/User["+indexOfUser+"]"));
+		} catch (Exception e) {
+			e.printStackTrace();
+            throw e;
+		}
+		
+		
+	}
 }

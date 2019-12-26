@@ -1,9 +1,11 @@
 package com.paperpublish.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,6 +39,24 @@ public class UserController {
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			e.printStackTrace();
+			if (e.getClass() == ResourceNotFoundException.class) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@DeleteMapping(path = "/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> delete(@PathVariable String username) {
+		try {
+			userService.delete(username);
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (e.getClass() == ResourceNotFoundException.class) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}

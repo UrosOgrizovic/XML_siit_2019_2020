@@ -66,4 +66,13 @@ public class UserService implements UserDetailsService {
 		}
 		
 	}
+
+	public void delete(String username) throws Exception {
+		try {
+			userRepository.delete(username);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}		
+	}
 }
