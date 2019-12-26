@@ -2,6 +2,7 @@ package com.paperpublish.security.repository;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -10,6 +11,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Resource;
@@ -23,6 +25,7 @@ import com.paperpublish.model.users.User;
 import com.paperpublish.model.users.Users;
 import com.paperpublish.utils.ConnectionProperties;
 import com.paperpublish.utils.XUpdateTemplate;
+
 
 @Component
 public class UserRepository{
@@ -105,16 +108,24 @@ public class UserRepository{
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
             StringWriter writer = new StringWriter();
             marshaller.marshal(user, writer);
-            
+            String userRoles = "<Roles>\r\n";
+            Iterator<? extends GrantedAuthority> it = user.getAuthorities().iterator();
+            while (it.hasNext()) {
+            	GrantedAuthority ga = it.next();
+            	userRoles += "<Role>" + ga.getAuthority() + "</Role>\r\n";
+            }
+            userRoles += "</Roles>";
+            String patch = "<UserName>"+user.getUsername()+"</UserName>\r\n" + 
+            		"        <Password>"+user.getPassword()+"</Password>\r\n" + 
+            		"        <FullName>"+user.getFullName()+"</FullName>\r\n" + 
+            		"        <Institution>"+user.getInstitution()+"</Institution>\r\n" + 
+            		"        <EMail>"+user.getEMail()+"</EMail>\r\n" + 
+            				userRoles;
             List<User> users = getAll().getUser();
             int indexOfUser = getIndexOfUserInListOfUsers(users, username);
             
-            
-            updateQueryService.updateResource(ConnectionProperties.USERS_ID,
-                    String.format(XUpdateTemplate.REMOVE, ConnectionProperties.USERS_NAMESPACE, "//Users/User["+indexOfUser+"]"));
-            
-            return updateQueryService.updateResource(ConnectionProperties.USERS_ID,
-                    String.format(XUpdateTemplate.APPEND, ConnectionProperties.USERS_NAMESPACE, "//Users", writer.toString()));
+            return updateQueryService.updateResource(ConnectionProperties.USERS_ID, String.format(XUpdateTemplate.UPDATE, 
+            		ConnectionProperties.USERS_NAMESPACE, "//Users/User["+indexOfUser+"]", patch));
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
