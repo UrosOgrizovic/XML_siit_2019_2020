@@ -38,7 +38,6 @@ public class UserController {
 			userService.update(userDTO);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
-			e.printStackTrace();
 			if (e.getClass() == ResourceNotFoundException.class) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			}
@@ -52,7 +51,6 @@ public class UserController {
 			userService.delete(username);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
-			e.printStackTrace();
 			if (e.getClass() == ResourceNotFoundException.class) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			}

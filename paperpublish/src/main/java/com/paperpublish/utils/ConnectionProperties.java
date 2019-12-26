@@ -41,6 +41,7 @@ public class ConnectionProperties {
     public static final String USERS_PACKAGE = "users";
 
     public static final String USERS_NAMESPACE = "http://localhost:8080/Users";
+    public static final String SCIENCE_PAPERS_NAMESPACE = "http://localhost:8080/SciencePapers";
 
     private static ConnectionProperties instance = null;
 

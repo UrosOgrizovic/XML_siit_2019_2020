@@ -57,7 +57,7 @@ public class AuthenticationController {
     public ResponseEntity<?> register(@RequestBody UserDTO userDTO){
         Long res = userService.registerUser(userDTO);
         if (res != -1) {
-        	return ResponseEntity.ok().build();
+        	return ResponseEntity.status(HttpStatus.CREATED).build();
         } else if (res == -1) {
         	return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
