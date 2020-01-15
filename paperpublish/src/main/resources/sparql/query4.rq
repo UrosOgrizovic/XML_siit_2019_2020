@@ -1,0 +1,12 @@
+# Retrieves persons and their hobbies, professions and locations.
+# Applies a regular expression filter for subject's location.
+
+PREFIX xs:     <http://www.w3.org/2001/XMLSchema#>
+SELECT * FROM <%s>
+WHERE { 
+	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/hobby> ?hobby .
+	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/profession> ?profession .
+  	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/livesIn> ?location .
+  	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/birthDate> ?date .
+  	FILTER (regex(str(?location), "^.*ad$"))
+}

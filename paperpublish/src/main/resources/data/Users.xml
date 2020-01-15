@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Users xmlns="http://localhost:8080/Users"
+<user:Users xmlns="http://www.w3.org/ns/rdfa#" 
+    xmlns:user="http://localhost:8080/Users"
+    xmlns:pred="http://localhost:8080/Users/predicate/"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://localhost:8080/Users file:/D:/FAKS/7.semestar/xml/projekat/User.xsd">
-    <User>
-        <UserName>user</UserName>
-        <Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</Password>
-        <FullName>User One</FullName>
-        <Institution>Ns UNS</Institution>
-        <EMail>EMail0</EMail>
-        <Roles>
-            <Role>ROLE_USER</Role>
-        </Roles>
-    </User>
-    <User>
-        <UserName>admin</UserName>
-        <Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</Password>
-        <FullName>Editor</FullName>
-        <Institution>NS UNS</Institution>
-        <EMail>EMail1</EMail>
-        <Roles>
-            <Role>ROLE_EDITOR</Role>
-        </Roles>
-    </User>
-</Users>
+    <user:User about="http://localhost:8080/Users/user">
+        <user:UserName  property="pred:username" datatype="xs:string">user</user:UserName>
+        <user:Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</user:Password>
+        <user:FullName>User One</user:FullName>
+        <user:Institution>Ns UNS</user:Institution>
+        <user:EMail property="pred:email" datatype="xs:string">EMail0</user:EMail>
+        <user:Roles>
+            <user:Role>ROLE_USER</user:Role>
+        </user:Roles>
+    </user:User>
+    <user:User about="http://localhost:8080/Users/admin">
+        <user:UserName property="pred:username" datatype="xs:string">admin</user:UserName>
+        <user:Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</user:Password>
+        <user:FullName>Editor</user:FullName>
+        <user:Institution>NS UNS</user:Institution>
+        <user:EMail property="pred:email" datatype="xs:string">EMail1</user:EMail>
+        <user:Roles>
+            <user:Role>ROLE_EDITOR</user:Role>
+        </user:Roles>
+    </user:User>
+</user:Users>

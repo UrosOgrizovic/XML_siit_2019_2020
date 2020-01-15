@@ -1,0 +1,4 @@
+SELECT * FROM <%s>
+WHERE { 
+	?person <http://localhost:8080/Users/predicate/username> "%s" .
+}

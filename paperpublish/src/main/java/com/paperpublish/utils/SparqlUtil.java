@@ -1,4 +1,4 @@
-package rs.ac.uns.ftn.examples.util;
+package com.paperpublish.utils;
 
 public class SparqlUtil {
 
