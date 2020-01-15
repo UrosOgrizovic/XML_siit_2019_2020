@@ -56,6 +56,7 @@ public class ConnectionProperties {
     public static final String USERS_PACKAGE = "users";
 
     public static final String USERS_NAMESPACE = "http://localhost:8080/Users";
+    public static final String SCIENCE_PAPERS_NAMESPACE = "http://localhost:8080/SciencePapers";
 
 //------------------ MetaData ------------------
     public static final String QUERY_LOCATION = "src/main/resources/sparql/";
