@@ -1,0 +1,14 @@
+# Retrieves persons and their hobbies, professions and locations.
+# Applies a RegExp filter for case-insensitive matching of subject's profession.
+# Orders the results by date of birth in a descending order.
+
+PREFIX xs:     <http://www.w3.org/2001/XMLSchema#>
+SELECT * FROM <%s>
+WHERE { 
+	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/hobby> ?hobby .
+	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/profession> ?profession .
+  	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/livesIn> ?location .
+  	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/birthDate> ?date .
+  	FILTER (regex(str(?profession), "er", "i"))
+}
+ORDER BY DESC(?date)

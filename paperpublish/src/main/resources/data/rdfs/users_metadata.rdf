@@ -1,0 +1,14 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:h="http://www.w3.org/1999/xhtml">
+  <rdf:Description rdf:about="http://localhost:8080/Users/user">
+    <pred:username xmlns:pred="http://localhost:8080/Users/predicate/">user</pred:username>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Users/user">
+    <pred:email xmlns:pred="http://localhost:8080/Users/predicate/">EMail0</pred:email>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Users/admin">
+    <pred:username xmlns:pred="http://localhost:8080/Users/predicate/">admin</pred:username>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://localhost:8080/Users/admin">
+    <pred:email xmlns:pred="http://localhost:8080/Users/predicate/">EMail1</pred:email>
+  </rdf:Description>
+</rdf:RDF>

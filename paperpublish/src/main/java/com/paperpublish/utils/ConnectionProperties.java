@@ -2,6 +2,15 @@ package com.paperpublish.utils;
 
 import com.paperpublish.model.sciencepapers.SciencePapers;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
+import org.apache.jena.update.UpdateRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.xmldb.api.DatabaseManager;
@@ -16,9 +25,7 @@ import org.xmldb.api.modules.XUpdateQueryService;
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.Properties;
 
 @Component
@@ -28,7 +35,15 @@ public class ConnectionProperties {
     public String password;
     public String driver;
     public String uri;
+
+    public static String fusekiEndpoint;
+    public static String queryEndpoint;
+    public static String updateEndpoint;
+    public static String dataEndpoint;
+
     private static Collection col = null;
+    public String dataSet = "PaperPublisher";
+
 
     public static final String initDataPath = "src/main/resources/data/";
     public static final String SCIENCE_PAPER_ID = "science_paper.xml";
@@ -42,6 +57,15 @@ public class ConnectionProperties {
 
     public static final String USERS_NAMESPACE = "http://localhost:8080/Users";
     public static final String SCIENCE_PAPERS_NAMESPACE = "http://localhost:8080/SciencePapers";
+
+//------------------ MetaData ------------------
+    public static final String QUERY_LOCATION = "src/main/resources/sparql/";
+
+    public static final String USERS_PREDICATE_NAMESPACE = "http://localhost:8080/Users/predicate/";
+    public static final String USERS_METADATA = "/Users/metadata";
+
+    public static final String SCIENCE_PAPER_PREDICATE_NAMESPACE = "http://localhost:8080/SciencePapers/predicate/";
+    public static final String SCIENCE_PAPER_METADATA = "/SciencePapers/metadata";
 
     private static ConnectionProperties instance = null;
 
@@ -74,6 +98,12 @@ public class ConnectionProperties {
         uri = props.getProperty("conn.uri").trim();
 
         driver = props.getProperty("conn.driver").trim();
+
+        fusekiEndpoint = props.getProperty("conn.endpoint").trim();
+
+        queryEndpoint = String.join("/", fusekiEndpoint, dataSet, props.getProperty("conn.query").trim());
+        updateEndpoint = String.join("/", fusekiEndpoint, dataSet, props.getProperty("conn.update").trim());
+        dataEndpoint = String.join("/", fusekiEndpoint, dataSet, props.getProperty("conn.data").trim());
     }
 
     @Bean
@@ -210,6 +240,8 @@ public class ConnectionProperties {
         f = new File(initDataPath + USERS_ID);
         resource.setContent(f);
         col.storeResource(resource);
+
+        initMetadataUpload();
     }
 
     public static void readDataTest() throws Exception {
@@ -221,6 +253,52 @@ public class ConnectionProperties {
         for(TSciencePaper paper : papers.getSciencePaper() ){
             System.out.println(paper.getPaperData().getTitle().getDocumentTitle());
         }
+    }
+
+    public static ByteArrayOutputStream makeOutFIleStream(String filePath){
+        Model model = ModelFactory.createDefaultModel();
+        model.read(filePath);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        model.write(out, SparqlUtil.NTRIPLES);
+        return out;
+    }
+
+    public static void initMetadataUpload(){
+        executeUpdateMetadata(SparqlUtil.dropAll());
+        ByteArrayOutputStream out = makeOutFIleStream("src/main/resources/data/rdfs/users_metadata.rdf");
+
+        String sparqlUpdate = SparqlUtil.insertData(dataEndpoint + USERS_METADATA, new String(out.toByteArray()));
+        System.out.println(sparqlUpdate);
+
+        executeUpdateMetadata(sparqlUpdate);
+
+        out = makeOutFIleStream("src/main/resources/data/rdfs/science_paper_metadata.rdf");
+
+        sparqlUpdate = SparqlUtil.insertData(dataEndpoint + SCIENCE_PAPER_METADATA, new String(out.toByteArray()));
+        System.out.println(sparqlUpdate);
+
+        executeUpdateMetadata(sparqlUpdate);
+        try {
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void executeUpdateMetadata(String sparqlUpdate){
+        UpdateRequest update = UpdateFactory.create(sparqlUpdate);
+
+        UpdateProcessor processor = UpdateExecutionFactory.createRemote(update, updateEndpoint);
+        processor.execute();
+    }
+    
+    public static ResultSet executeQueryMetadata(String sparqlQuery){
+        QueryExecution query = QueryExecutionFactory.sparqlService(queryEndpoint, sparqlQuery);
+
+        return query.execSelect();
     }
 
 }

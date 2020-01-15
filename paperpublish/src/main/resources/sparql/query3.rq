@@ -1,0 +1,12 @@
+# Retrieves persons and their hobbies, professions and locations.
+# Applies a filter for subject's date of birth.
+
+PREFIX xs:     <http://www.w3.org/2001/XMLSchema#>
+SELECT * FROM <%s>
+WHERE { 
+	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/hobby> ?hobby .
+	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/profession> ?profession .
+  	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/livesIn> ?location .
+  	?person <http://www.ftn.uns.ac.rs/rdf/examples/predicate/birthDate> ?date .
+  	FILTER ( ?date >= "1982-01-31"^^xs:date && ?date < "1990-01-31"^^xs:date)
+}

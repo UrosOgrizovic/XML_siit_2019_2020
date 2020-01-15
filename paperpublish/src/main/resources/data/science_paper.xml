@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Papers:SciencePapers xmlns:Papers="http://localhost:8080/SciencePapers"
+<Papers:SciencePapers xmlns="http://www.w3.org/ns/rdfa#" 
+    xmlns:Papers="http://localhost:8080/SciencePapers"
+    xmlns:pred="http://localhost:8080/SciencePapers/predicate/"
     xmlns:Users="http://localhost:8080/Users"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://localhost:8080/SciencePapers file:/D:/FAKS/7.semestar/xml/projekat/science_paper.xsd"
     >
-    <Papers:SciencePaper documentId="1,1">
+    <Papers:SciencePaper documentId="1,1" about="http://localhost:8080/SciencePapers/1,1">
         <Papers:PaperData numberOfReferences="52" 
             contact="permissions@emeraldinsight.com" numberOfDownloads="1059">
-            <Papers:Title documentTitle="1">Document phenomenology: a framework for holistic analysis</Papers:Title>
-            <Papers:ShortTitle>Document phenomenology</Papers:ShortTitle>
+            <Papers:Title documentTitle="1" property="pred:title">Document phenomenology: a framework for holistic analysis</Papers:Title>
+            <Papers:ShortTitle property="pred:shortTitle">Document phenomenology</Papers:ShortTitle>
                 <Papers:PublicationDate>2016-12-01</Papers:PublicationDate>
             <Papers:Citation>Tim Gorichanaz, Kiersten F. Latham, (2016) "Document phenomenology: a framework for holistic
                 analysis", Journal of Documentation, Vol. 72 Issue: 6, pp.1114-1133, 
@@ -19,10 +21,10 @@
             
             
             <Papers:Author>
-                <Papers:authorUserName>UserName0</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">UserName0</Papers:authorUserName>
             </Papers:Author>
             <Papers:Author>
-                <Papers:authorUserName>UserName1</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">UserName1</Papers:authorUserName>
             </Papers:Author>
             
             <Papers:DownloadInformation>
@@ -85,11 +87,11 @@
                 Documentation 73:3, 500-508.
         </Papers:CitedBy>
     </Papers:SciencePaper>
-    <Papers:SciencePaper documentId="1,2">
+    <Papers:SciencePaper documentId="1,2" about="http://localhost:8080/SciencePapers/1,2">
         <Papers:PaperData numberOfReferences="52" 
             contact="permissions@emeraldinsight.com" numberOfDownloads="1059">
-            <Papers:Title documentTitle="2">Document phenomenology: a framework for holistic analysis</Papers:Title>
-            <Papers:ShortTitle>Document phenomenology</Papers:ShortTitle>
+            <Papers:Title documentTitle="2" property="pred:title">Document phenomenology2: a framework for holistic analysis</Papers:Title>
+            <Papers:ShortTitle property="pred:shortTitle">Document phenomenology2</Papers:ShortTitle>
             <Papers:PublicationDate>2016-12-01</Papers:PublicationDate>
             <Papers:Citation>Tim Gorichanaz, Kiersten F. Latham, (2016) "Document phenomenology: a framework for holistic
                 analysis", Journal of Documentation, Vol. 72 Issue: 6, pp.1114-1133, 
@@ -100,10 +102,10 @@
             
             
             <Papers:Author>
-                <Papers:authorUserName>UserName0</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">UserName0</Papers:authorUserName>
             </Papers:Author>
             <Papers:Author>
-                <Papers:authorUserName>UserName1</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">UserName1</Papers:authorUserName>
             </Papers:Author>
             
             <Papers:DownloadInformation>
