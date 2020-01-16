@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  {{message}}
+</div>
+<div  fxLayout fxLayoutAlign="center center" mat-dialog-actions>
+  <button id="modal-no" mat-button (click)="onNoClick()">No</button>
+  <button id="modal-yes" mat-button [mat-dialog-close]="true" cdkFocusInitial>Yes</button>
+</div>

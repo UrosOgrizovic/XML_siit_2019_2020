@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="ts-u-display--flex ts-u-justify--space-between">
+    <button mat-button routerLink="/"> PaperPublish </button>
+    
+    <span *ngIf="!isUserLoggedIn; else elseBlock">
+      <button id="register" mat-button routerLink="/register">Register</button>
+      <button id="login" class="login-btn" mat-button routerLink="/login">Login</button>
+    </span>
+    <ng-template #elseBlock>
+      <span>
+        <button id="logout" mat-button (click)="logOut()">Logout</button>
+      </span>
+    </ng-template>
+    
+  </mat-toolbar-row>
+</mat-toolbar>
