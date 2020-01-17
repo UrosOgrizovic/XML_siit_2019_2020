@@ -1,0 +1,4 @@
+SELECT * FROM <%s>
+WHERE {
+	?paper <http://localhost:8080/SciencePapers/predicate/title> "%s" .
+}

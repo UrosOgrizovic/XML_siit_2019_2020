@@ -1,11 +1,20 @@
 package com.paperpublish.repository;
 
 import com.paperpublish.model.sciencepapers.SciencePapers;
+import com.paperpublish.model.sciencepapers.TAuthors;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.model.users.User;
 import com.paperpublish.utils.ConnectionProperties;
+import com.paperpublish.utils.FileUtil;
+import com.paperpublish.utils.SparqlUtil;
 import com.paperpublish.utils.XUpdateTemplate;
 
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -24,6 +33,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Iterator;
@@ -36,6 +47,8 @@ public class SciencePapersRepository {
     @Lazy
     Collection collection;
 
+    public static final String findByTitleQr = "findSciencePaperByTitle.rq";
+    
     public SciencePapers getAll() throws Exception {
         XMLResource resource = (XMLResource) collection.getResource(ConnectionProperties.SCIENCE_PAPER_ID);
         JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
@@ -64,13 +77,30 @@ public class SciencePapersRepository {
 		}
     }
     
+    /**
+     * checks if paper exists in db
+     * @param paperTitle
+     * @return true if exists, false otherwise
+     * @throws IOException
+     */
+    public boolean doesPaperExist(String paperTitle) throws IOException {
+    	String query = String.format(FileUtil.readFile(ConnectionProperties.QUERY_LOCATION + findByTitleQr),
+                ConnectionProperties.dataEndpoint + ConnectionProperties.SCIENCE_PAPER_METADATA, paperTitle);
+        ResultSet resultSet = ConnectionProperties.executeQueryMetadata(query);
+        if(resultSet.hasNext()){
+            return true;
+        }
+        return false;
+    }
+    
 	public void delete(String documentId) throws Exception {
-		if (this.findByDocumentId(documentId) == null) {
+		TSciencePaper sciencePaper = this.findByDocumentId(documentId);
+		if (sciencePaper == null) {
 			throw new ResourceNotFoundException("Science paper with document id: '" + documentId + "' not found");
 		}
 		XUpdateQueryService updateQueryService = ConnectionProperties.getXUpdateQueryService(collection);
 		try {
-
+			deleteNodeFromRDF(sciencePaper.getDocumentId());
 	        updateQueryService.updateResource(ConnectionProperties.SCIENCE_PAPER_ID,
                     String.format(XUpdateTemplate.REMOVE, ConnectionProperties.SCIENCE_PAPERS_NAMESPACE, 
                     		"//SciencePapers/SciencePaper[@documentId='"+documentId+"']"));
@@ -84,21 +114,21 @@ public class SciencePapersRepository {
 	public Long create(TSciencePaper sciencePaper) throws Exception {
         XUpdateQueryService updateQueryService = ConnectionProperties.getXUpdateQueryService(collection);
         try {
+            if (this.doesPaperExist(sciencePaper.getPaperData().getTitle().getDocumentTitle())) {
+            	return -1L;
+            }
+            
+            
             JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
             StringWriter writer = new StringWriter();
             marshaller.marshal(sciencePaper, writer);
             
-            if (getIndexOfSciencePaperInListOfSciencePapers(getAll().getSciencePaper(), sciencePaper.getDocumentId()) == -1) {
-            	long res = updateQueryService.updateResource(ConnectionProperties.SCIENCE_PAPER_ID,
-                        String.format(XUpdateTemplate.APPEND, ConnectionProperties.SCIENCE_PAPERS_NAMESPACE, "//SciencePapers", writer.toString()));
-
-                return res;
-            } else {
-            	return -1L;
-            }
-
+            long res = updateQueryService.updateResource(ConnectionProperties.SCIENCE_PAPER_ID,
+                    String.format(XUpdateTemplate.APPEND, ConnectionProperties.SCIENCE_PAPERS_NAMESPACE, "//SciencePapers", writer.toString()));
+        	saveRDFModel(sciencePaper);
+            return res;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -123,8 +153,7 @@ public class SciencePapersRepository {
 
 	public Long update(TSciencePaper sciencePaper) throws Exception {
 		String documentId = sciencePaper.getDocumentId();
-		TSciencePaper oldSciencePaper = this.findByDocumentId(documentId);
-		if (oldSciencePaper == null) {
+		if (!this.doesPaperExist(sciencePaper.getPaperData().getTitle().getDocumentTitle())) {
 			throw new ResourceNotFoundException("Science paper with document id: '" + documentId + "' not found");
 		}
 		XUpdateQueryService updateQueryService = ConnectionProperties.getXUpdateQueryService(collection);
@@ -135,12 +164,11 @@ public class SciencePapersRepository {
             StringWriter writer = new StringWriter();
             marshaller.marshal(sciencePaper, writer);
             
+            this.delete(sciencePaper.getDocumentId());
+            this.saveRDFModel(sciencePaper);
             
-            List<TSciencePaper> sciencePapers = getAll().getSciencePaper();
-            int indexOfSciencePaper = getIndexOfSciencePaperInListOfSciencePapers(sciencePapers, documentId);
-            
-            return updateQueryService.updateResource(ConnectionProperties.SCIENCE_PAPER_ID, String.format(XUpdateTemplate.UPDATE, 
-            		ConnectionProperties.SCIENCE_PAPERS_NAMESPACE, "//SciencePapers/SciencePaper["+indexOfSciencePaper+"]", writer.toString()));
+            return updateQueryService.updateResource(ConnectionProperties.SCIENCE_PAPER_ID,
+                    String.format(XUpdateTemplate.APPEND, ConnectionProperties.SCIENCE_PAPERS_NAMESPACE, "//SciencePapers", writer.toString()));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -148,5 +176,47 @@ public class SciencePapersRepository {
 		
 	}
 	
+	public void saveRDFModel(TSciencePaper sciencePaper) {
+		Model model = ModelFactory.createDefaultModel();
 
+		org.apache.jena.rdf.model.Resource resource = ResourceFactory.createResource("http://localhost:8080/SciencePapers/" + sciencePaper.getDocumentId());
+  
+		this.addPropertyAndLiteralToModel(model, resource, "title", sciencePaper.getPaperData().getTitle().getDocumentTitle());
+		this.addPropertyAndLiteralToModel(model, resource, "shortTitle", sciencePaper.getPaperData().getShortTitle());
+		for (TAuthors author : sciencePaper.getPaperData().getAuthor()) {
+			for (String un : author.getAuthorUserName()) {
+				this.addPropertyAndLiteralToModel(model, resource, "authorUserName", un);
+			}
+		}
+		  
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		model.write(out,SparqlUtil.NTRIPLES);
+		
+		String sparqlUpdate = SparqlUtil.insertData(ConnectionProperties.dataEndpoint + ConnectionProperties.SCIENCE_PAPER_METADATA, new String(out.toByteArray()));
+		System.out.println(sparqlUpdate);
+		
+		ConnectionProperties.executeUpdateMetadata(sparqlUpdate);
+	}
+	
+	public void addPropertyAndLiteralToModel(Model model, org.apache.jena.rdf.model.Resource resource, String propertyLocalName, String literalValue) {
+		Property property = model.createProperty(ConnectionProperties.SCIENCE_PAPER_PREDICATE_NAMESPACE, propertyLocalName);
+		Literal literal = model.createLiteral(literalValue);
+	    model.add(model.createStatement(resource, property, literal));
+	}
+	
+	public void deleteNodeFromRDF(String sciencePaperId) {
+		Model model = ModelFactory.createDefaultModel();
+		
+		String nodeURI = "http://localhost:8080/SciencePapers/" + sciencePaperId;
+		org.apache.jena.rdf.model.Resource resource = ResourceFactory.createResource(nodeURI);
+		
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		model.write(out,SparqlUtil.NTRIPLES);
+		
+		String sparqlUpdate = SparqlUtil.deleteNodeFromGraph(ConnectionProperties.dataEndpoint + ConnectionProperties.SCIENCE_PAPER_METADATA, nodeURI);
+		System.out.println(sparqlUpdate);
+		
+		ConnectionProperties.executeUpdateMetadata(sparqlUpdate);
+		
+	}
 }

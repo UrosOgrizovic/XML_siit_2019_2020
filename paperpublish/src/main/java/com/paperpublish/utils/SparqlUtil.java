@@ -22,7 +22,12 @@ public class SparqlUtil {
 	/* Simple SPARQL query on a named graph */
 	private static final String SELECT_NAMED_GRAPH_TEMPLATE = "SELECT * FROM <%1$s> WHERE { %2$s }";
 	
-	
+	private static final String DELETE_NODE_FROM_GRAPH_TEMPLATE = "WITH <%1$s>\r\n" + 
+			" DELETE {\r\n" + 
+			"   <%2$s> ?q ?x \r\n" + 
+			" } WHERE  {\r\n" + 
+			"   <%2$s>  ?q ?x.\r\n" + 
+			"}";
 	/* Plain text RDF serialization format */
 	public static final String NTRIPLES = "N-TRIPLES";
 
@@ -49,5 +54,8 @@ public class SparqlUtil {
 	public static String selectData(String graphURI, String sparqlCondition) {
 		return String.format(SELECT_NAMED_GRAPH_TEMPLATE, graphURI, sparqlCondition);
 	}
-	
+
+	public static String deleteNodeFromGraph(String graphURI, String nodeURI) {
+		return String.format(DELETE_NODE_FROM_GRAPH_TEMPLATE, graphURI, nodeURI);
+	}
 }

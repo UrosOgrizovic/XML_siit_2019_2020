@@ -6,6 +6,7 @@ import com.paperpublish.security.TokenUtils;
 import com.paperpublish.security.auth.JwtAuthenticationRequest;
 import com.paperpublish.security.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -55,13 +56,24 @@ public class AuthenticationController {
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> register(@RequestBody UserDTO userDTO){
-        Long res = userService.registerUser(userDTO);
-        if (res != -1) {
-        	return ResponseEntity.status(HttpStatus.CREATED).build();
-        } else if (res == -1) {
-        	return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    	try {
+            Long res = userService.registerUser(userDTO);
+            if (res != null) {
+            	if (res != -1) {
+                	return ResponseEntity.status(HttpStatus.CREATED).build();
+                } else if (res == -1) {
+                	return ResponseEntity.status(HttpStatus.CONFLICT).build();
+                }
+            	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    		if (e.getClass() == ResourceNotFoundException.class) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    	}
     }
 
     @GetMapping(value = "/testUser")

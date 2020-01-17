@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
 		user.setEMail(userDTO.getEmail());
 		user.setFullName(userDTO.getName());
 		user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-		
+		user.setInstitution(userDTO.getInstitution());
 		try {
 			userRepository.update(user);
 		} catch (Exception e) {

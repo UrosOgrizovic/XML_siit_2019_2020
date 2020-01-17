@@ -48,6 +48,7 @@ public class SciencePapersController {
 			sciencePapersService.delete(documentId);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			if (e.getClass() == ResourceNotFoundException.class) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			}
@@ -59,13 +60,17 @@ public class SciencePapersController {
     public ResponseEntity<?> create(@RequestBody TSciencePaperDTO sciencePaperDTO) {
 		try {
 			Long res = sciencePapersService.create(sciencePaperDTO);
-			if (res != -1) {
-	    		return ResponseEntity.status(HttpStatus.CREATED).build();
-	    	} else if (res == -1) {
-	    		return ResponseEntity.status(HttpStatus.CONFLICT).build();
-	    	}
+			if (res != null) {
+				if (res != -1) {
+		    		return ResponseEntity.status(HttpStatus.CREATED).build();
+		    	} else if (res == -1) {
+		    		return ResponseEntity.status(HttpStatus.CONFLICT).build();
+		    	}
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			}
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
     }

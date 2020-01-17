@@ -14,6 +14,8 @@ public class UserDTO {
     private String username;
 
     private String password;
+    
+    private String institution;
 
     public UserDTO() {
         this.token = null;
@@ -27,6 +29,7 @@ public class UserDTO {
         this.name = user.getFullName();
         this.email = user.getEMail();
         this.username = user.getUsername();
+        this.institution = user.getInstitution();
     }
 
     public UserDTO(User user, String token){
@@ -34,6 +37,7 @@ public class UserDTO {
         this.email = user.getEMail();
         this.username = user.getUsername();
         this.token = token;
+        this.institution = user.getInstitution();
     }
 
     public String getToken() {
@@ -76,4 +80,11 @@ public class UserDTO {
         this.password = password;
     }
 
+	public String getInstitution() {
+		return institution;
+	}
+
+	public void setInstitution(String institution) {
+		this.institution = institution;
+	}
 }

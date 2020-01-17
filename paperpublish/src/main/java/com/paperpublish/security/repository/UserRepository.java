@@ -166,6 +166,7 @@ public class UserRepository{
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
             StringWriter writer = new StringWriter();
             marshaller.marshal(user, writer);
+            
             String userRoles = "<Roles>\r\n";
             Iterator<? extends GrantedAuthority> it = user.getAuthorities().iterator();
             while (it.hasNext()) {
