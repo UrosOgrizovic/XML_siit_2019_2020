@@ -86,6 +86,8 @@ public class TSciencePaper {
     protected String documentType;
     @XmlAttribute(name = "documentId", required = true)
     protected String documentId;
+    @XmlAttribute(name = "versionId", required = true)
+    protected String versionId;
     @XmlAttribute(name = "received")
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar received;
@@ -98,6 +100,8 @@ public class TSciencePaper {
     @XmlAttribute(name = "pp")
     @XmlSchemaType(name = "anySimpleType")
     protected String pp;
+    @XmlAttribute(name = "status")
+    protected String status;
 
     /**
      * Gets the value of the paperData property.
@@ -352,5 +356,7 @@ public class TSciencePaper {
     public void setPp(String value) {
         this.pp = value;
     }
+
+
 
 }

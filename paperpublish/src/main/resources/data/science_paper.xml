@@ -6,7 +6,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://localhost:8080/SciencePapers file:/D:/FAKS/7.semestar/xml/projekat/science_paper.xsd"
     >
-    <Papers:SciencePaper documentId="1,1" about="http://localhost:8080/SciencePapers/1,1">
+    <Papers:SciencePaper documentId="1" versionId="1" about="http://localhost:8080/SciencePapers/1">
         <Papers:PaperData numberOfReferences="52" 
             contact="permissions@emeraldinsight.com" numberOfDownloads="1059">
             <Papers:Title documentTitle="1" property="pred:title">Document phenomenology: a framework for holistic analysis</Papers:Title>
@@ -87,7 +87,7 @@
                 Documentation 73:3, 500-508.
         </Papers:CitedBy>
     </Papers:SciencePaper>
-    <Papers:SciencePaper documentId="1,2" about="http://localhost:8080/SciencePapers/1,2">
+    <Papers:SciencePaper documentId="2" versionId="1" about="http://localhost:8080/SciencePapers/2">
         <Papers:PaperData numberOfReferences="52" 
             contact="permissions@emeraldinsight.com" numberOfDownloads="1059">
             <Papers:Title documentTitle="2" property="pred:title">Document phenomenology2: a framework for holistic analysis</Papers:Title>

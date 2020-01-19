@@ -1,18 +1,12 @@
 package com.paperpublish.controller;
 
+import com.paperpublish.model.DTO.XMLDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.paperpublish.model.DTO.TSciencePaperDTO;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
@@ -25,7 +19,12 @@ public class SciencePapersController {
     @Autowired
     public SciencePapersService sciencePapersService;
 
-    @GetMapping(path = "/findall", produces = {MediaType.APPLICATION_ATOM_XML_VALUE})
+    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getAllJsonAndFilter(@RequestParam(value = "query", required = false) String query) throws Exception {
+    	return ResponseEntity.ok(sciencePapersService.getAllJsonAndFilter(query));
+	}
+
+    @GetMapping(path = "/findall", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getAll(){
         return ResponseEntity.ok(sciencePapersService.getAll());
     }
@@ -57,24 +56,21 @@ public class SciencePapersController {
     }
     
     @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> create(@RequestBody TSciencePaperDTO sciencePaperDTO) {
+    public ResponseEntity<?> create(@RequestBody XMLDTO paperXMLDTO) {
 		try {
-			Long res = sciencePapersService.create(sciencePaperDTO);
-			if (res != null) {
-				if (res != -1) {
-		    		return ResponseEntity.status(HttpStatus.CREATED).build();
-		    	} else if (res == -1) {
-		    		return ResponseEntity.status(HttpStatus.CONFLICT).build();
-		    	}
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-			}
+			Long res = sciencePapersService.createFromXml(paperXMLDTO.getXml());
+			if (res != -1) {
+	    		return ResponseEntity.status(HttpStatus.CREATED).build();
+	    	} else if (res == -1) {
+	    		return ResponseEntity.status(HttpStatus.CONFLICT).build();
+	    	}
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
     }
-    
+
     @PutMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> update(@RequestBody TSciencePaperDTO sciencePaperDTO) {
     	try {

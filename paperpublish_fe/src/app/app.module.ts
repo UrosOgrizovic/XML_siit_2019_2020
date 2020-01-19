@@ -11,22 +11,23 @@ import { HomeModule } from './home/home.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
+import { SciencepapersModule } from './sciencepapers/sciencepapers.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    
+    AppComponent,    
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     HttpModule,
     SharedModule,
     HomeModule,
+    SciencepapersModule,
     FormsModule,
     HttpClientModule,
     CoreModule,
     HomeModule,
+    BrowserModule,
     BrowserAnimationsModule,
   ],
   providers: [],

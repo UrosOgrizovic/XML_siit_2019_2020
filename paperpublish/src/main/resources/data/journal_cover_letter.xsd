@@ -4,13 +4,20 @@
     xmlns:Papers="http://localhost:8080/SciencePapers">
 
     <xs:import namespace="http://localhost:8080/SciencePapers" schemaLocation="science_paper.xsd" id="SciencePapers"/>
-    <xs:element name="CoverLetter" type="TCoverLetter">
-        <xs:keyref name="paper_title" refer="Papers:paperId">
-            <xs:selector xpath=".//*"/>
-            <xs:field xpath="@journalName"/>
-        </xs:keyref>
+    <xs:element name="CoverLetters">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="CoverLetter" type="TCoverLetter" minOccurs="0"
+                            maxOccurs="unbounded">
+                    <xs:keyref name="paper_title" refer="Papers:paperId">
+                        <xs:selector xpath=".//*"/>
+                        <xs:field xpath="@journalName"/>
+                    </xs:keyref>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
     </xs:element>
-    
+
     <xs:complexType name="TCoverLetter">
         <xs:sequence>
             <xs:element name="Content" type="xs:string"/>
