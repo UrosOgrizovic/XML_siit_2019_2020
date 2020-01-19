@@ -25,6 +25,10 @@
             <xs:selector xpath=".//*"/>
             <xs:field xpath="@documentId"/>
         </xs:unique>
+        <xs:unique name="versionId">
+            <xs:selector xpath=".//*"/>
+            <xs:field xpath="@versionId"/>
+        </xs:unique>
         <xs:unique name="paperTitle">
             <xs:selector xpath=".//*"/>
             <xs:field xpath="@documentTitle"/>
@@ -57,7 +61,14 @@
         <xs:attribute name="documentId" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:pattern value="\d{1,2},\d{1,2}"/>
+                    <xs:pattern value="\d{1,2}"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="versionId" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="\d{1,2}"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
@@ -65,6 +76,15 @@
         <xs:attribute name="revised" type="xs:date"/>
         <xs:attribute name="accepted" type="xs:date"/>
         <xs:attribute name="pp"/>
+        <xs:attribute default="in_procedure" name="status">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="in_procedure"/>
+                    <xs:enumeration value="deleted"/>
+                    <xs:enumeration value="accepted"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         
     </xs:complexType>
 

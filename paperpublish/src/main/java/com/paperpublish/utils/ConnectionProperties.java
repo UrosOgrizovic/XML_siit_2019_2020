@@ -49,14 +49,17 @@ public class ConnectionProperties {
     public static final String SCIENCE_PAPER_ID = "science_paper.xml";
     public static final String ROLES_ID = "Roles.xml";
     public static final String USERS_ID = "Users.xml";
+    public static final String COVER_LETTERS_ID = "journal_cover_letter.xml";
 
     public static final String PACKAGE_PATH = "com.paperpublish.model.";
     public static final String SCIENCE_PAPER_PACKAGE = "sciencepapers";
+    public static final String COVER_LETTERS_PACKAGE = "letter";
     public static final String ROLES_PACKAGE = "users";
     public static final String USERS_PACKAGE = "users";
 
     public static final String USERS_NAMESPACE = "http://localhost:8080/Users";
     public static final String SCIENCE_PAPERS_NAMESPACE = "http://localhost:8080/SciencePapers";
+    public static final String COVER_LETTERS_NAMESPACE = "http://localhost:8080/Letter";
 
 //------------------ MetaData ------------------
     public static final String QUERY_LOCATION = "src/main/resources/sparql/";

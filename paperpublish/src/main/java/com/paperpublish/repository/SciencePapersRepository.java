@@ -37,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -56,6 +57,24 @@ public class SciencePapersRepository {
 
         return  (SciencePapers) unmarshaller.unmarshal(resource.getContentAsDOM());
     }
+
+    public List<TSciencePaper> getAllJsonAndFilter(String query) throws Exception {
+    	XPathQueryService queryService = ConnectionProperties.getXPathService(collection);
+		queryService.setNamespace("",ConnectionProperties.SCIENCE_PAPERS_NAMESPACE);
+		ResourceSet result = queryService.query("//SciencePapers/SciencePaper[@" + query + "]");
+
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+		ResourceIterator i = result.getIterator();
+		List<TSciencePaper> paperList = new ArrayList<>();
+
+		while(i.hasMoreResources()) {
+			paperList.add((TSciencePaper) unmarshaller.unmarshal(new StringReader(i.nextResource().getContent().toString())));
+		}
+
+		return paperList;
+	}
     
     public TSciencePaper findByDocumentId(String documentId) throws Exception {
         XPathQueryService queryService = ConnectionProperties.getXPathService(collection);
@@ -68,7 +87,7 @@ public class SciencePapersRepository {
 
             ResourceIterator i = result.getIterator();
             Resource res = i.nextResource();
-            
+
             return (TSciencePaper) unmarshaller.unmarshal(new StringReader(res.getContent().toString()));
             
 		} catch (Exception e) {
@@ -134,6 +153,19 @@ public class SciencePapersRepository {
 			throw e;
 		}
 	}
+
+	public Long createFromXML(String xml) {
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+			TSciencePaper paperToCreate = (TSciencePaper) unmarshaller.unmarshal(new StringReader(xml));
+			paperToCreate.setDocumentId(getNextID(getAll().getSciencePaper()));
+			return create(paperToCreate);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1L;
+	}
 	
 	/**
 	 * @param sciencePapers list of science papers to search
@@ -149,6 +181,17 @@ public class SciencePapersRepository {
 	    	}
 	    }
 		return indexOfSciencePaper;
+	}
+
+	private String getNextID(List<TSciencePaper> sciencePapers) {
+		int indexOfSciencePaper = -1;
+		for (int i = 0; i < sciencePapers.size(); i++) {
+			int parsedIndex = Integer.parseInt(sciencePapers.get(i).getDocumentId());
+			if (parsedIndex > indexOfSciencePaper) {
+				indexOfSciencePaper = parsedIndex;
+			}
+		}
+		return Integer.toString(indexOfSciencePaper + 1);
 	}
 
 	public Long update(TSciencePaper sciencePaper) throws Exception {

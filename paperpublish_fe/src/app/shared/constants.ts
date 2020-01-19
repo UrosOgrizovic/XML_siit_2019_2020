@@ -1,4 +1,3 @@
-
 //To-do: dodati production environment nakon prvog deploy-a
 const ENVIRONMENTS = {
   'localhost': 'dev'

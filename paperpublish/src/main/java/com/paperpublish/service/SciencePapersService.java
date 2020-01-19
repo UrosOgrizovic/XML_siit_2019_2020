@@ -9,6 +9,8 @@ import com.paperpublish.model.sciencepapers.SciencePapers;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.repository.SciencePapersRepository;
 
+import java.util.List;
+
 @Service
 public class SciencePapersService {
     @Autowired
@@ -23,6 +25,10 @@ public class SciencePapersService {
         }
         return papers;
     }
+
+    public List<TSciencePaper> getAllJsonAndFilter(String query) throws Exception {
+    	return sciencePapersRepository.getAllJsonAndFilter(query);
+	}
 
 	public void delete(String documentId) throws Exception {
 		try {
@@ -58,6 +64,10 @@ public class SciencePapersService {
 		} catch (Exception e) {
 			throw e;
 		}
+	}
+
+	public Long createFromXml(String xml) {
+    	return sciencePapersRepository.createFromXML(xml);
 	}
 
 	public void update(TSciencePaperDTO sciencePaperDTO) throws Exception {
