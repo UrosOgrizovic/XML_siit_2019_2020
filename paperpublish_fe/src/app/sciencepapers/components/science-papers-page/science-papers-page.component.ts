@@ -17,8 +17,7 @@ export class SciencePapersPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.sciencePapersService.getAll("documentId='1,1'").subscribe((data: any) => {
-      console.log(data)
+    this.sciencePapersService.getAll().subscribe((data: any) => {
       this.sciencePapers = data;
     })
   }

@@ -244,6 +244,11 @@ public class ConnectionProperties {
         resource.setContent(f);
         col.storeResource(resource);
 
+        resource = (XMLResource) col.createResource(COVER_LETTERS_ID,XMLResource.RESOURCE_TYPE);
+        f = new File(initDataPath + COVER_LETTERS_ID);
+        resource.setContent(f);
+        col.storeResource(resource);
+
         initMetadataUpload();
     }
 

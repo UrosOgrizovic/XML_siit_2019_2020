@@ -50,7 +50,16 @@ public class SciencePapersRepository {
 
     public static final String findByTitleQr = "findSciencePaperByTitle.rq";
     
-    public SciencePapers getAll() throws Exception {
+    public List<TSciencePaper> getAll() throws Exception {
+		XMLResource resource = (XMLResource) collection.getResource(ConnectionProperties.SCIENCE_PAPER_ID);
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+		SciencePapers sp = (SciencePapers) unmarshaller.unmarshal(resource.getContentAsDOM());
+		return sp.getSciencePaper();
+    }
+
+    public SciencePapers getAllXML() throws Exception {
         XMLResource resource = (XMLResource) collection.getResource(ConnectionProperties.SCIENCE_PAPER_ID);
         JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
         Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
@@ -159,7 +168,7 @@ public class SciencePapersRepository {
 			JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			TSciencePaper paperToCreate = (TSciencePaper) unmarshaller.unmarshal(new StringReader(xml));
-			paperToCreate.setDocumentId(getNextID(getAll().getSciencePaper()));
+			paperToCreate.setDocumentId(getNextID(getAllXML().getSciencePaper()));
 			return create(paperToCreate);
 		} catch (Exception e) {
 			e.printStackTrace();

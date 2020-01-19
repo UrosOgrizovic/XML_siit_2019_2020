@@ -33,7 +33,6 @@ export class SciencePapersListComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChange) {
-    console.log('opa')
     this.initializeDataSource();
   }
 
@@ -42,7 +41,6 @@ export class SciencePapersListComponent implements OnInit {
     this.dataSource.data = this.sciencePapers || [];
     this.dataSource.sort = this.sort
     this.dataSource.paginator = this.paginator;
-    console.log(this.dataSource)
   }
 
   getAuthorNames(sciencePaper) {

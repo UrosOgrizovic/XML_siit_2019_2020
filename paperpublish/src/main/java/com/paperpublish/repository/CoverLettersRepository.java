@@ -1,5 +1,6 @@
 package com.paperpublish.repository;
 
+import com.paperpublish.model.letter.CoverLetters;
 import com.paperpublish.model.letter.TCoverLetter;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.utils.ConnectionProperties;

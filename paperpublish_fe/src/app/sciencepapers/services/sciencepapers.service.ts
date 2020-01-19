@@ -8,7 +8,7 @@ import { BaseService } from '../../shared/services/base.service';
 import { SciencePaper } from '../../models/science-paper.model';
 
 const ENDPOINTS = {
-  GET_ALL: (query) => `/sciencepapers?query=${query}`,
+  GET_ALL: `/sciencepapers/findall`,
   CREATE: `/sciencepapers`
 }
 
@@ -23,8 +23,8 @@ export class SciencePapersService extends BaseService {
     super();
   }
 
-  getAll(query) : Observable<any> {
-    return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_ALL(query)}`)
+  getAll() : Observable<any> {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_ALL}`)
       .pipe(
         map((res: any) => {
           let response = res;

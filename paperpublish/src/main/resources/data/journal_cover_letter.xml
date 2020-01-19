@@ -1,5 +1,12 @@
-<let:CoverLetters xmlns:let="http://localhost:8080/Letter">
-  <let:CoverLetter journalName="string" journalAddress="string" manuscriptTitle="string" articleType="review" submissionDate="2008-09-29">
+<let:CoverLetters
+        xmlns:let="http://localhost:8080/Letter"
+        xmlns:pred="http://localhost:8080/Letter/predicate/"
+        xmlns:Users="http://localhost:8080/Users"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://localhost:8080/SciencePapers"
+>
+  <let:CoverLetter journalName="string" journalAddress="string" manuscriptTitle="string" articleType="review"
+                   submissionDate="2008-09-29">
     <let:Content>string</let:Content>
     <!--1 or more repetitions:-->
     <let:Author>

@@ -24,7 +24,7 @@ public class SciencePapersController {
     	return ResponseEntity.ok(sciencePapersService.getAllJsonAndFilter(query));
 	}
 
-    @GetMapping(path = "/findall", produces = {MediaType.APPLICATION_ATOM_XML_VALUE})
+    @GetMapping(path = "/findall", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getAll(){
         return ResponseEntity.ok(sciencePapersService.getAll());
     }

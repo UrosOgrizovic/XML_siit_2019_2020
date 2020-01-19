@@ -16,8 +16,8 @@ public class SciencePapersService {
     @Autowired
     SciencePapersRepository sciencePapersRepository;
 
-    public SciencePapers getAll(){
-        SciencePapers papers = null;
+    public List<TSciencePaper> getAll(){
+        List<TSciencePaper> papers = null;
         try {
             papers = sciencePapersRepository.getAll();
         }catch (Exception e){
