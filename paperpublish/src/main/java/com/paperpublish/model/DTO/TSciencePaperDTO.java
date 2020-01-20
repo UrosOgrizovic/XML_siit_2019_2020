@@ -22,6 +22,7 @@ public class TSciencePaperDTO {
     private XMLGregorianCalendar revised;
     private XMLGregorianCalendar accepted;
     private String pp;
+    private String status;
 	public TPaperData getPaperData() {
 		return paperData;
 	}
@@ -82,9 +83,18 @@ public class TSciencePaperDTO {
 	public void setPp(String pp) {
 		this.pp = pp;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public TSciencePaperDTO(TPaperData paperData, List<TParagraf> paragraf, TCitations citations, List<String> citedBy,
-			String documentType, String documentId, XMLGregorianCalendar received, XMLGregorianCalendar revised,
-			XMLGregorianCalendar accepted, String pp) {
+							String documentType, String documentId, XMLGregorianCalendar received, XMLGregorianCalendar revised,
+							XMLGregorianCalendar accepted, String pp, String status) {
 		super();
 		this.paperData = paperData;
 		this.paragraf = paragraf;
@@ -96,6 +106,7 @@ public class TSciencePaperDTO {
 		this.revised = revised;
 		this.accepted = accepted;
 		this.pp = pp;
+		this.status = status;
 	}
 	public TSciencePaperDTO() {
 		super();

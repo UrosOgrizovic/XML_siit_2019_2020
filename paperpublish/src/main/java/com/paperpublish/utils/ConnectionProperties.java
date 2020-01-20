@@ -70,6 +70,9 @@ public class ConnectionProperties {
     public static final String SCIENCE_PAPER_PREDICATE_NAMESPACE = "http://localhost:8080/SciencePapers/predicate/";
     public static final String SCIENCE_PAPER_METADATA = "/SciencePapers/metadata";
 
+    public static final String COVER_LETTER_PREDICATE_NAMESPACE = "http://localhost:8080/Letter/predicate";
+    public static final String COVER_LETTER_METADATA = "/Letter/metadata";
+
     private static ConnectionProperties instance = null;
 
     private ConnectionProperties(){
