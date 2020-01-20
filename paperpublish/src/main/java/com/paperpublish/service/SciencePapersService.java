@@ -19,7 +19,7 @@ public class SciencePapersService {
     public List<TSciencePaper> getAll(){
         List<TSciencePaper> papers = null;
         try {
-            papers = sciencePapersRepository.getAll();
+            papers = sciencePapersRepository.getAllInProcedure();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -30,15 +30,13 @@ public class SciencePapersService {
     	return sciencePapersRepository.getAllJsonAndFilter(query);
 	}
 
-	public void delete(String documentId) throws Exception {
+	public Long delete(String documentId) throws Exception {
 		try {
-			sciencePapersRepository.delete(documentId);
+			return sciencePapersRepository.deleteLogical(documentId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-		
-		
 	}
 
 	public TSciencePaper findByDocumentId(String documentId) throws Exception {

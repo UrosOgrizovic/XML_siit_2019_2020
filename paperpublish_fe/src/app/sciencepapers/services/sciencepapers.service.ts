@@ -9,7 +9,8 @@ import { SciencePaper } from '../../models/science-paper.model';
 
 const ENDPOINTS = {
   GET_ALL: `/sciencepapers/findall`,
-  CREATE: `/sciencepapers`
+  CREATE: `/sciencepapers`,
+  DELETE: (id) => `/sciencepapers/${id}`
 }
 
 
@@ -41,7 +42,15 @@ export class SciencePapersService extends BaseService {
   }
 
   delete(id: number) {
-    // TO-DO: Implement
+    return this.http.delete(`${this.baseUrl}${ENDPOINTS.DELETE(id)}`)
+      .pipe(
+        map((res: any) => {
+          this.sciencePapers = this.sciencePapers.filter((paper: SciencePaper) => {
+            return paper.documentId != id;
+          });
+          return this.sciencePapers
+        })
+      )
   }
 
   create(data: any) {
