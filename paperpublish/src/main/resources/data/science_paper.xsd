@@ -45,7 +45,7 @@
                     <xs:field xpath="@cID"/>
                 </xs:key>
             </xs:element>
-            <xs:element maxOccurs="unbounded" name="CitedBy" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="CitedBy" type="Papers:TCitedBy"/>
         </xs:sequence>
         <xs:attribute default="XML" name="documentType">
             <xs:simpleType>
@@ -182,14 +182,7 @@
 
     <xs:complexType name="TCitations">
         <xs:sequence>
-            <xs:element name="citation" minOccurs="0" maxOccurs="unbounded">
-                <xs:complexType>
-                    <xs:simpleContent>
-                        <xs:extension base="xs:string">
-                            <xs:attribute name="cID" type="xs:string" use="required"/>
-                        </xs:extension>
-                    </xs:simpleContent>
-                </xs:complexType>
+            <xs:element name="citation" minOccurs="0" maxOccurs="unbounded" type="Papers:TCiter">
             </xs:element>
         </xs:sequence>
     </xs:complexType>
@@ -205,6 +198,25 @@
         <xs:sequence>
             <xs:element maxOccurs="unbounded" minOccurs="0" name="RecommendedPaper" type="xs:string"
             />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TCitedBy">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="citer" type="Papers:TCiter"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TCiter">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="authorName"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="year" type="xs:positiveInteger"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="paperTitle" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="journalData" type="Papers:TJournalData"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TJournalData">
+        <xs:sequence>
+            <xs:element maxOccurs="1" minOccurs="1" name="journalTitle" type="xs:string"/>
+            <xs:element maxOccurs="1" minOccurs="1" name="journalInfo" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

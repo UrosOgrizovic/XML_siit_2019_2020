@@ -37,7 +37,7 @@ public class XSLFOTransformer {
 	
 	public static final String INPUT_FILE = RESOURCES_PATH + "/data/science_paper.xml";
 	
-	public static final String XSL_FILE = RESOURCES_PATH + "/data/science_paper_fo.xsl";
+	public static final String SCIENCE_PAPER_XSL_PDF_FILE = RESOURCES_PATH + "/data/xsl/science_paper_pdf.xsl";
 	
 	public static final String OUTPUT_FILE = RESOURCES_PATH + "/science_paper.pdf";
 	
@@ -56,7 +56,7 @@ public class XSLFOTransformer {
 		System.out.println("[INFO] " + XSLFOTransformer.class.getSimpleName());
 		
 		// Point to the XSL-FO file
-		File xslFile = new File(XSL_FILE);
+		File xslFile = new File(SCIENCE_PAPER_XSL_PDF_FILE);
 
 		// Create transformation source
 		StreamSource transformSource = new StreamSource(xslFile);

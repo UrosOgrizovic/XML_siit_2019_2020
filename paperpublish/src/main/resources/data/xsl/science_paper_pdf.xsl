@@ -54,17 +54,7 @@
                                         <fo:block font-style="italic" space-after="0.5em">
                                             <xsl:value-of select="Papers:authorInstitution"></xsl:value-of>    
                                         </fo:block>
-                                        
                                     </xsl:for-each>
-                                    
-                                    <!-- 
-                                    <xsl:for-each select="Papers:PaperData/Papers:Author/Papers:authorUserName">
-                                        <fo:block> <xsl:value-of select="text()"/></fo:block>
-                                    </xsl:for-each>
-                                    <xsl:for-each select="Papers:PaperData/Papers:Author/Papers:authorInstitution">
-                                        <fo:block> <xsl:value-of select="text()"/></fo:block>
-                                    </xsl:for-each>
-                                     -->
                                 </xsl:if>
                             </fo:block>
                             
@@ -75,9 +65,50 @@
                                 <fo:block/> 
                             </xsl:for-each>
                             </fo:block>
+                            <fo:block space-before="2em">
+                                <fo:block font-weight="bold" font-size="14">
+                                    References
+                                </fo:block>
+                                <xsl:for-each select="Papers:Citations/Papers:citation/Papers:citer">
+                                    <fo:block>
+                                        <xsl:for-each select="Papers:authorName">
+                                            <xsl:value-of select="."></xsl:value-of>,
+                                        </xsl:for-each>
+                                        (<xsl:value-of select="Papers:year"></xsl:value-of>)
+                                        "<xsl:value-of select="Papers:paperTitle"></xsl:value-of>",
+                                        <fo:inline font-style="italic">
+                                            <xsl:value-of select="Papers:journalData/Papers:journalTitle"></xsl:value-of>
+                                        </fo:inline>
+                                        <xsl:text> </xsl:text>
+                                        <xsl:value-of select="Papers:journalData/Papers:journalInfo"></xsl:value-of>
+                                    </fo:block>    
+                                </xsl:for-each>
+                            </fo:block>
+                            <fo:block space-before="2em">
+                                <fo:block font-weight="bold" font-size="14">
+                                    Cited by
+                                </fo:block>
+                                <fo:block>
+                                    <xsl:for-each select="Papers:CitedBy/Papers:citer">
+                                        <fo:block>
+                                            <xsl:for-each select="Papers:authorName">
+                                                <xsl:value-of select="."></xsl:value-of>,
+                                            </xsl:for-each>
+                                            (<xsl:value-of select="Papers:year"></xsl:value-of>)
+                                            "<xsl:value-of select="Papers:paperTitle"></xsl:value-of>",
+                                            <fo:inline font-style="italic">
+                                                <xsl:value-of select="Papers:journalData/Papers:journalTitle"></xsl:value-of>
+                                            </fo:inline>
+                                            <xsl:text> </xsl:text>
+                                            <xsl:value-of select="Papers:journalData/Papers:journalInfo"></xsl:value-of>
+                                        </fo:block>
+                                    </xsl:for-each>
+                                </fo:block>
+                            </fo:block>
                         </fo:block>
                     </xsl:for-each>
-                  
+                    
+                    
                 </fo:flow>
             </fo:page-sequence>
         </fo:root>

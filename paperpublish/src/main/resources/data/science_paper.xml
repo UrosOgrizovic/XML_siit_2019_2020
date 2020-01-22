@@ -22,11 +22,11 @@
             
             
             <Papers:Author>
-                <Papers:authorUserName property="pred:authorUserName">UserName0</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">admin</Papers:authorUserName>
                 <Papers:authorInstitution>Institution1</Papers:authorInstitution>
             </Papers:Author>
             <Papers:Author>
-                <Papers:authorUserName property="pred:authorUserName">UserName1</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">user</Papers:authorUserName>
                 <Papers:authorInstitution>Institution2</Papers:authorInstitution>
             </Papers:Author>
             
@@ -117,19 +117,54 @@
             </Papers:Paragraf>
 
             <Papers:Citations>
-                <Papers:citation cID="1">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
-                    Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:citation>
-                <Papers:citation cID="2">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
-                    Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:citation>
+                <Papers:citation cID="1">
+                    <Papers:citer>
+                        <Papers:authorName>Bates, M.J.</Papers:authorName>
+                        <Papers:year>2006</Papers:year>
+                        <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                        <Papers:journalData>
+                            <Papers:journalTitle>Journal of the American Society for</Papers:journalTitle>
+                            <Papers:journalInfo>Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                        </Papers:journalData>
+                    </Papers:citer>
+                </Papers:citation>
+                <Papers:citation cID="2">
+                    <Papers:citer>
+                        <Papers:authorName>Bates, M.J.</Papers:authorName>
+                        <Papers:year>2006</Papers:year>
+                        <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                        <Papers:journalData>
+                            <Papers:journalTitle>Journal of the American Society for</Papers:journalTitle>
+                            <Papers:journalInfo>Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                        </Papers:journalData>
+                    </Papers:citer>
+                </Papers:citation>
             </Papers:Citations>
         
         <Papers:CitedBy>
-                SladićGoran, Goran Sladić, Cverdelj-FogarašiIgor, Igor Cverdelj-Fogaraši, GostojićStevan, Stevan
-                Gostojić, SavićGoran, Goran Savić, SegedinacMilan, Milan Segedinac, ZarićMiroslav, Miroslav
-                Zarić. 2017. Multilayer document model for semantic document management services. Journal of
-                Documentation 73:5, 803-824.
-                GorichanazTim, Tim Gorichanaz. 2017. Information and experience, a dialogue. Journal of
-                Documentation 73:3, 500-508.
+                <Papers:citer>
+                    <Papers:authorName>Goran Sladić</Papers:authorName>
+                    <Papers:authorName>Igor Cverdelj-Fogaraši</Papers:authorName>
+                    <Papers:authorName>Stevan Gostojić</Papers:authorName>
+                    <Papers:authorName>Goran Savić</Papers:authorName>
+                    <Papers:authorName>Milan Segedinac</Papers:authorName>
+                    <Papers:authorName>Miroslav Zarić</Papers:authorName>
+                    <Papers:year>2017</Papers:year>
+                    <Papers:paperTitle>Multilayer document model for semantic document management services</Papers:paperTitle>
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                        <Papers:journalInfo>73:5, 803-824.</Papers:journalInfo>
+                    </Papers:journalData>
+                </Papers:citer>
+                <Papers:citer>
+                    <Papers:authorName>Tim Gorichanaz</Papers:authorName>
+                    <Papers:year>2017</Papers:year>
+                    <Papers:paperTitle>Information and experience, a dialogue</Papers:paperTitle> 
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                        <Papers:journalInfo>73:5, 500-508.</Papers:journalInfo>
+                    </Papers:journalData>     
+                </Papers:citer>
         </Papers:CitedBy>
     </Papers:SciencePaper>
     <Papers:SciencePaper documentId="2" versionId="1" about="http://localhost:8080/SciencePapers/2">
@@ -147,11 +182,11 @@
             
             
             <Papers:Author>
-                <Papers:authorUserName property="pred:authorUserName">UserName0</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">user</Papers:authorUserName>
                 <Papers:authorInstitution>Institution1</Papers:authorInstitution>
             </Papers:Author>
             <Papers:Author>
-                <Papers:authorUserName property="pred:authorUserName">UserName1</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">admin</Papers:authorUserName>
                 <Papers:authorInstitution>Institution2</Papers:authorInstitution>
             </Papers:Author>
             
@@ -189,6 +224,7 @@
                    <bold>Purpose</bold>
                     Do documents exist? Or, perhaps more to the point: how do documents exist...
                         -->
+                <Papers:reference link=""></Papers:reference>
                 
             </Papers:content>
         </Papers:Paragraf>
@@ -200,19 +236,54 @@
         </Papers:Paragraf>
         
         <Papers:Citations>
-            <Papers:citation cID="1">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
-                Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:citation>
-            <Papers:citation cID="2">Bates, M.J. (2006), “Fundamental forms of information”, Journal of the American Society for
-                Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:citation>
+            <Papers:citation cID="1">
+                <Papers:citer>
+                    <Papers:authorName>Bates, M.J.</Papers:authorName>
+                    <Papers:year>2006</Papers:year>
+                    <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of the American Society for</Papers:journalTitle>
+                        <Papers:journalInfo>Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                    </Papers:journalData>
+                </Papers:citer>
+            </Papers:citation>
+            <Papers:citation cID="2">
+                <Papers:citer>
+                    <Papers:authorName>Bates, M.J.</Papers:authorName>
+                    <Papers:year>2006</Papers:year>
+                    <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of the American Society for</Papers:journalTitle>
+                        <Papers:journalInfo>Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                    </Papers:journalData>
+                </Papers:citer>
+            </Papers:citation>
         </Papers:Citations>
         
         <Papers:CitedBy>
-            SladićGoran, Goran Sladić, Cverdelj-FogarašiIgor, Igor Cverdelj-Fogaraši, GostojićStevan, Stevan
-            Gostojić, SavićGoran, Goran Savić, SegedinacMilan, Milan Segedinac, ZarićMiroslav, Miroslav
-            Zarić. 2017. Multilayer document model for semantic document management services. Journal of
-            Documentation 73:5, 803-824.
-            GorichanazTim, Tim Gorichanaz. 2017. Information and experience, a dialogue. Journal of
-            Documentation 73:3, 500-508.
+            <Papers:citer>
+                <Papers:authorName>Goran Sladić</Papers:authorName>
+                <Papers:authorName>Igor Cverdelj-Fogaraši</Papers:authorName>
+                <Papers:authorName>Stevan Gostojić</Papers:authorName>
+                <Papers:authorName>Goran Savić</Papers:authorName>
+                <Papers:authorName>Milan Segedinac</Papers:authorName>
+                <Papers:authorName>Miroslav Zarić</Papers:authorName>
+                <Papers:year>2017</Papers:year>
+                <Papers:paperTitle>Multilayer document model for semantic document management services</Papers:paperTitle>
+                <Papers:journalData>
+                    <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                    <Papers:journalInfo>73:5, 803-824.</Papers:journalInfo>
+                </Papers:journalData>
+            </Papers:citer>
+            <Papers:citer>
+                <Papers:authorName>Tim Gorichanaz</Papers:authorName>
+                <Papers:year>2017</Papers:year>
+                <Papers:paperTitle>Information and experience, a dialogue</Papers:paperTitle>
+                <Papers:journalData>
+                    <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                    <Papers:journalInfo>73:5, 500-508.</Papers:journalInfo>
+                </Papers:journalData>    
+            </Papers:citer>
         </Papers:CitedBy>
     </Papers:SciencePaper>
 </Papers:SciencePapers>

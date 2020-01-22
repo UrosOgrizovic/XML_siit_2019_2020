@@ -13,20 +13,28 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TDownloadInformation complex type.
+ * <p>Java class for anonymous complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TDownloadInformation">
+ * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="RecommendedPaper" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="Role" maxOccurs="unbounded">
+ *           &lt;simpleType>
+ *             &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
+ *               &lt;enumeration value="ROLE_USER"/>
+ *               &lt;enumeration value="ROLE_EDITOR"/>
+ *             &lt;/restriction>
+ *           &lt;/simpleType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,27 +44,28 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TDownloadInformation", propOrder = {
-    "recommendedPaper"
+@XmlType(name = "", propOrder = {
+    "role"
 })
-public class TDownloadInformation {
+@XmlRootElement(name = "Roles", namespace = "http://localhost:8080/Users")
+public class Roles {
 
-    @XmlElement(name = "RecommendedPaper")
-    protected List<String> recommendedPaper;
+    @XmlElement(name = "Role", namespace = "http://localhost:8080/Users", required = true, defaultValue = "ROLE_USER")
+    protected List<String> role;
 
     /**
-     * Gets the value of the recommendedPaper property.
+     * Gets the value of the role property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the recommendedPaper property.
+     * This is why there is not a <CODE>set</CODE> method for the role property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getRecommendedPaper().add(newItem);
+     *    getRole().add(newItem);
      * </pre>
      * 
      * 
@@ -66,11 +75,11 @@ public class TDownloadInformation {
      * 
      * 
      */
-    public List<String> getRecommendedPaper() {
-        if (recommendedPaper == null) {
-            recommendedPaper = new ArrayList<String>();
+    public List<String> getRole() {
+        if (role == null) {
+            role = new ArrayList<String>();
         }
-        return this.recommendedPaper;
+        return this.role;
     }
 
 }
