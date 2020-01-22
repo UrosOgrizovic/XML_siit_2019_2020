@@ -15,8 +15,8 @@
                         <xs:field xpath="@citation"/>
                     </xs:keyref>
                     <xs:unique name="paragrafIdKey">
-                        <xs:selector xpath=".//*"></xs:selector>
-                        <xs:field xpath="@paragrafId"></xs:field>
+                        <xs:selector xpath=".//*"/>
+                        <xs:field xpath="@paragrafId"/>
                     </xs:unique>
                 </xs:element>
             </xs:sequence>
@@ -37,8 +37,8 @@
     <xs:complexType name="TSciencePaper">
         <xs:sequence>
             <xs:element name="PaperData" type="Papers:TPaperData"> </xs:element>
-            <xs:element maxOccurs="unbounded" name="Paragraf" type="Papers:TParagraf"/> 
-            
+            <xs:element maxOccurs="unbounded" name="Paragraf" type="Papers:TParagraf"/>
+
             <xs:element name="Citations" type="Papers:TCitations" minOccurs="0">
                 <xs:key name="citation_refrence">
                     <xs:selector xpath=".//*"/>
@@ -85,7 +85,7 @@
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        
+
     </xs:complexType>
 
     <xs:complexType name="TPaperData">
@@ -116,7 +116,7 @@
         <xs:attribute name="contact" type="xs:string"/>
         <xs:attribute name="numberOfDownloads" type="xs:positiveInteger"/>
     </xs:complexType>
-    
+
     <xs:complexType name="TParagraf" mixed="true">
         <xs:all>
             <xs:element name="image" minOccurs="0">
@@ -197,6 +197,7 @@
     <xs:complexType name="TAuthors">
         <xs:sequence>
             <xs:element name="authorUserName" maxOccurs="unbounded" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="authorInstitution" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
