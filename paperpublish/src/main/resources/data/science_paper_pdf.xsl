@@ -77,9 +77,9 @@
                                         (<xsl:value-of select="Papers:year"></xsl:value-of>)
                                         "<xsl:value-of select="Papers:paperTitle"></xsl:value-of>",
                                         <fo:inline font-style="italic">
-                                            <xsl:value-of select="Papers:journalData/Papers:journalTitle"></xsl:value-of>,
+                                            <xsl:value-of select="Papers:journalData/Papers:journalTitle"></xsl:value-of>
                                         </fo:inline>
-                                        <xsl:text> </xsl:text>
+                                        <xsl:text>, </xsl:text>
                                         <xsl:value-of select="Papers:journalData/Papers:journalInfo"></xsl:value-of>
                                     </fo:block>    
                                 </xsl:for-each>
@@ -97,7 +97,7 @@
                                             (<xsl:value-of select="Papers:year"></xsl:value-of>)
                                             "<xsl:value-of select="Papers:paperTitle"></xsl:value-of>",
                                             <fo:inline font-style="italic">
-                                                <xsl:value-of select="Papers:journalData/Papers:journalTitle"></xsl:value-of>,
+                                                <xsl:value-of select="Papers:journalData/Papers:journalTitle"></xsl:value-of>
                                             </fo:inline>
                                             <xsl:text> </xsl:text>
                                             <xsl:value-of select="Papers:journalData/Papers:journalInfo"></xsl:value-of>
