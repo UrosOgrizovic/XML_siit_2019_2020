@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response } from "@angular/http";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -9,7 +9,9 @@ import { SciencePaper } from '../../models/science-paper.model';
 
 const ENDPOINTS = {
   GET_ALL: `/sciencepapers/findall`,
-  CREATE: `/sciencepapers`
+  CREATE: `/sciencepapers`,
+  DOWNLOAD_HTML: (id: number) => `/sciencepapers/downloadHTML/${id}`,
+  DOWNLOAD_PDF: (id: number) => `/sciencepapers/downloadPDF/${id}`
 }
 
 
@@ -52,6 +54,22 @@ export class SciencePapersService extends BaseService {
           console.log(response);
         })
       )
+  }
+
+  downloadHTML(id: number) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.DOWNLOAD_HTML(id)}`, {responseType: 'blob'}).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  downloadPDF(id: number) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.DOWNLOAD_PDF(id)}`, {responseType: 'blob'}).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
   }
   
 }

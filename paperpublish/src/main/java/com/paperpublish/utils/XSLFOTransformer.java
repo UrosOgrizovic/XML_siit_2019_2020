@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Base64;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
@@ -42,31 +43,31 @@ public class XSLFOTransformer {
 	
 	public static final String SCIENCE_PAPER_XSL_HTML_FILE = RESOURCES_PATH + "/data/xsl/science_paper_html.xsl";
 	
-	public static final String OUTPUT_FILE = RESOURCES_PATH + "/science_paper.pdf";
-	
-	public static final String HTML_OUTPUT_FILE = RESOURCES_PATH + "/science_paper.html";
+	public static final String OUTPUT_FILE_BASE = RESOURCES_PATH + "/science_paper";
 	
 	
-	public XSLFOTransformer() throws SAXException, IOException {
-		
-		// Initialize FOP factory object
-		fopFactory = FopFactory.newInstance(new File("src/main/java/fop.xconf"));
-		
-		// Setup the XSLT transformer factory
-		transformerFactory = new TransformerFactoryImpl();
+	public XSLFOTransformer() {
+		try {
+			// Initialize FOP factory object
+			fopFactory = FopFactory.newInstance(new File("src/main/java/fop.xconf"));
+			
+			// Setup the XSLT transformer factory
+			transformerFactory = new TransformerFactoryImpl();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
-	private void generatePDF() throws Exception {
+	public ByteArrayOutputStream generatePDF(String documentId) throws Exception {
 
 		System.out.println("[INFO] " + XSLFOTransformer.class.getSimpleName());
 		
 		// Point to the XSL-FO file
 		File xslPdfFile = new File(SCIENCE_PAPER_XSL_PDF_FILE);
-		File xslHtmlFile = new File(SCIENCE_PAPER_XSL_HTML_FILE);
 
 		// Create transformation source
 		StreamSource transformSourcePdf = new StreamSource(xslPdfFile);
-		StreamSource transformSourceHtml = new StreamSource(xslHtmlFile);
 		
 		// Initialize the transformation subject
 		StreamSource source = new StreamSource(new File(INPUT_FILE));
@@ -79,40 +80,49 @@ public class XSLFOTransformer {
 
 		// Initialize the XSL-FO transformer object
 		Transformer xslFoTransformerPdf = transformerFactory.newTransformer(transformSourcePdf);
-		Transformer xslFoTransformerHtml = transformerFactory.newTransformer(transformSourceHtml);
 		
 		// Construct FOP instance with desired output format
 		Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, userAgent, outStream);
 
 		// Resulting SAX events 
 		Result res = new SAXResult(fop.getDefaultHandler());
-
-		OutputStream htmlOutputFile = new FileOutputStream(HTML_OUTPUT_FILE);
+		
+		xslFoTransformerPdf.setParameter("document_id", documentId);
 		
 		// Start XSLT transformation and FOP processing
 		xslFoTransformerPdf.transform(source, res);
-		xslFoTransformerHtml.transform(source, new StreamResult(htmlOutputFile));
 
-		// Generate PDF file
-		File pdfFile = new File(OUTPUT_FILE);
-		if (!pdfFile.getParentFile().exists()) {
-			System.out.println("[INFO] A new directory is created: " + pdfFile.getParentFile().getAbsolutePath() + ".");
-			pdfFile.getParentFile().mkdir();
-		}
+		return outStream;
+	}
+	
+	public ByteArrayOutputStream generateHTML(String documentId) throws Exception {
+		System.out.println("[INFO] " + XSLFOTransformer.class.getSimpleName());
 		
-		OutputStream out = new BufferedOutputStream(new FileOutputStream(pdfFile));
-		out.write(outStream.toByteArray());
+		// Point to the XSL-FO file
+		File xslHtmlFile = new File(SCIENCE_PAPER_XSL_HTML_FILE);
 
-		System.out.println("[INFO] File \"" + pdfFile.getCanonicalPath() + "\" generated successfully.");
-		out.close();
+		// Create transformation source
+		StreamSource transformSourceHtml = new StreamSource(xslHtmlFile);
 		
-		System.out.println("[INFO] End.");
+		// Initialize the transformation subject
+		StreamSource source = new StreamSource(new File(INPUT_FILE));
 
+		// Initialize the XSL-FO transformer object
+		Transformer xslFoTransformerHtml = transformerFactory.newTransformer(transformSourceHtml);
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		
+		xslFoTransformerHtml.setParameter("document_id", documentId);
+		
+		// Start XSLT transformation and FOP processing
+		xslFoTransformerHtml.transform(source, new StreamResult(baos));
+		return baos;
 	}
 
 	public static void main(String[] args) {
 		try {
-			new XSLFOTransformer().generatePDF();
+			new XSLFOTransformer().generatePDF("1");
+			new XSLFOTransformer().generateHTML("2");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
