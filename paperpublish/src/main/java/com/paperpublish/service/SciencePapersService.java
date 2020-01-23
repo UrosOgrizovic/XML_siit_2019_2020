@@ -1,5 +1,6 @@
 package com.paperpublish.service;
 
+import com.paperpublish.model.DTO.XMLDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class SciencePapersService {
     public List<TSciencePaper> getAll(){
         List<TSciencePaper> papers = null;
         try {
-            papers = sciencePapersRepository.getAll();
+            papers = sciencePapersRepository.getAllInProcedure();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -30,18 +31,24 @@ public class SciencePapersService {
     	return sciencePapersRepository.getAllJsonAndFilter(query);
 	}
 
-	public void delete(String documentId) throws Exception {
+	public Long delete(String documentId) throws Exception {
 		try {
-			sciencePapersRepository.delete(documentId);
+			return sciencePapersRepository.deleteLogical(documentId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-		
-		
 	}
 
 	public TSciencePaper findByDocumentId(String documentId) throws Exception {
+		try {
+			return sciencePapersRepository.findByDocumentId(documentId);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	public TSciencePaper getOneXML(String documentId) throws Exception {
 		try {
 			return sciencePapersRepository.findByDocumentId(documentId);
 		} catch (Exception e) {
@@ -70,18 +77,10 @@ public class SciencePapersService {
     	return sciencePapersRepository.createFromXML(xml);
 	}
 
-	public void update(TSciencePaperDTO sciencePaperDTO) throws Exception {
+	public void update(XMLDTO paperXMLDTO) throws Exception {
 		try {
-			TSciencePaper sciencePaper = (new ObjectFactory()).createTSciencePaper();
-			sciencePaper.setAccepted(sciencePaperDTO.getAccepted());
-			sciencePaper.setCitations(sciencePaperDTO.getCitations());
-			sciencePaper.setDocumentId(sciencePaperDTO.getDocumentId());
-			sciencePaper.setDocumentType(sciencePaperDTO.getDocumentType());
-			sciencePaper.setPaperData(sciencePaperDTO.getPaperData());
-			sciencePaper.setPp(sciencePaperDTO.getPp());
-			sciencePaper.setReceived(sciencePaperDTO.getReceived());
-			sciencePaper.setRevised(sciencePaperDTO.getRevised());
-			sciencePapersRepository.update(sciencePaper);
+
+			sciencePapersRepository.update(paperXMLDTO);
 		} catch (Exception e) {
 			throw e;
 		}

@@ -74,7 +74,9 @@ export class SciencePapersListComponent implements OnInit {
   }
 
   deleteEntry(id: number) {
-    // TO-DO: Implement
+    this.sciencePapersService.delete(id).subscribe((data: any) => {
+      // TO-DO: emit event
+    });
   }
 
   public doFilter = (value: string) => {

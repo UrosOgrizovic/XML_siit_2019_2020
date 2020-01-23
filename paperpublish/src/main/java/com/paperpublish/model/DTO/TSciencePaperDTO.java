@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import com.paperpublish.model.sciencepapers.TCitations;
+import com.paperpublish.model.sciencepapers.TKeywords;
 import com.paperpublish.model.sciencepapers.TPaperData;
 import com.paperpublish.model.sciencepapers.TParagraf;
 
@@ -22,6 +23,8 @@ public class TSciencePaperDTO {
     private XMLGregorianCalendar revised;
     private XMLGregorianCalendar accepted;
     private String pp;
+    private String status;
+    private TKeywords keywords;
 	public TPaperData getPaperData() {
 		return paperData;
 	}
@@ -82,9 +85,26 @@ public class TSciencePaperDTO {
 	public void setPp(String pp) {
 		this.pp = pp;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public TKeywords getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(TKeywords keywords) {
+		this.keywords = keywords;
+	}
+
 	public TSciencePaperDTO(TPaperData paperData, List<TParagraf> paragraf, TCitations citations, List<String> citedBy,
-			String documentType, String documentId, XMLGregorianCalendar received, XMLGregorianCalendar revised,
-			XMLGregorianCalendar accepted, String pp) {
+							String documentType, String documentId, XMLGregorianCalendar received, XMLGregorianCalendar revised,
+							XMLGregorianCalendar accepted, String pp, String status, TKeywords keywords) {
 		super();
 		this.paperData = paperData;
 		this.paragraf = paragraf;
@@ -96,6 +116,8 @@ public class TSciencePaperDTO {
 		this.revised = revised;
 		this.accepted = accepted;
 		this.pp = pp;
+		this.status = status;
+		this.keywords = keywords;
 	}
 	public TSciencePaperDTO() {
 		super();

@@ -57,6 +57,18 @@ public class SciencePapersController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
     }
+
+    @GetMapping(path = "/{documentId}", produces = MediaType.APPLICATION_ATOM_XML_VALUE)
+	public ResponseEntity<?> getOneXML(@PathVariable String documentId) {
+		try {
+			return ResponseEntity.ok(sciencePapersService.getOneXML(documentId));
+		} catch (Exception e) {
+			if (e.getClass() == NullPointerException.class) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
     
     @DeleteMapping(path = "/{documentId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> delete(@PathVariable String documentId) {
@@ -89,9 +101,9 @@ public class SciencePapersController {
     }
 
     @PutMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> update(@RequestBody TSciencePaperDTO sciencePaperDTO) {
+    public ResponseEntity<?> update(@RequestBody XMLDTO paperXMLDTO) {
     	try {
-			sciencePapersService.update(sciencePaperDTO);
+			sciencePapersService.update(paperXMLDTO);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			if (e.getClass() == ResourceNotFoundException.class) {

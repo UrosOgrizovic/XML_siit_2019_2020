@@ -1,5 +1,7 @@
 package com.paperpublish.repository;
 
+import com.paperpublish.model.DTO.XMLDTO;
+import com.paperpublish.model.sciencepapers.ObjectFactory;
 import com.paperpublish.model.sciencepapers.SciencePapers;
 import com.paperpublish.model.sciencepapers.TAuthors;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
@@ -58,6 +60,24 @@ public class SciencePapersRepository {
 		SciencePapers sp = (SciencePapers) unmarshaller.unmarshal(resource.getContentAsDOM());
 		return sp.getSciencePaper();
     }
+
+	public List<TSciencePaper> getAllInProcedure() throws Exception {
+		XPathQueryService queryService = ConnectionProperties.getXPathService(collection);
+		queryService.setNamespace("",ConnectionProperties.SCIENCE_PAPERS_NAMESPACE);
+		ResourceSet result = queryService.query("//SciencePapers/SciencePaper[@status='in_procedure']");
+
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+		ResourceIterator i = result.getIterator();
+		List<TSciencePaper> paperList = new ArrayList<>();
+
+		while(i.hasMoreResources()) {
+			paperList.add((TSciencePaper) unmarshaller.unmarshal(new StringReader(i.nextResource().getContent().toString())));
+		}
+
+		return paperList;
+	}
 
     public SciencePapers getAllXML() throws Exception {
         XMLResource resource = (XMLResource) collection.getResource(ConnectionProperties.SCIENCE_PAPER_ID);
@@ -120,7 +140,30 @@ public class SciencePapersRepository {
         }
         return false;
     }
-    
+	public Long deleteLogical(String documentId) throws Exception {
+    	TSciencePaper sciencePaper = this.findByDocumentId(documentId);
+//		if (!this.doesPaperExist(sciencePaper.getPaperData().getTitle().getDocumentTitle())) {
+//			throw new ResourceNotFoundException("Science paper with document id: '" + documentId + "' not found");
+//		}
+		XUpdateQueryService updateQueryService = ConnectionProperties.getXUpdateQueryService(collection);
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+			Marshaller marshaller = jaxbContext.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
+			StringWriter writer = new StringWriter();
+
+			this.delete(sciencePaper.getDocumentId());
+			sciencePaper.setStatus("deleted");
+			marshaller.marshal(sciencePaper, writer);
+			this.saveRDFModel(sciencePaper);
+			return updateQueryService.updateResource(ConnectionProperties.SCIENCE_PAPER_ID,
+					String.format(XUpdateTemplate.APPEND, ConnectionProperties.SCIENCE_PAPERS_NAMESPACE, "//SciencePapers", writer.toString()));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+    }
 	public void delete(String documentId) throws Exception {
 		TSciencePaper sciencePaper = this.findByDocumentId(documentId);
 		if (sciencePaper == null) {
@@ -203,14 +246,14 @@ public class SciencePapersRepository {
 		return Integer.toString(indexOfSciencePaper + 1);
 	}
 
-	public Long update(TSciencePaper sciencePaper) throws Exception {
-		String documentId = sciencePaper.getDocumentId();
-		if (!this.doesPaperExist(sciencePaper.getPaperData().getTitle().getDocumentTitle())) {
-			throw new ResourceNotFoundException("Science paper with document id: '" + documentId + "' not found");
-		}
+	public Long update(XMLDTO paperXMLDto) throws Exception {
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+		TSciencePaper sciencePaper = (TSciencePaper) unmarshaller.unmarshal(new StringReader(paperXMLDto.getXml()));
+
 		XUpdateQueryService updateQueryService = ConnectionProperties.getXUpdateQueryService(collection);
 		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+			jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
             StringWriter writer = new StringWriter();

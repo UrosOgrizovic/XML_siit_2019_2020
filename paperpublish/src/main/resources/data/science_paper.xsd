@@ -38,7 +38,6 @@
         <xs:sequence>
             <xs:element name="PaperData" type="Papers:TPaperData"> </xs:element>
             <xs:element maxOccurs="unbounded" name="Paragraf" type="Papers:TParagraf"/>
-
             <xs:element name="Citations" type="Papers:TCitations" minOccurs="0">
                 <xs:key name="citation_refrence">
                     <xs:selector xpath=".//*"/>
@@ -103,6 +102,9 @@
             <xs:element name="PublicationDate" type="xs:date"/>
             <xs:element name="Citation" type="xs:string"/>
             <xs:element name="DocumentLink" type="xs:string"/>
+            <xs:element name="Keywords" type="Papers:TKeywords">
+
+            </xs:element>
             <xs:element maxOccurs="unbounded" name="Author" type="Papers:TAuthors">
 
                 <xs:keyref name="authors" refer="Users:userName">
@@ -191,6 +193,12 @@
         <xs:sequence>
             <xs:element name="authorUserName" maxOccurs="unbounded" type="xs:string"/>
             <xs:element maxOccurs="unbounded" name="authorInstitution" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="TKeywords">
+        <xs:sequence>
+            <xs:element name="keyword" maxOccurs="unbounded" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 
