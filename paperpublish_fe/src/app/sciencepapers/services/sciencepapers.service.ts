@@ -10,6 +10,9 @@ import { SciencePaper } from '../../models/science-paper.model';
 const ENDPOINTS = {
   GET_ALL: `/sciencepapers/findall`,
   CREATE: `/sciencepapers`,
+
+  DOWNLOAD_HTML: (id: number) => `/sciencepapers/downloadHTML/${id}`,
+  DOWNLOAD_PDF: (id: number) => `/sciencepapers/downloadPDF/${id}`,
   DELETE: (id) => `/sciencepapers/${id}`,
   GET_ONE: (id) => `/sciencepapers/${id}`,
   UPDATE: (id) => `/sciencepapers`
@@ -77,6 +80,22 @@ export class SciencePapersService extends BaseService {
           console.log(res)
         })
       )
+  }
+
+  downloadHTML(id: number) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.DOWNLOAD_HTML(id)}`, {responseType: 'blob'}).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
+  }
+
+  downloadPDF(id: number) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.DOWNLOAD_PDF(id)}`, {responseType: 'blob'}).pipe(
+      map((res: any) => {
+        return res;
+      })
+    );
   }
   
 }

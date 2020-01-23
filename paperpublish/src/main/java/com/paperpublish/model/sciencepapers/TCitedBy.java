@@ -16,16 +16,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TCitations complex type.
+ * <p>Java class for TCitedBy complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TCitations">
+ * &lt;complexType name="TCitedBy">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="citation" type="{http://localhost:8080/SciencePapers}TCiter" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="citer" type="{http://localhost:8080/SciencePapers}TCiter" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,26 +35,26 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TCitations", propOrder = {
-    "citation"
+@XmlType(name = "TCitedBy", propOrder = {
+    "citer"
 })
-public class TCitations {
+public class TCitedBy {
 
-    protected List<TCiter> citation;
+    protected List<TCiter> citer;
 
     /**
-     * Gets the value of the citation property.
+     * Gets the value of the citer property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the citation property.
+     * This is why there is not a <CODE>set</CODE> method for the citer property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getCitation().add(newItem);
+     *    getCiter().add(newItem);
      * </pre>
      * 
      * 
@@ -64,11 +64,11 @@ public class TCitations {
      * 
      * 
      */
-    public List<TCiter> getCitation() {
-        if (citation == null) {
-            citation = new ArrayList<TCiter>();
+    public List<TCiter> getCiter() {
+        if (citer == null) {
+            citer = new ArrayList<TCiter>();
         }
-        return this.citation;
+        return this.citer;
     }
 
 }
