@@ -1,5 +1,7 @@
 package com.paperpublish.repository;
 
+import com.paperpublish.model.DTO.XMLDTO;
+import com.paperpublish.model.sciencepapers.ObjectFactory;
 import com.paperpublish.model.sciencepapers.SciencePapers;
 import com.paperpublish.model.sciencepapers.TAuthors;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
@@ -244,14 +246,14 @@ public class SciencePapersRepository {
 		return Integer.toString(indexOfSciencePaper + 1);
 	}
 
-	public Long update(TSciencePaper sciencePaper) throws Exception {
-		String documentId = sciencePaper.getDocumentId();
-		if (!this.doesPaperExist(sciencePaper.getPaperData().getTitle().getDocumentTitle())) {
-			throw new ResourceNotFoundException("Science paper with document id: '" + documentId + "' not found");
-		}
+	public Long update(XMLDTO paperXMLDto) throws Exception {
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+		TSciencePaper sciencePaper = (TSciencePaper) unmarshaller.unmarshal(new StringReader(paperXMLDto.getXml()));
+
 		XUpdateQueryService updateQueryService = ConnectionProperties.getXUpdateQueryService(collection);
 		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+			jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
             StringWriter writer = new StringWriter();

@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'science-papers/add-new',
     component: SciencePaperFormComponent
+  },
+  {
+    path: 'science-papers/edit/:id',
+    component: SciencePaperFormComponent
   }
 ];
 
