@@ -1,6 +1,7 @@
 package com.paperpublish.model.DTO;
 
 
+import com.paperpublish.model.users.Roles;
 import com.paperpublish.model.users.User;
 
 public class UserDTO {
@@ -17,6 +18,8 @@ public class UserDTO {
     
     private String institution;
 
+    private Roles roles;
+
     public UserDTO() {
         this.token = null;
     }
@@ -30,6 +33,7 @@ public class UserDTO {
         this.email = user.getEMail();
         this.username = user.getUsername();
         this.institution = user.getInstitution();
+        this.roles = user.getRoles();
     }
 
     public UserDTO(User user, String token){
@@ -38,6 +42,7 @@ public class UserDTO {
         this.username = user.getUsername();
         this.token = token;
         this.institution = user.getInstitution();
+        this.roles = user.getRoles();
     }
 
     public String getToken() {
@@ -87,4 +92,12 @@ public class UserDTO {
 	public void setInstitution(String institution) {
 		this.institution = institution;
 	}
+
+    public Roles getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
 }

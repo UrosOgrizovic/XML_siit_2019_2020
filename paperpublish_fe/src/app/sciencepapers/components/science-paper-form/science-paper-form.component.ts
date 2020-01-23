@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { SciencePapersService } from '../../services/sciencepapers.service';
 import { CoverLettersService } from '../../services/coverletters.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 declare global {
   interface Window { Xonomy: any; }
 }
 let Xonomy = window.Xonomy || {};
 
-const SCIENCE_PAPER_SPECIFICATION = {
+const CREATE_SCIENCE_PAPER_SPECIFICATION = {
   elements: {
     "Papers:SciencePaper": {
       menu: [
@@ -238,6 +241,238 @@ const SCIENCE_PAPER_SPECIFICATION = {
   }
 }
 
+const UPDATE_SCIENCE_PAPER_SPECIFICATION = {
+  elements: {
+    "SciencePaper": {
+      menu: [
+        {
+          caption: "Add paper data",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:PaperData xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:PaperData>",
+          hideIf: function(jsElement) {
+            return jsElement.hasChildElement("Papers:PaperData");
+          }
+        },
+        {
+          caption: "Add a paragraph",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:Paragraf xmlns:Papers='http://localhost:8080/SciencePapers'><Papers:content>Placeholder text</Papers:content></Papers:Paragraf>"
+        },
+        {
+          caption: "Add a citation",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:Citations xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:Citations>"
+        },
+        {
+          caption: "Add cited by segment",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:CitedBy xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:CitedBy>"
+        }
+      ]
+    },
+    "PaperData": {
+      menu:[
+        {
+          caption: "Add title",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:Title xmlns:Papers='http://localhost:8080/SciencePapers' property='pred:title'>Placeholder text</Papers:Title>",
+          hideIf: function(jsElement) {
+            return jsElement.hasChildElement("Papers:Title");
+          }          
+        },
+        {
+          caption: "Add @numberOfReferences='something'",
+          action: Xonomy.newAttribute,
+          actionParameter: {name: "numberOfReferences", value: "something"},
+          hideIf: function(jsElement){
+            return jsElement.hasAttribute("numberOfReferences");
+          }
+        },
+        {
+          caption: "Add @contact='something'",
+          action: Xonomy.newAttribute,
+          actionParameter: {name: "contact", value: "something"},
+          hideIf: function(jsElement){
+            return jsElement.hasAttribute("contact");
+          }
+        },
+        {
+          caption: "Add @numberOfDownloads='something'",
+          action: Xonomy.newAttribute,
+          actionParameter: {name: "numberOfDownloads", value: "something"},
+          hideIf: function(jsElement){
+            return jsElement.hasAttribute("numberOfDownloads");
+          }
+        },
+        {
+          caption: "Add short title",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:ShortTitle xmlns:Papers='http://localhost:8080/SciencePapers' property='pred:shortTitle'>Placeholder text</Papers:ShortTitle>",
+          hideIf: function(jsElement) {
+            return jsElement.hasChildElement("Papers:ShortTitle");
+          }
+        },
+        {
+          caption: "Add a publication date",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:PublicationDate xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:PublicationDate>",
+        },
+        {
+          caption: "Add a citation",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:Citation xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:Citation>",
+        },
+        {
+          caption: "Add a document link",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:DocumentLink xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:DocumentLink>"
+        },
+        {
+          caption: "Add author",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:Author xmlns:Papers='http://localhost:8080/SciencePapers'><Papers:authorUserName property='pred:authorUserName'>Placeholder text</Papers:authorUserName></Papers:Author>"
+        },
+        {
+          caption: "Add download info",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:DownloadInformation xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:DownloadInformation>"
+        }
+      ],
+      attributes: {
+        "numberOfReferences": {
+          asker: Xonomy.askString,
+          menu: [
+            {
+              caption: "Delete this attribute",
+              action: Xonomy.deleteAttribute
+            }
+          ]
+        },
+        "contact": {
+          asker: Xonomy.askString,
+          menu: [
+            {
+              caption: "Delete this attribute",
+              action: Xonomy.deleteAttribute
+            }
+          ]
+        },
+        "numberOfDownloads": {
+          asker: Xonomy.askString,
+          menu: [
+            {
+              caption: "Delete this attribute",
+              action: Xonomy.deleteAttribute
+            }
+          ]
+        }
+      }
+    },
+    "Title": {
+      menu:[
+        {
+          caption: "Add @documentTitle='something'",
+          action: Xonomy.newAttribute,
+          actionParameter: {name: "documentTitle", value: "something"},
+          hideIf: function(jsElement){
+            return jsElement.hasAttribute("documentTitle");
+          }
+        },
+        {
+          caption: "Delete this element",
+          action: Xonomy.deleteElement
+        }
+      ],
+      attributes: {
+        "documentTitle": {
+          asker: Xonomy.askString,
+          menu: [{
+            caption: "Delete this attribute",
+            action: Xonomy.deleteAttribute
+          }]
+        }
+      }
+    },
+    "DownloadInformation": {
+      menu: [
+        {
+          caption: "Add a recommended paper",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:RecommendedPaper xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:RecommendedPaper>"
+        }
+      ]
+    },
+    "content": {
+      menu: [
+        {
+          caption: "Add quote",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:quote xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:quote>"
+        }
+      ]
+    },
+    "quote": {
+      menu: [
+        {
+          caption: "Add @citation='something'",
+          action: Xonomy.newAttribute,
+          actionParameter: {name: "citation", value: "something"},
+          hideIf: function(jsElement){
+            return jsElement.hasAttribute("citation");
+          }
+        },
+        {
+          caption: "Delete this element",
+          action: Xonomy.deleteElement
+        }
+      ],
+      attributes: {
+        "citation": {
+          asker: Xonomy.askString,
+          menu: [{
+            caption: "Delete this attribute",
+            action: Xonomy.deleteAttribute
+          }]
+        }
+      },
+      "Citations": {
+        menu: [
+          {
+            caption: "Add a citation",
+            action: Xonomy.newElementChild,
+            actionParameter: "<Papers:citation xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:citation>"
+          }
+        ]
+      },
+      "citation": {
+        menu: [
+          {
+            caption: "Add @cID='something'",
+            action: Xonomy.newAttribute,
+            actionParameter: {name: "cID", value: "something"},
+            hideIf: function(jsElement){
+              return jsElement.hasAttribute("cID");
+            }
+          },
+          {
+            caption: "Delete this element",
+            action: Xonomy.deleteElement
+          }
+        ],
+        attributes: {
+          "cID": {
+            asker: Xonomy.askString,
+            menu: [{
+              caption: "Delete this attribute",
+              action: Xonomy.deleteAttribute
+            }]
+          }
+        }
+      }
+    }
+  }
+}
+
 const COVER_LETTER_SPECIFICATION = {
   elements: {
     "let:CoverLetter": {
@@ -378,19 +613,34 @@ const COVER_LETTER_SPECIFICATION = {
 export class SciencePaperFormComponent implements OnInit {
 
   xmlSciencePaperContent: string = "<Papers:SciencePaper status='in_procedure' versionId='1' documentId='' xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:SciencePaper>";
-  xmlCoverLetterContent = "<let:CoverLetter xmlns:let='http://localhost:8080/Letter'></let:CoverLetter>";
+  // xmlCoverLetterContent = "<let:CoverLetter xmlns:let='http://localhost:8080/Letter'></let:CoverLetter>";
   // xmlSciencePaperContent = "<Papers:SciencePaper versionId='1' documentId='' xmlns:Papers='http://localhost:8080/SciencePapers'><Papers:PaperData numberOfReferences='3' contact='sava@gmail.com' numberOfDownloads='3'><Papers:ShortTitle property='pred:shortTitle' xml:space='preserve'>NEKI TAJTL dobar</Papers:ShortTitle><Papers:Author><Papers:authorUserName property='pred:authorUserName' xml:space='preserve'>user</Papers:authorUserName></Papers:Author><Papers:DocumentLink xml:space='preserve'>neki link</Papers:DocumentLink><Papers:Title property='pred:title' documentTitle='something' xml:space='preserve'>neki tajtl bas dobar</Papers:Title></Papers:PaperData><Papers:Paragraf><Papers:content xml:space='preserve'>PARAGRAAAAAAAF</Papers:content></Papers:Paragraf></Papers:SciencePaper>";
-  // xmlCoverLetterContent = "<let:CoverLetter journalName='something' journalAddress='something' manuscriptTitle='something' articleType='research' xmlns:let='http://localhost:8080/Letter'><let:Author><let:FullName xml:space='preserve'>Placeholder text</let:FullName><let:Institution xml:space='preserve'>Placeholder text</let:Institution><let:EMail xml:space='preserve'>Placeholder text</let:EMail></let:Author><let:Content xml:space='preserve'>Placeholder text</let:Content></let:CoverLetter>";
+  xmlCoverLetterContent = "<let:CoverLetter journalName='something' journalAddress='something' manuscriptTitle='something' articleType='research' xmlns:let='http://localhost:8080/Letter'><let:Author><let:FullName xml:space='preserve'>Placeholder text</let:FullName><let:Institution xml:space='preserve'>Placeholder text</let:Institution><let:EMail xml:space='preserve'>Placeholder text</let:EMail></let:Author><let:Content xml:space='preserve'>Placeholder text</let:Content></let:CoverLetter>";
   isSciencePaperMade = false;
   submitButtonLabel = "Next";
+  isEditMode = false;
+
+  private routeSub: Subscription;
+
 
   constructor(
+    private route: ActivatedRoute,
     private sciencePapersService: SciencePapersService,
     private coverLettersService: CoverLettersService
   ) { }
 
   ngOnInit() {
-    Xonomy.render(this.xmlSciencePaperContent, document.getElementById("editor"), SCIENCE_PAPER_SPECIFICATION)
+    this.routeSub = this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.sciencePapersService.getOne(params['id']).subscribe((data: any) => {
+          this.xmlSciencePaperContent = data;
+          Xonomy.render(this.xmlSciencePaperContent, document.getElementById("editor"), UPDATE_SCIENCE_PAPER_SPECIFICATION)
+          this.isEditMode = true;
+        })
+      } else {
+        Xonomy.render(this.xmlSciencePaperContent, document.getElementById("editor"), CREATE_SCIENCE_PAPER_SPECIFICATION)
+      }
+    });
   }
 
   switchMode() {
@@ -405,15 +655,36 @@ export class SciencePaperFormComponent implements OnInit {
     }
 
     this.xmlCoverLetterContent = Xonomy.harvest();
-
-    this.sciencePapersService.create({
-      "xml": this.xmlSciencePaperContent
-    }).subscribe((data: any) => {
-      this.coverLettersService.create({
-        "xml": this.xmlCoverLetterContent
+    if (!this.isEditMode) {
+      this.sciencePapersService.create({
+        "xml": this.xmlSciencePaperContent
       }).subscribe((data: any) => {
-        console.log(data);
+        this.coverLettersService.create({
+          "xml": this.xmlCoverLetterContent
+        }).subscribe((data: any) => {
+          console.log(data);
+        })
       })
-    })
+    }
+    else {
+      let documentId = this.xmlSciencePaperContent.match(new RegExp("documentId=(\"|\')[0-9]+(\"|\')"))[0].match(new RegExp("[0-9]+"));
+      this.xmlSciencePaperContent = this.xmlSciencePaperContent.replace(new RegExp("versionId=(\"|\')[0-9]+(\"|\')"), (labelAndValue) => {
+        return labelAndValue.replace(new RegExp("[0-9]+"), (value) => {
+          let newValue = parseInt(value);
+          newValue += 1;
+          return newValue.toString();
+        })
+      });
+      this.sciencePapersService.update(documentId, {
+        "xml": this.xmlSciencePaperContent
+      }).subscribe((data: any) => {
+        this.coverLettersService.create({
+          "xml": this.xmlCoverLetterContent
+        }).subscribe((data: any) => {
+          console.log(data);
+        })
+      })
+    }
+    
   }
 }

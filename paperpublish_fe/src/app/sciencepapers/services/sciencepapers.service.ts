@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response } from "@angular/http";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -10,7 +10,9 @@ import { SciencePaper } from '../../models/science-paper.model';
 const ENDPOINTS = {
   GET_ALL: `/sciencepapers/findall`,
   CREATE: `/sciencepapers`,
-  DELETE: (id) => `/sciencepapers/${id}`
+  DELETE: (id) => `/sciencepapers/${id}`,
+  GET_ONE: (id) => `/sciencepapers/${id}`,
+  UPDATE: (id) => `/sciencepapers`
 }
 
 
@@ -38,7 +40,13 @@ export class SciencePapersService extends BaseService {
   }
 
   getOne(id: number) {
-    // TO-DO: Implement
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_ONE(id)}`, {responseType: 'text'})
+      .pipe(
+        map((res: any) => {
+          console.log(res)
+          return res;
+        })
+      )
   }
 
   delete(id: number) {
@@ -57,8 +65,16 @@ export class SciencePapersService extends BaseService {
     return this.http.post(`${this.baseUrl}${ENDPOINTS.CREATE}`, data)
       .pipe(
         map((res: any) => {
-          let response = res;
-          console.log(response);
+          console.log(res);
+        })
+      )
+  }
+
+  update(id, data: any) {
+    return this.http.put(`${this.baseUrl}${ENDPOINTS.UPDATE(id)}`, data)
+      .pipe(
+        map((res: any) => {
+          console.log(res)
         })
       )
   }
