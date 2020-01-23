@@ -18,7 +18,10 @@
             <Papers:DocumentLink>
                 https://doi.org/10.1108/JD-01-2016-0007
             </Papers:DocumentLink>
-            
+            <Papers:Keywords>
+                <Papers:keyword>will</Papers:keyword>
+                <Papers:keyword>product</Papers:keyword>
+            </Papers:Keywords>
             
             <Papers:Author>
                 <Papers:authorUserName property="pred:authorUserName">UserName0</Papers:authorUserName>

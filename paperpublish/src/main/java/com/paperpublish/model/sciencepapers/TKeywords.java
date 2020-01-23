@@ -17,16 +17,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TDownloadInformation complex type.
+ * <p>Java class for TKeywords complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TDownloadInformation">
+ * &lt;complexType name="TKeywords">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="RecommendedPaper" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="keyword" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,27 +36,27 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TDownloadInformation", propOrder = {
-    "recommendedPaper"
+@XmlType(name = "TKeywords", propOrder = {
+    "keyword"
 })
-public class TDownloadInformation {
+public class TKeywords {
 
-    @XmlElement(name = "RecommendedPaper")
-    protected List<String> recommendedPaper;
+    @XmlElement(required = true)
+    protected List<String> keyword;
 
     /**
-     * Gets the value of the recommendedPaper property.
+     * Gets the value of the keyword property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the recommendedPaper property.
+     * This is why there is not a <CODE>set</CODE> method for the keyword property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getRecommendedPaper().add(newItem);
+     *    getKeyword().add(newItem);
      * </pre>
      * 
      * 
@@ -66,11 +66,11 @@ public class TDownloadInformation {
      * 
      * 
      */
-    public List<String> getRecommendedPaper() {
-        if (recommendedPaper == null) {
-            recommendedPaper = new ArrayList<String>();
+    public List<String> getKeyword() {
+        if (keyword == null) {
+            keyword = new ArrayList<String>();
         }
-        return this.recommendedPaper;
+        return this.keyword;
     }
 
 }

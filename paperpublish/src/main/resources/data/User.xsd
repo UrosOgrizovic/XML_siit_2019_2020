@@ -30,6 +30,7 @@
                 <xs:element name="Password" type="xs:string"/>
                 <xs:element name="FullName" type="xs:string"/>
                 <xs:element name="Institution" type="xs:string"/>
+                <xs:element name="Expertise" type="xs:string"/>
                 <xs:element name="EMail">
                     <xs:simpleType>
                         <xs:restriction base="xs:string"/>
