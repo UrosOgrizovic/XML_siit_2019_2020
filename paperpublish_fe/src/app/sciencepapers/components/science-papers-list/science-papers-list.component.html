@@ -16,12 +16,12 @@
   </ng-container>
 
   <ng-container matColumnDef="downloadHTML">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="mat-18">cloud_download</mat-icon></th>
+    <th mat-header-cell *matHeaderCellDef><mat-icon class="mat-18">cloud_download</mat-icon></th>
     <td mat-cell *matCellDef="let sciencePaper"><a href="javascript:void(0)" (click)="downloadHTML(sciencePaper.documentId)">HTML</a></td>
   </ng-container>
 
   <ng-container matColumnDef="downloadPDF">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header><mat-icon class="mat-18">cloud_download</mat-icon></th>
+    <th mat-header-cell *matHeaderCellDef><mat-icon class="mat-18">cloud_download</mat-icon></th>
     <td mat-cell *matCellDef="let sciencePaper"><a href="javascript:void(0)" (click)="downloadPDF(sciencePaper.documentId)">PDF</a></td>
   </ng-container>
   

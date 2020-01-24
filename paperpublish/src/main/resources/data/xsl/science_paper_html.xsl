@@ -20,15 +20,36 @@
     
     
     <xsl:template match="/">
-        <html xmlns="http://www.w3.org/1999/xhtml">
-            <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-                <title>Science papers</title>
-            </head>
-            <body style="font-size: 14pt;">
-                <xsl:for-each select="Papers:SciencePapers/Papers:SciencePaper">
-                    <xsl:sort select="@documentId"/>
-                    <xsl:if test="@documentId = $document_id">
+        <xsl:for-each select="Papers:SciencePapers/Papers:SciencePaper">
+            <xsl:sort select="@documentId"/>
+            <xsl:if test="@documentId = $document_id">
+                
+                <xsl:variable name="accepted" select="@accepted"/>
+                <xsl:variable name="status" select="@status"/>
+                <xsl:variable name="versionId" select="@versionId"/>
+                <xsl:variable name="numberOfReferences" select="Papers:PaperData/@numberOfReferences"/>
+                <xsl:variable name="numberOfDownloads" select="Papers:PaperData/@numberOfDownloads"/>
+                <xsl:variable name="contact" select="Papers:PaperData/@contact"/>
+                
+                
+                
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                    <head>
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+                        
+                        
+                        <meta name="accepted"><xsl:attribute name="content"><xsl:value-of select="$accepted"></xsl:value-of></xsl:attribute></meta>
+                        <meta name="status"><xsl:attribute name="content"><xsl:value-of select="$status"></xsl:value-of></xsl:attribute></meta>
+                        <meta name="numberOfReferences"><xsl:attribute name="content"><xsl:value-of select="$numberOfReferences"></xsl:value-of></xsl:attribute></meta>
+                        <meta name="numberOfDownloads"><xsl:attribute name="content"><xsl:value-of select="$numberOfDownloads"></xsl:value-of></xsl:attribute></meta>
+                        <meta name="contact"><xsl:attribute name="content"><xsl:value-of select="$contact"></xsl:value-of></xsl:attribute></meta>
+                        <meta name="versionId"><xsl:attribute name="content"><xsl:value-of select="$versionId"></xsl:value-of></xsl:attribute></meta>
+                        <title>Science paper</title>
+                    </head>
+                    <body style="font-size: 14pt;">
+                    
+                    
+                    
                         <div>    
                             <div style="display: inline; margin-right: 1em; margin-top: 1em;">
                                 <xsl:value-of select="@documentId"/>
@@ -104,36 +125,9 @@
                             </div>
                         </div>
                         <hr/>
-                    </xsl:if>
-                </xsl:for-each>
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                <!--                 
-                <table>
-                    <tr>
-                        <th>Currency</th>
-                        <th>Rate</th>
-                    </tr>
-                    <xsl:for-each select="/gesmes:Envelope/ecb:Cube/ecb:Cube/ecb:Cube">
-                        <tr>
-                            <td>
-                                <b><xsl:value-of select="@currency"/></b>
-                            </td>
-                            <td>
-                                <xsl:value-of select="@rate"/>
-                            </td>
-                        </tr>
-                    </xsl:for-each>
-                </table>
-                 -->
-            </body>
-        </html>
+                    </body>
+                </html>
+            </xsl:if>
+        </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>

@@ -60,9 +60,6 @@ public class XSLFOTransformer {
 	}
 
 	public ByteArrayOutputStream generatePDF(String documentId) throws Exception {
-
-		System.out.println("[INFO] " + XSLFOTransformer.class.getSimpleName());
-		
 		// Point to the XSL-FO file
 		File xslPdfFile = new File(SCIENCE_PAPER_XSL_PDF_FILE);
 
@@ -96,8 +93,6 @@ public class XSLFOTransformer {
 	}
 	
 	public ByteArrayOutputStream generateHTML(String documentId) throws Exception {
-		System.out.println("[INFO] " + XSLFOTransformer.class.getSimpleName());
-		
 		// Point to the XSL-FO file
 		File xslHtmlFile = new File(SCIENCE_PAPER_XSL_HTML_FILE);
 

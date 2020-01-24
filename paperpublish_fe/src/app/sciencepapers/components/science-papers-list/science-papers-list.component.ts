@@ -84,7 +84,7 @@ export class SciencePapersListComponent implements OnInit {
   }
 
   downloadPDF(id: number) {
-    this.sciencePapersService.downloadPDF(id).subscribe(result => {
+    this.sciencePapersService.getPDF(id).subscribe(result => {
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(result);
         return;
@@ -107,7 +107,7 @@ export class SciencePapersListComponent implements OnInit {
   }
 
   downloadHTML(id: number) {
-    this.sciencePapersService.downloadHTML(id).subscribe(result => {
+    this.sciencePapersService.getHTML(id, 'blob').subscribe(result => {
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(result);
         return;

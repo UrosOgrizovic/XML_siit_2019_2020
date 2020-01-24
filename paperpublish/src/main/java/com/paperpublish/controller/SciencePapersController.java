@@ -113,8 +113,8 @@ public class SciencePapersController {
 		}
     }
     
-    @GetMapping(path = "downloadPDF/{documentId}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<?> downloadPDF(@PathVariable String documentId) {
+    @GetMapping(path = "getPDF/{documentId}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> getPDF(@PathVariable String documentId) {
     	try {
     		ByteArrayOutputStream out = xslfoTransformer.generatePDF(documentId);
     		InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(out.toByteArray()));
@@ -130,8 +130,8 @@ public class SciencePapersController {
     }
     
     
-    @GetMapping(path = "downloadHTML/{documentId}", produces = MediaType.APPLICATION_XHTML_XML_VALUE)
-    public ResponseEntity<?> downloadHTML(@PathVariable String documentId) {
+    @GetMapping(path = "getHTML/{documentId}", produces = MediaType.APPLICATION_XHTML_XML_VALUE)
+    public ResponseEntity<?> getHTML(@PathVariable String documentId) {
     	try {
     		ByteArrayOutputStream out = xslfoTransformer.generateHTML(documentId);
     		InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(out.toByteArray()));
