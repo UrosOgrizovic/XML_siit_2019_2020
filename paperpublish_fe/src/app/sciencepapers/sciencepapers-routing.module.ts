@@ -3,6 +3,7 @@ import { SciencePapersPageComponent } from './components/science-papers-page/sci
 import { Routes, RouterModule } from '@angular/router';
 import { SciencePaperFormComponent } from './components/science-paper-form/science-paper-form.component';
 import { SciencePaperDetailsComponent } from './components/science-paper-details/science-paper-details.component';
+import { SciencePapersByLoggedInUserComponent } from './components/science-papers-by-logged-in-user/science-papers-by-logged-in-user.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'science-papers/detail/:id',
     component: SciencePaperDetailsComponent
+  },
+  {
+    path: 'my-science-papers',
+    component: SciencePapersByLoggedInUserComponent
   }
 ];
 

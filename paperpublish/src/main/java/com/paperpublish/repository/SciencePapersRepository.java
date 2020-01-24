@@ -78,6 +78,24 @@ public class SciencePapersRepository {
 
 		return paperList;
 	}
+	
+	public List<TSciencePaper> getByAuthorUsername(String username) throws Exception {
+		XPathQueryService queryService = ConnectionProperties.getXPathService(collection);
+		queryService.setNamespace("",ConnectionProperties.SCIENCE_PAPERS_NAMESPACE);
+		ResourceSet result = queryService.query("//SciencePapers/SciencePaper[./PaperData/Author/authorUserName[text()='"+username+"']]");
+
+		JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+		ResourceIterator i = result.getIterator();
+		List<TSciencePaper> paperList = new ArrayList<>();
+
+		while(i.hasMoreResources()) {
+			paperList.add((TSciencePaper) unmarshaller.unmarshal(new StringReader(i.nextResource().getContent().toString())));
+		}
+
+		return paperList;
+	}
 
     public SciencePapers getAllXML() throws Exception {
         XMLResource resource = (XMLResource) collection.getResource(ConnectionProperties.SCIENCE_PAPER_ID);

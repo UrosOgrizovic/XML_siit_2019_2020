@@ -86,4 +86,15 @@ public class SciencePapersService {
 		}
 		
 	}
+
+	public List<TSciencePaper> getByAuthorUsername(String username) {
+		List<TSciencePaper> papers = null;
+        try {
+            papers = sciencePapersRepository.getByAuthorUsername(username);
+        }catch (Exception e){
+        	e.printStackTrace();
+        }
+        return papers;
+		
+	}
 }
