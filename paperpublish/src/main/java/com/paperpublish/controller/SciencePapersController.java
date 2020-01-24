@@ -5,6 +5,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.paperpublish.model.DTO.TSciencePaperDTO;
 import com.paperpublish.model.DTO.XMLDTO;
+import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.service.SciencePapersService;
 import com.paperpublish.utils.XSLFOTransformer;
 
@@ -139,6 +141,22 @@ public class SciencePapersController {
     	            .contentLength(out.size())
     	            .contentType(MediaType.parseMediaType("application/xhtml+xml"))
     	            .body(resource); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+    }
+    
+    @GetMapping(path = "getByAuthorUsername/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getByAuthorUsername(@PathVariable String username) {
+    	try {
+    		List<TSciencePaper> papersOfAuthor = sciencePapersService.getByAuthorUsername(username);
+    		if (papersOfAuthor != null) {
+    			return ResponseEntity.ok(papersOfAuthor);
+    		} else {
+    			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    		}
+    		
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
