@@ -11,8 +11,8 @@ const ENDPOINTS = {
   GET_ALL: `/sciencepapers/findall`,
   CREATE: `/sciencepapers`,
 
-  DOWNLOAD_HTML: (id: number) => `/sciencepapers/downloadHTML/${id}`,
-  DOWNLOAD_PDF: (id: number) => `/sciencepapers/downloadPDF/${id}`,
+  GET_HTML: (id: number) => `/sciencepapers/getHTML/${id}`,
+  GET_PDF: (id: number) => `/sciencepapers/getPDF/${id}`,
   DELETE: (id) => `/sciencepapers/${id}`,
   GET_ONE: (id) => `/sciencepapers/${id}`,
   UPDATE: (id) => `/sciencepapers`
@@ -82,16 +82,25 @@ export class SciencePapersService extends BaseService {
       )
   }
 
-  downloadHTML(id: number) {
-    return this.http.get(`${this.baseUrl}${ENDPOINTS.DOWNLOAD_HTML(id)}`, {responseType: 'blob'}).pipe(
-      map((res: any) => {
-        return res;
-      })
-    );
+  getHTML(id: number, resType: string) {
+  
+    if (resType === 'blob') {
+      return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_HTML(id)}`, {responseType: 'blob'}).pipe(
+        map((res: any) => {
+          return res;
+        })
+      );  
+    } else if (resType === 'text') {
+      return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_HTML(id)}`, {responseType: 'text'}).pipe(
+        map((res: any) => {
+          return res;
+        })
+      );  
+    }
   }
 
-  downloadPDF(id: number) {
-    return this.http.get(`${this.baseUrl}${ENDPOINTS.DOWNLOAD_PDF(id)}`, {responseType: 'blob'}).pipe(
+  getPDF(id: number) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_PDF(id)}`, {responseType: 'blob'}).pipe(
       map((res: any) => {
         return res;
       })
