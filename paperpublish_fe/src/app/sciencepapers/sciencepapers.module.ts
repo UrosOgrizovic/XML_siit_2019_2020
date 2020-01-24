@@ -7,9 +7,10 @@ import { SciencePapersMaterialModule } from './sciencepapers-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SciencePaperFormComponent } from './components/science-paper-form/science-paper-form.component';
 import { SciencePaperDetailsComponent } from './components/science-paper-details/science-paper-details.component';
+import { SciencePapersByLoggedInUserComponent } from './components/science-papers-by-logged-in-user/science-papers-by-logged-in-user.component';
 
 @NgModule({
-  declarations: [SciencePapersListComponent, SciencePapersPageComponent, SciencePaperFormComponent, SciencePaperDetailsComponent],
+  declarations: [SciencePapersListComponent, SciencePapersPageComponent, SciencePaperFormComponent, SciencePaperDetailsComponent, SciencePapersByLoggedInUserComponent],
   imports: [
     FlexLayoutModule,
     SciencePapersMaterialModule,

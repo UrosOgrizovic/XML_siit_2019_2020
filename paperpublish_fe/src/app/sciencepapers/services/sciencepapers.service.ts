@@ -15,7 +15,8 @@ const ENDPOINTS = {
   GET_PDF: (id: number) => `/sciencepapers/getPDF/${id}`,
   DELETE: (id) => `/sciencepapers/${id}`,
   GET_ONE: (id) => `/sciencepapers/${id}`,
-  UPDATE: (id) => `/sciencepapers`
+  UPDATE: (id) => `/sciencepapers`,
+  GET_BY_AUTHOR_USERNAME: (username) => `/sciencepapers/getByAuthorUsername/${username}`
 }
 
 
@@ -24,6 +25,7 @@ const ENDPOINTS = {
 })
 export class SciencePapersService extends BaseService {
   sciencePapers: SciencePaper[] = [];
+  sciencePapersOfAuthor: SciencePaper[] = [];
 
   constructor(private http: HttpClient) {
     super();
@@ -38,6 +40,20 @@ export class SciencePapersService extends BaseService {
             this.sciencePapers = response.map((sciencePaper: SciencePaper) => new SciencePaper().deserialize(sciencePaper))
           }
           return this.sciencePapers
+        })
+      )
+  }
+
+
+  getByAuthorUsername(username: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_BY_AUTHOR_USERNAME(username)}`)
+      .pipe(
+        map((res: any) => {
+          let response = res;
+          if (response) {
+            this.sciencePapersOfAuthor = response.map((sciencePaper: SciencePaper) => new SciencePaper().deserialize(sciencePaper))
+          }
+          return this.sciencePapersOfAuthor;
         })
       )
   }
