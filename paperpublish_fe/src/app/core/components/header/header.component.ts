@@ -9,7 +9,6 @@ import { User } from 'src/app/models/user.model';
 })
 export class HeaderComponent implements OnInit {
 
-  activeUser: User;
 
   constructor(private authService: AuthService) {
   }
@@ -18,6 +17,10 @@ export class HeaderComponent implements OnInit {
 
   get isUserLoggedIn() {
     return !!this.authService.activeUser;
+  }
+
+  get userType() {
+    return this.authService.activeUser && this.authService.activeUser.roles.role[0]
   }
   
 

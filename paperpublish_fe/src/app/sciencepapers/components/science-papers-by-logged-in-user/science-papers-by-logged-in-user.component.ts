@@ -35,11 +35,13 @@ export class SciencePapersByLoggedInUserComponent implements OnInit {
     this.initializeDataSource();
   }
 
+  redirectToAddNewPage() {
+    return this.router.navigate(['/science-papers/add-new'])
+  }
+
   initializeDataSource() {
     this.dataSource  = new MatTableDataSource<SciencePaper>();
     this.dataSource.data = this.sciencePapers || [];
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
   }
 
   getAuthorNames(sciencePaper) {

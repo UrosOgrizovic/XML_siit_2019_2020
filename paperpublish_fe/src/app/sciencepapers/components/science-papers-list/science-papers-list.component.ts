@@ -14,7 +14,7 @@ import { MessageService } from 'src/app/shared/services/message.service';
 export class SciencePapersListComponent implements OnInit {
   @Input() sciencePapers: SciencePaper[];
 
-  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'details', 'update', 'delete'];
+  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author'];
 
   dataSource: MatTableDataSource<SciencePaper>;
 
@@ -39,8 +39,6 @@ export class SciencePapersListComponent implements OnInit {
   initializeDataSource() {
     this.dataSource  = new MatTableDataSource<SciencePaper>();
     this.dataSource.data = this.sciencePapers || [];
-    this.dataSource.sort = this.sort
-    this.dataSource.paginator = this.paginator;
   }
 
   getAuthorNames(sciencePaper) {

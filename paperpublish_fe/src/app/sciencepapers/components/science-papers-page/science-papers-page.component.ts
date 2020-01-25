@@ -22,10 +22,6 @@ export class SciencePapersPageComponent implements OnInit {
     })
   }
 
-  redirectToAddNewPage() {
-    return this.router.navigate(['/science-papers/add-new'])
-  }
-
   
 
 }

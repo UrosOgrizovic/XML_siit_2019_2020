@@ -24,7 +24,7 @@ public class SciencePapersService {
     public List<TSciencePaper> getAll(){
         List<TSciencePaper> papers = null;
         try {
-            papers = sciencePapersRepository.getAllInProcedure();
+            papers = sciencePapersRepository.getAllAccepted();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
