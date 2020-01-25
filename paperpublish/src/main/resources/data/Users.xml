@@ -9,6 +9,10 @@
         <user:Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</user:Password>
         <user:FullName>User One</user:FullName>
         <user:Institution>Ns UNS</user:Institution>
+        <user:Expertises>
+            <user:expertise>production</user:expertise>
+            <user:expertise>agriculture</user:expertise>
+        </user:Expertises>
         <user:EMail property="pred:email" datatype="xs:string">EMail0</user:EMail>
         <user:Roles>
             <user:Role>ROLE_USER</user:Role>
@@ -19,6 +23,9 @@
         <user:Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</user:Password>
         <user:FullName>Editor</user:FullName>
         <user:Institution>NS UNS</user:Institution>
+        <user:Expertises>
+            <user:expertise>information technology</user:expertise>
+        </user:Expertises>
         <user:EMail property="pred:email" datatype="xs:string">EMail1</user:EMail>
         <user:Roles>
             <user:Role>ROLE_EDITOR</user:Role>

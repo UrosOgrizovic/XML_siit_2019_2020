@@ -1,12 +1,13 @@
 package com.paperpublish.service;
 
+import com.paperpublish.model.DTO.TSciencePaperDTO;
 import com.paperpublish.model.DTO.XMLDTO;
+import com.paperpublish.model.users.User;
+import com.paperpublish.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.paperpublish.model.DTO.TSciencePaperDTO;
 import com.paperpublish.model.sciencepapers.ObjectFactory;
-import com.paperpublish.model.sciencepapers.SciencePapers;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.repository.SciencePapersRepository;
 
@@ -17,6 +18,9 @@ public class SciencePapersService {
     @Autowired
     SciencePapersRepository sciencePapersRepository;
 
+    @Autowired
+	UsersRepository usersRepository;
+
     public List<TSciencePaper> getAll(){
         List<TSciencePaper> papers = null;
         try {
@@ -26,6 +30,17 @@ public class SciencePapersService {
         }
         return papers;
     }
+
+    public List<User> getProposals(String documentId) throws Exception {
+    	List<User> users = null;
+		try {
+			TSciencePaper paper = sciencePapersRepository.findByDocumentId(documentId);
+			users = usersRepository.getProposals(paper);
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+		return users;
+	}
 
     public List<TSciencePaper> getAllJsonAndFilter(String query) throws Exception {
     	return sciencePapersRepository.getAllJsonAndFilter(query);

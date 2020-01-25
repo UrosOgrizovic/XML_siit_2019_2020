@@ -198,7 +198,7 @@
     
     <xs:complexType name="TKeywords">
         <xs:sequence>
-            <xs:element name="keyword" maxOccurs="unbounded" type="xs:string"/>
+            <xs:element name="keyword" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
 

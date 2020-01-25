@@ -6,28 +6,27 @@
 //
 
 
-package com.paperpublish.model.sciencepapers;
+package com.paperpublish.model.users;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Java class for TExpertises complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
+ * &lt;complexType name="TExpertises">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="SciencePaper" type="{http://localhost:8080/SciencePapers}TSciencePaper" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="expertise" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -37,42 +36,41 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "sciencePaper"
+@XmlType(name = "TExpertises", propOrder = {
+    "expertise"
 })
-@XmlRootElement(name = "SciencePapers")
-public class SciencePapers {
+public class TExpertises {
 
-    @XmlElement(name = "SciencePaper")
-    protected List<TSciencePaper> sciencePaper;
+    @XmlElement(required = true)
+    protected List<String> expertise;
 
     /**
-     * Gets the value of the sciencePaper property.
+     * Gets the value of the expertise property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the sciencePaper property.
+     * This is why there is not a <CODE>set</CODE> method for the expertise property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getSciencePaper().add(newItem);
+     *    getExpertise().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link TSciencePaper }
+     * {@link String }
      * 
      * 
      */
-    public List<TSciencePaper> getSciencePaper() {
-        if (sciencePaper == null) {
-            sciencePaper = new ArrayList<TSciencePaper>();
+    public List<String> getExpertise() {
+        if (expertise == null) {
+            expertise = new ArrayList<String>();
         }
-        return this.sciencePaper;
+        return this.expertise;
     }
 
 }
