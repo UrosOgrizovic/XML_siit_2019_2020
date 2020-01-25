@@ -18,8 +18,6 @@ export class SciencePapersByLoggedInUserComponent implements OnInit {
 
   dataSource: MatTableDataSource<SciencePaper>;
 
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   
   constructor(private sciencePapersService: SciencePapersService, private router: Router, public dialog: MatDialog) { }
 
@@ -33,10 +31,6 @@ export class SciencePapersByLoggedInUserComponent implements OnInit {
 
   ngOnChanges() {
     this.initializeDataSource();
-  }
-
-  redirectToAddNewPage() {
-    return this.router.navigate(['/science-papers/add-new'])
   }
 
   initializeDataSource() {

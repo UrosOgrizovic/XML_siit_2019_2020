@@ -112,6 +112,13 @@
                     <xs:field xpath="."/>
                 </xs:keyref>
             </xs:element>
+            <xs:element maxOccurs="unbounded" name="Reviewer" type="Papers:TReviewers">
+
+                <xs:keyref name="reviewers" refer="Users:userName">
+                    <xs:selector xpath="Papers:Reviewer/Papers:reviewerUserName"/>
+                    <xs:field xpath="."/>
+                </xs:keyref>
+            </xs:element>
             <xs:element name="DownloadInformation" type="Papers:TDownloadInformation"/>
         </xs:sequence>
         <xs:attribute name="numberOfReferences" type="xs:positiveInteger"/>
@@ -193,6 +200,11 @@
         <xs:sequence>
             <xs:element name="authorUserName" maxOccurs="unbounded" type="xs:string"/>
             <xs:element maxOccurs="unbounded" name="authorInstitution" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="TReviewers">
+        <xs:sequence>
+            <xs:element name="reviewerUserName" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
         </xs:sequence>
     </xs:complexType>
     

@@ -264,14 +264,18 @@ public class SciencePapersRepository {
 		return Integer.toString(indexOfSciencePaper + 1);
 	}
 
-	public Long update(XMLDTO paperXMLDto) throws Exception {
+	public Long updateXML(XMLDTO paperXMLDto) throws Exception {
 		JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
 		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 		TSciencePaper sciencePaper = (TSciencePaper) unmarshaller.unmarshal(new StringReader(paperXMLDto.getXml()));
+		return this.update(sciencePaper);
+	}
+
+	public Long update(TSciencePaper sciencePaper) throws Exception {
 
 		XUpdateQueryService updateQueryService = ConnectionProperties.getXUpdateQueryService(collection);
 		try {
-			jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+			JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
             Marshaller marshaller = jaxbContext.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
             StringWriter writer = new StringWriter();

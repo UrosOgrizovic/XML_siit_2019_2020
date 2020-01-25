@@ -4,10 +4,7 @@ package com.paperpublish.security.repository;
 import com.paperpublish.model.users.ObjectFactory;
 import com.paperpublish.model.users.User;
 import com.paperpublish.model.users.Users;
-import com.paperpublish.utils.ConnectionProperties;
-import com.paperpublish.utils.FileUtil;
-import com.paperpublish.utils.SparqlUtil;
-import com.paperpublish.utils.XUpdateTemplate;
+import com.paperpublish.utils.*;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.*;
 import java.io.StringReader;
@@ -136,7 +133,7 @@ public class UserRepository{
         model.add(model.createStatement(resource,property,literal));
 
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        model.write(out,SparqlUtil.NTRIPLES);
+        model.write(out, SparqlUtil.NTRIPLES);
 
         String sparqlUpdate = SparqlUtil.insertData(ConnectionProperties.dataEndpoint + ConnectionProperties.USERS_METADATA, new String(out.toByteArray()));
         System.out.println(sparqlUpdate);

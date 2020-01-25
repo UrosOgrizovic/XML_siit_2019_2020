@@ -2,8 +2,10 @@ package com.paperpublish.service;
 
 import com.paperpublish.model.DTO.TSciencePaperDTO;
 import com.paperpublish.model.DTO.XMLDTO;
+import com.paperpublish.model.sciencepapers.TReviewers;
 import com.paperpublish.model.users.User;
 import com.paperpublish.repository.UsersRepository;
+import org.apache.fop.area.RegionViewport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class SciencePapersService {
     @Autowired
 	UsersRepository usersRepository;
 
-    public List<TSciencePaper> getAll(){
+    public List<TSciencePaper> getAllAccepted(){
         List<TSciencePaper> papers = null;
         try {
             papers = sciencePapersRepository.getAllAccepted();
@@ -30,6 +32,16 @@ public class SciencePapersService {
         }
         return papers;
     }
+
+    public List<TSciencePaper> getAll() {
+    	List<TSciencePaper> papers = null;
+    	try {
+    		papers = sciencePapersRepository.getAll();
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+		return papers;
+	}
 
     public List<User> getProposals(String documentId) throws Exception {
     	List<User> users = null;
@@ -95,7 +107,7 @@ public class SciencePapersService {
 	public void update(XMLDTO paperXMLDTO) throws Exception {
 		try {
 
-			sciencePapersRepository.update(paperXMLDTO);
+			sciencePapersRepository.updateXML(paperXMLDTO);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -112,4 +124,14 @@ public class SciencePapersService {
         return papers;
 		
 	}
+
+	public TSciencePaper addReviewer(String documentId, String userName) throws Exception {
+    	TSciencePaper paper = sciencePapersRepository.findByDocumentId(documentId);
+		TReviewers reviewer = new TReviewers();
+		reviewer.getReviewerUserName().add(userName);
+    	paper.getPaperData().getReviewer().add(reviewer);
+    	sciencePapersRepository.update(paper);
+    	return paper;
+	}
+
 }

@@ -1,0 +1,8 @@
+<select [(ngModel)]="proposal">
+  <option *ngFor="let user of proposals" 
+          [value]="user.userName" 
+          [attr.selected]="proposal==user.userName ? true : null">
+    {{user.userName}}
+  </option>
+</select>
+<button (click)="addReviewer()">Add</button>
