@@ -80,6 +80,7 @@
                 <xs:restriction base="xs:string">
                     <xs:enumeration value="in_procedure"/>
                     <xs:enumeration value="deleted"/>
+                    <xs:enumeration value="rejected"/>
                     <xs:enumeration value="accepted"/>
                 </xs:restriction>
             </xs:simpleType>

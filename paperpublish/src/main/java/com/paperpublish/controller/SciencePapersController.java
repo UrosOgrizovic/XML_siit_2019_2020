@@ -190,4 +190,29 @@ public class SciencePapersController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+
+	@GetMapping(path="{userName}/for-review", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getForReview(@PathVariable String userName) {
+		try {
+			return ResponseEntity.ok(sciencePapersService.getForReview(userName));
+		} catch(Exception e) {
+			if (e.getClass() == ResourceNotFoundException.class) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@PutMapping(path="{documentId}/status/{newStatus}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> changeStatus(@PathVariable String documentId, @PathVariable String newStatus) {
+    	try {
+    		return ResponseEntity.ok(sciencePapersService.changeStatus(documentId, newStatus));
+		} catch(Exception e) {
+			if (e.getClass() == ResourceNotFoundException.class) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
 }

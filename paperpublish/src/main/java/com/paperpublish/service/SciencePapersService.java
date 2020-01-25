@@ -134,4 +134,21 @@ public class SciencePapersService {
     	return paper;
 	}
 
+	public List<TSciencePaper> getForReview(String userName) {
+		List<TSciencePaper> papers = null;
+		try {
+			papers = sciencePapersRepository.getForReview(userName);
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+		return papers;
+	}
+
+	public TSciencePaper changeStatus(String documentId, String status) throws Exception {
+		TSciencePaper paper = sciencePapersRepository.findByDocumentId(documentId);
+		paper.setStatus(status);
+		sciencePapersRepository.update(paper);
+		return paper;
+	}
+
 }

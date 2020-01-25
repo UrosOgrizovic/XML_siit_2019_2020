@@ -73,7 +73,7 @@ export class SciencePapersListComponent implements OnInit {
 
   deleteEntry(id: number) {
     this.sciencePapersService.delete(id).subscribe((data: any) => {
-      // TO-DO: emit event
+      this.router.navigate(['/']);
     });
   }
 
