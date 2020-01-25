@@ -163,4 +163,16 @@ public class SciencePapersController {
 		}
     }
     
+
+    @GetMapping(path="{documentId}/proposals", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getProposals(@PathVariable String documentId) {
+    	try {
+    		return ResponseEntity.ok(sciencePapersService.getProposals(documentId));
+		} catch(Exception e) {
+			if (e.getClass() == ResourceNotFoundException.class) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 }

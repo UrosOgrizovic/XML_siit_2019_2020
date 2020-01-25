@@ -30,7 +30,7 @@
                 <xs:element name="Password" type="xs:string"/>
                 <xs:element name="FullName" type="xs:string"/>
                 <xs:element name="Institution" type="xs:string"/>
-                <xs:element name="Expertise" type="xs:string"/>
+                <xs:element name="Expertises" type="Users:TExpertises"/>
                 <xs:element name="EMail">
                     <xs:simpleType>
                         <xs:restriction base="xs:string"/>
@@ -40,6 +40,12 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
+    <xs:complexType name="TExpertises">
+        <xs:sequence>
+            <xs:element name="expertise" maxOccurs="unbounded" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:element name="Roles">
         <xs:complexType>

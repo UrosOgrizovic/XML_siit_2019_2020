@@ -20,8 +20,8 @@
                 https://doi.org/10.1108/JD-01-2016-0007
             </Papers:DocumentLink>
             <Papers:Keywords>
-                <Papers:keyword>will</Papers:keyword>
-                <Papers:keyword>product</Papers:keyword>
+                <Papers:keyword>information technology</Papers:keyword>
+                <Papers:keyword>deployment</Papers:keyword>
             </Papers:Keywords>
             
             <Papers:Author>
@@ -182,7 +182,11 @@
             <Papers:DocumentLink>
                 https://doi.org/10.1108/JD-01-2016-0007
             </Papers:DocumentLink>
-            
+            <Papers:Keywords>
+                <Papers:keyword>information technology</Papers:keyword>
+                <Papers:keyword>agriculture</Papers:keyword>
+                <Papers:keyword>production</Papers:keyword>
+            </Papers:Keywords>
             
             <Papers:Author>
                 <Papers:authorUserName property="pred:authorUserName">user</Papers:authorUserName>
