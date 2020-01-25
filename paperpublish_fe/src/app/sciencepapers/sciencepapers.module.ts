@@ -11,9 +11,11 @@ import { SciencePapersByLoggedInUserComponent } from './components/science-paper
 import { AllSciencePapersComponent } from './components/all-science-papers/all-science-papers.component';
 import { SciencePaperAssignFormComponent } from './components/science-paper-assign-form/science-paper-assign-form.component';
 import { FormsModule } from '@angular/forms';
+import { ReviewSciencePapersComponent } from './components/review-science-papers/review-science-papers.component';
+import { SciencePaperReviewFormComponent } from './components/science-paper-review-form/science-paper-review-form.component';
 
 @NgModule({
-  declarations: [SciencePapersListComponent, SciencePapersPageComponent, SciencePaperFormComponent, SciencePaperDetailsComponent, SciencePapersByLoggedInUserComponent, AllSciencePapersComponent, SciencePaperAssignFormComponent],
+  declarations: [SciencePapersListComponent, SciencePapersPageComponent, SciencePaperFormComponent, SciencePaperDetailsComponent, SciencePapersByLoggedInUserComponent, AllSciencePapersComponent, SciencePaperAssignFormComponent, ReviewSciencePapersComponent, SciencePaperReviewFormComponent],
   imports: [
     FormsModule,
     FlexLayoutModule,

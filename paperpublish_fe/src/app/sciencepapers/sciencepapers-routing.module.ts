@@ -6,6 +6,9 @@ import { SciencePaperDetailsComponent } from './components/science-paper-details
 import { SciencePapersByLoggedInUserComponent } from './components/science-papers-by-logged-in-user/science-papers-by-logged-in-user.component';
 import { AllSciencePapersComponent } from './components/all-science-papers/all-science-papers.component';
 import { SciencePaperAssignFormComponent } from './components/science-paper-assign-form/science-paper-assign-form.component';
+import { ReviewSciencePapersComponent } from './components/review-science-papers/review-science-papers.component';
+import { SciencePaperReviewFormComponent } from './components/science-paper-review-form/science-paper-review-form.component';
+
 
 const routes: Routes = [
   {
@@ -35,6 +38,14 @@ const routes: Routes = [
   {
     path: 'science-papers/assign/:id',
     component: SciencePaperAssignFormComponent
+  },
+  {
+    path: 'science-papers/review/:id',
+    component: SciencePaperReviewFormComponent
+  },
+  {
+    path: 'papers-to-review',
+    component: ReviewSciencePapersComponent
   }
 ];
 
