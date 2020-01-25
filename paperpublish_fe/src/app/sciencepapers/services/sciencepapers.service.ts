@@ -6,17 +6,20 @@ import { map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { BaseService } from '../../shared/services/base.service';
 import { SciencePaper } from '../../models/science-paper.model';
+import { User} from 'src/app/models/user.model';
 
 const ENDPOINTS = {
   GET_ALL: `/sciencepapers/findall`,
-  CREATE: `/sciencepapers`,
-
+  GET_ALL_ACCEPTED: `/sciencepapers/accepted`,
   GET_HTML: (id: number) => `/sciencepapers/getHTML/${id}`,
   GET_PDF: (id: number) => `/sciencepapers/getPDF/${id}`,
-  DELETE: (id) => `/sciencepapers/${id}`,
   GET_ONE: (id) => `/sciencepapers/${id}`,
+  GET_BY_AUTHOR_USERNAME: (username) => `/sciencepapers/getByAuthorUsername/${username}`,
+  CREATE: `/sciencepapers`,
   UPDATE: (id) => `/sciencepapers`,
-  GET_BY_AUTHOR_USERNAME: (username) => `/sciencepapers/getByAuthorUsername/${username}`
+  DELETE: (id) => `/sciencepapers/${id}`,
+  PROPOSALS: (id) => `/sciencepapers/${id}/proposals`,
+  ADD_REVIEWER: (id: number, username: string) => `/sciencepapers/${id}/reviewers/${username}`
 }
 
 
@@ -26,6 +29,7 @@ const ENDPOINTS = {
 export class SciencePapersService extends BaseService {
   sciencePapers: SciencePaper[] = [];
   sciencePapersOfAuthor: SciencePaper[] = [];
+  proposals: User[] = [];
 
   constructor(private http: HttpClient) {
     super();
@@ -44,6 +48,37 @@ export class SciencePapersService extends BaseService {
       )
   }
 
+  getAllAccepted() : Observable<any> {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_ALL_ACCEPTED}`)
+      .pipe(
+        map((res: any) => {
+          let response = res;
+          if (response) {
+            this.sciencePapers = response.map((sciencePaper: SciencePaper) => new SciencePaper().deserialize(sciencePaper))
+          }
+          return this.sciencePapers
+        })
+      )
+  }
+
+  addReviewer(id: any, username: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}${ENDPOINTS.ADD_REVIEWER(id, username)}`, {});
+  }
+
+  getProposals(id: number) : Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8')
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.PROPOSALS(id)}`, { headers })
+      .pipe(
+        map((res: any) => {
+          let response = res;
+          if (response) {
+            this.proposals = response.map((user: User) => new User().deserialize(user))
+          }
+          return this.proposals
+        })
+      )
+  }
+
 
   getByAuthorUsername(username: string): Observable<any> {
     return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_BY_AUTHOR_USERNAME(username)}`)
@@ -51,7 +86,7 @@ export class SciencePapersService extends BaseService {
         map((res: any) => {
           let response = res;
           if (response) {
-            this.sciencePapersOfAuthor = response.map((sciencePaper: SciencePaper) => new SciencePaper().deserialize(sciencePaper))
+            this.proposals = response.map((sciencePaper: SciencePaper) => new SciencePaper().deserialize(sciencePaper))
           }
           return this.sciencePapersOfAuthor;
         })

@@ -38,10 +38,13 @@ public class SciencePapersController {
     
     public XSLFOTransformer xslfoTransformer = new XSLFOTransformer();
 
-    @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "filter", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getAllJsonAndFilter(@RequestParam(value = "query", required = false) String query) throws Exception {
     	return ResponseEntity.ok(sciencePapersService.getAllJsonAndFilter(query));
 	}
+
+	@GetMapping(path="/accepted", produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<?> getAllAccepted() { return ResponseEntity.ok(sciencePapersService.getAllAccepted());}
 
     @GetMapping(path = "/findall", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> getAll(){
@@ -168,6 +171,18 @@ public class SciencePapersController {
 	public ResponseEntity<?> getProposals(@PathVariable String documentId) {
     	try {
     		return ResponseEntity.ok(sciencePapersService.getProposals(documentId));
+		} catch(Exception e) {
+			if (e.getClass() == ResourceNotFoundException.class) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	@PostMapping(path="{documentId}/reviewers/{userName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> addReviewer(@PathVariable String documentId, @PathVariable String userName) {
+    	try {
+    		return ResponseEntity.ok(sciencePapersService.addReviewer(documentId, userName));
 		} catch(Exception e) {
 			if (e.getClass() == ResourceNotFoundException.class) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

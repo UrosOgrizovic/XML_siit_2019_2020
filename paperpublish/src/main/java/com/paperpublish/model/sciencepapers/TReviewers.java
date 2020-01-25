@@ -16,16 +16,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for TCitedBy complex type.
+ * <p>Java class for TReviewers complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="TCitedBy">
+ * &lt;complexType name="TReviewers">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="citer" type="{http://localhost:8080/SciencePapers}TCiter" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="reviewerUserName" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,40 +35,40 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "TCitedBy", propOrder = {
-    "citer"
+@XmlType(name = "TReviewers", propOrder = {
+    "reviewerUserName"
 })
-public class TCitedBy {
+public class TReviewers {
 
-    protected List<TCiter> citer;
+    protected List<String> reviewerUserName;
 
     /**
-     * Gets the value of the citer property.
+     * Gets the value of the reviewerUserName property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the citer property.
+     * This is why there is not a <CODE>set</CODE> method for the reviewerUserName property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getCiter().add(newItem);
+     *    getReviewerUserName().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link TCiter }
+     * {@link String }
      * 
      * 
      */
-    public List<TCiter> getCiter() {
-        if (citer == null) {
-            citer = new ArrayList<TCiter>();
+    public List<String> getReviewerUserName() {
+        if (reviewerUserName == null) {
+            reviewerUserName = new ArrayList<String>();
         }
-        return this.citer;
+        return this.reviewerUserName;
     }
 
 }
