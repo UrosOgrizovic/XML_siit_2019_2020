@@ -61,10 +61,10 @@ public class SciencePapersRepository {
 		return sp.getSciencePaper();
     }
 
-	public List<TSciencePaper> getAllInProcedure() throws Exception {
+	public List<TSciencePaper> getAllAccepted() throws Exception {
 		XPathQueryService queryService = ConnectionProperties.getXPathService(collection);
 		queryService.setNamespace("",ConnectionProperties.SCIENCE_PAPERS_NAMESPACE);
-		ResourceSet result = queryService.query("//SciencePapers/SciencePaper[@status='in_procedure']");
+		ResourceSet result = queryService.query("//SciencePapers/SciencePaper[@status='accepted']");
 
 		JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
 		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();

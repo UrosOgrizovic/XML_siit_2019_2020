@@ -2,17 +2,21 @@
   <mat-toolbar-row class="ts-u-display--flex ts-u-justify--space-between">
     <button mat-button routerLink="/"> PaperPublish </button>
     
-    <span *ngIf="!isUserLoggedIn; else elseBlock">
+    <span *ngIf="!isUserLoggedIn;"> <!-- GOST -->
+      <button id="science-papers" mat-button routerLink="/science-papers">Published Papers</button>
       <button id="register" mat-button routerLink="/register">Register</button>
       <button id="login" class="login-btn" mat-button routerLink="/login">Login</button>
     </span>
-    <ng-template #elseBlock>
-      <span>
-        <button id="science-papers" mat-button routerLink="/science-papers">Science Papers</button>
-        <button id="my-science-papers" mat-button routerLink="/my-science-papers">My science papers</button>
-        <button id="logout" mat-button (click)="logOut()">Logout</button>
-      </span>
-    </ng-template>
+    <span *ngIf="isUserLoggedIn && userType == 'ROLE_USER';"> <!-- AUTOR/RECEZENT -->
+      <button id="science-papers" mat-button routerLink="/science-papers">Published Papers</button>
+      <button id="my-science-papers" mat-button routerLink="/my-science-papers">My Science Papers</button>
+      <button id="my-science-papers" mat-button routerLink="/papers-to-review">Papers to Review</button>
+      <button id="logout" mat-button (click)="logOut()">Logout</button>
+    </span>
+    <span *ngIf="isUserLoggedIn && userType == 'ROLE_EDITOR';"> <!-- UREDNIK -->
+      <button id="science-papers" mat-button routerLink="/all-science-papers">All Papers</button>
+      <button id="logout" mat-button (click)="logOut()">Logout</button>
+    </span>
     
   </mat-toolbar-row>
 </mat-toolbar>

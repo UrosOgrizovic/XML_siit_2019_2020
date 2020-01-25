@@ -1,3 +1,6 @@
+<button id="addnew" mat-button (click)="redirectToAddNewPage()">
+  Add New
+</button>
 <div fxLayout fxLayoutAlign="center center">
     <mat-form-field fxFlex="40%">
       <input id="filter-field" matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
@@ -64,5 +67,3 @@
     
     </table>
     
-    <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="[2, 4, 6, 10, 20]" (page)="pageChanged($event)">
-    </mat-paginator>

@@ -10,7 +10,7 @@ export class User implements Deserializable {
 
   deserialize(input: any) {
     Object.assign(this, input);
-    this.roles = new Role().deserialize(input.role);
+    this.roles = new Role().deserialize(input.roles);
     return this;
   }
 }
