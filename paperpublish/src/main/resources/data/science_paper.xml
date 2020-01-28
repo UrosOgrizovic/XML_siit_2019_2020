@@ -7,7 +7,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://localhost:8080/SciencePapers file:/D:/FAKS/7.semestar/xml/projekat/science_paper.xsd"
     >
-    <Papers:SciencePaper accepted="2016-12-01" status="in_procedure" documentId="1" versionId="1" about="http://localhost:8080/SciencePapers/1">
+    <Papers:SciencePaper accepted="2016-12-01" status="accepted" documentId="1" versionId="1" about="http://localhost:8080/SciencePapers/1">
         <Papers:PaperData numberOfReferences="52" 
             contact="permissions@emeraldinsight.com" numberOfDownloads="1059">
             <Papers:Title documentTitle="1" property="pred:title">Document phenomenology: a framework for holistic analysis</Papers:Title>
@@ -46,7 +46,7 @@
             </Papers:DownloadInformation>
         </Papers:PaperData>
  
-        <Papers:Paragraf>
+        <Papers:Paragraf paragrafId="1">
                 <Papers:content>
                         <!--<bold>Document phenomenology:
                         a framework for holistic analysis
@@ -71,18 +71,18 @@
                     
                 </Papers:content>
             </Papers:Paragraf>
-            <Papers:Paragraf>
+            <Papers:Paragraf paragrafId="2">
                 <Papers:content>
                     in the days of their progenitor but today furnish a different one altogether...
                     <Papers:quote citation="2">not inherent, but rather the product of will, eith..</Papers:quote>
                 </Papers:content>
             </Papers:Paragraf>
-            <Papers:Paragraf>
+            <Papers:Paragraf paragrafId="3">
                 <Papers:content>
                 Do documents exist? Or, perhaps more to the point: how do documents exist?
                 </Papers:content>
             </Papers:Paragraf>
-            <Papers:Paragraf>
+            <Papers:Paragraf paragrafId="4">
                 <Papers:content>
                 Questions about existence are, of course, not unique to documents, as evidenced by
                 the sprawling literature in ontological philosophy. Yet, as Heidegger (1927/2010)
@@ -91,7 +91,7 @@
                 traditional ontology asks questions about beings, not about being.
                 </Papers:content>
             </Papers:Paragraf>
-            <Papers:Paragraf>
+            <Papers:Paragraf paragrafId="5">
                 <Papers:content>
                 With documents, assuming existence as self-evident – failing to ask about being –
                 raises a host of issues. If a document is taken to be anything that furnishes evidence or
@@ -104,7 +104,7 @@
                 explore documental being and becoming.
                 </Papers:content>
             </Papers:Paragraf>
-            <Papers:Paragraf>
+            <Papers:Paragraf paragrafId="6">
                 <Papers:content>
                 As reviewed by Lund (2009), document scholars historically focused on the material
                 aspects of documents; more recently, the academic focus has turned toward the social
@@ -210,7 +210,7 @@
             </Papers:DownloadInformation>
         </Papers:PaperData>
         
-        <Papers:Paragraf>
+        <Papers:Paragraf paragrafId="1">
             <Papers:content>
                 <!--<bold>Document phenomenology:
                         a framework for holistic analysis
@@ -231,11 +231,10 @@
                    <bold>Purpose</bold>
                     Do documents exist? Or, perhaps more to the point: how do documents exist...
                         -->
-                <Papers:reference link=""></Papers:reference>
                 
             </Papers:content>
         </Papers:Paragraf>
-        <Papers:Paragraf>
+        <Papers:Paragraf paragrafId="2">
             <Papers:content>
                 in the days of their progenitor but today furnish a different one altogether...
                 <Papers:quote citation="2">not inherent, but rather the product of will, eith..</Papers:quote>

@@ -50,9 +50,11 @@ public class ConnectionProperties {
     public static final String ROLES_ID = "Roles.xml";
     public static final String USERS_ID = "Users.xml";
     public static final String COVER_LETTERS_ID = "journal_cover_letter.xml";
+    public static final String REVIEWS_ID = "Review.xml";
 
     public static final String PACKAGE_PATH = "com.paperpublish.model.";
     public static final String SCIENCE_PAPER_PACKAGE = "sciencepapers";
+    public static final String REVIEWS_PACKAGE = "reviews";
     public static final String COVER_LETTERS_PACKAGE = "letter";
     public static final String ROLES_PACKAGE = "users";
     public static final String USERS_PACKAGE = "users";
@@ -60,6 +62,7 @@ public class ConnectionProperties {
     public static final String USERS_NAMESPACE = "http://localhost:8080/Users";
     public static final String SCIENCE_PAPERS_NAMESPACE = "http://localhost:8080/SciencePapers";
     public static final String COVER_LETTERS_NAMESPACE = "http://localhost:8080/Letter";
+    public static final String REVIEWS_NAMESPACE = "http://localhost:8080/Reviews";
 
 //------------------ MetaData ------------------
     public static final String QUERY_LOCATION = "src/main/resources/sparql/";
@@ -249,6 +252,11 @@ public class ConnectionProperties {
 
         resource = (XMLResource) col.createResource(COVER_LETTERS_ID,XMLResource.RESOURCE_TYPE);
         f = new File(initDataPath + COVER_LETTERS_ID);
+        resource.setContent(f);
+        col.storeResource(resource);
+
+        resource = (XMLResource) col.createResource(REVIEWS_ID,XMLResource.RESOURCE_TYPE);
+        f = new File(initDataPath + REVIEWS_ID);
         resource.setContent(f);
         col.storeResource(resource);
 

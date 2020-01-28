@@ -1,0 +1,14 @@
+<rev:Reviews xmlns:rev="http://localhost:8080/Reviews">
+  <!--1 or more repetitions:-->
+  <rev:Review>
+    <rev:Authors>
+      <!--1 or more repetitions:-->
+      <rev:authorUserName>user</rev:authorUserName>
+    </rev:Authors>
+    <rev:Paper paperId="1"></rev:Paper>
+    <rev:Comments>
+      <!--1 or more repetitions:-->
+      <rev:Comment paragrafId="1">mfsalkmkflsamlk</rev:Comment>
+    </rev:Comments>
+  </rev:Review>
+</rev:Reviews>
