@@ -17,6 +17,15 @@
             </p>
         </div>
     </xsl:template>
+
+    <xsl:template match="Papers:Paragraf">
+        <div>
+            <xsl:attribute name="paragrafId">
+                <xsl:value-of select="@paragrafId"/>
+            </xsl:attribute>
+            <xsl:apply-templates select="Papers:content"/>
+        </div>
+    </xsl:template>
     
     
     <xsl:template match="/">
@@ -30,9 +39,9 @@
                 <xsl:variable name="numberOfReferences" select="Papers:PaperData/@numberOfReferences"/>
                 <xsl:variable name="numberOfDownloads" select="Papers:PaperData/@numberOfDownloads"/>
                 <xsl:variable name="contact" select="Papers:PaperData/@contact"/>
-                
-                
-                
+
+
+
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
                         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -77,13 +86,8 @@
                                 </div>
                             </div>
                             
-                            
-                            <div style="line-height:6mm; text-align: justify; margin-left: 2em; margin-right: 2em;">
-                                <xsl:for-each select="Papers:Paragraf">
-                                    <xsl:apply-templates select="Papers:content"/>
-                                    <br/>
-                                </xsl:for-each>
-                            </div>
+
+                            <xsl:apply-templates select="Papers:Paragraf"></xsl:apply-templates>
                             <div style="margin-top: 2em; text-align: justify; margin-left: 2em; margin-right: 2em;">
                                 <div style="font-weight:bold; font-size: 14pt;">
                                     References

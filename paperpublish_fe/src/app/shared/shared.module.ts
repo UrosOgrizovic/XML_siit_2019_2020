@@ -5,10 +5,11 @@ import { SharedMaterialModule } from './shared-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
+import { CommentDialogComponent } from './components/comment-dialog/comment-dialog.component';
 
 @NgModule({
-  declarations: [ConfirmationDialogComponent],
-  exports: [ConfirmationDialogComponent],
+  declarations: [ConfirmationDialogComponent, CommentDialogComponent],
+  exports: [ConfirmationDialogComponent, CommentDialogComponent],
   imports: [
     CommonModule,
     SharedMaterialModule,
@@ -16,6 +17,6 @@ import { FormsModule } from '@angular/forms';
     ToastrModule.forRoot({ positionClass: 'inline' }),
     FormsModule
   ],
-  entryComponents: [ConfirmationDialogComponent]
+  entryComponents: [ConfirmationDialogComponent, CommentDialogComponent]
 })
 export class SharedModule { }

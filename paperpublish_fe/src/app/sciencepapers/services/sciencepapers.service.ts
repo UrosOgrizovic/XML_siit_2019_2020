@@ -102,7 +102,7 @@ export class SciencePapersService extends BaseService {
         map((res: any) => {
           let response = res;
           if (response) {
-            this.proposals = response.map((sciencePaper: SciencePaper) => new SciencePaper().deserialize(sciencePaper))
+            this.sciencePapersOfAuthor = response.map((sciencePaper: SciencePaper) => new SciencePaper().deserialize(sciencePaper))
           }
           return this.sciencePapersOfAuthor;
         })

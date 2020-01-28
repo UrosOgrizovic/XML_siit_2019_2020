@@ -25,6 +25,7 @@ export class SciencePapersByLoggedInUserComponent implements OnInit {
     let user: User = JSON.parse(localStorage.getItem('user'));
     this.sciencePapersService.getByAuthorUsername(user.username).subscribe((data: any) => {
       this.sciencePapers = data;
+      console.log(data);
       this.initializeDataSource();
     })
   }
@@ -50,6 +51,10 @@ export class SciencePapersByLoggedInUserComponent implements OnInit {
 
   redirectToDetails(id: number) {
     this.router.navigate(['/science-papers/detail', id]);
+  }
+
+  redirectToAddNewPage() {
+    this.router.navigate(['/science-papers/add-new'])
   }
 
   showDeleteModal(id: number) {
