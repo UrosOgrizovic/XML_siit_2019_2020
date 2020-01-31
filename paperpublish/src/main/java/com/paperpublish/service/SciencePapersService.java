@@ -13,6 +13,8 @@ import com.paperpublish.model.sciencepapers.ObjectFactory;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.repository.SciencePapersRepository;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -149,6 +151,27 @@ public class SciencePapersService {
 		paper.setStatus(status);
 		sciencePapersRepository.update(paper);
 		return paper;
+	}
+
+	/**
+	 * 
+	 * @param keywords
+	 * @param paperPublishDate
+	 * @param authorUserName
+	 * @return list of science paper titles that match criteria
+	 */
+	public List<String> searchByMetadata(String keywords, Date paperPublishDate, String authorUserName, boolean searchOnlyMyPapers) {
+		return sciencePapersRepository.searchByMetadata(keywords, paperPublishDate, authorUserName, searchOnlyMyPapers);
+	}
+
+	/**
+	 * 
+	 * @param text
+	 * @param authorUserName
+	 * @return list of science paper titles that match criteria
+	 */
+	public List<String> searchByText(String text, String authorUserName, boolean searchOnlyMyPapers) {
+		return sciencePapersRepository.searchByText(text, authorUserName, searchOnlyMyPapers);		
 	}
 
 }

@@ -37,3 +37,25 @@
 
 </table>
 
+<h1>Search</h1>
+<div style="float: left; width: 20%;">
+  <h2>Metadata</h2>
+  <mat-form-field>
+    <input matInput [matDatepicker]="pickerPublishedDateInput" placeholder="Paper publish date" (ngModel)="paperPublishDate" disabled>
+    <mat-datepicker-toggle matSuffix [for]="pickerPublishedDateInput"></mat-datepicker-toggle>
+    <mat-datepicker #pickerPublishedDateInput disabled="false"></mat-datepicker>
+  </mat-form-field>
+  <h3>Keywords</h3>
+  <mat-form-field>
+    <input matInput type="text" id="keywordsInput" placeholder="Enter keywords" [(ngModel)]="keywordsForSearch" />
+  </mat-form-field>
+</div>
+
+<div style="float: right; width: 80%;">
+  <h2>Text (author, title, words from paragraphs)</h2>
+  <mat-form-field>
+    <input matInput type="text" id="textInput" placeholder="Enter text" [(ngModel)]="textForSearch" />
+  </mat-form-field>
+  <div style="margin-top: 15px;"><mat-checkbox [(ngModel)]="searchOnlyMyPapers" *ngIf="user !== null">Search only my papers</mat-checkbox></div>
+  <button mat-raised-button color="primary" (click)="performSearch()" style="margin-top: 30px; margin-bottom: 20px;">Search</button>  
+</div>

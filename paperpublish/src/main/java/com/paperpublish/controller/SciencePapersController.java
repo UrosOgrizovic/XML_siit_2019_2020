@@ -5,6 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,6 +214,41 @@ public class SciencePapersController {
 			if (e.getClass() == ResourceNotFoundException.class) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 			}
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GetMapping(path="searchByMetadata", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> searchByMetadata(@RequestParam(value="keywords", required=false) String keywords, 
+											  @RequestParam(value="paperPublishDate", required=false) String paperPublishDateString, 
+											  @RequestParam(value="authorUserName", required=false) String authorUserName,
+											  @RequestParam(value="searchOnlyMyPapers", required=true) boolean searchOnlyMyPapers) {
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		Date paperPublishDate = new Date(1);
+		if (!paperPublishDateString.equals("")) {
+			try {
+				paperPublishDate = formatter.parse(paperPublishDateString);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Invalid date format");
+			}
+		}
+		
+		try {
+			return ResponseEntity.ok(sciencePapersService.searchByMetadata(keywords, paperPublishDate, authorUserName, searchOnlyMyPapers));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GetMapping(path="searchByText", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> searchByText(@RequestParam(value="text", required=false) String text, 
+										  @RequestParam(value="authorUserName", required=false) String authorUserName,
+										  @RequestParam(value="searchOnlyMyPapers", required=true) boolean searchOnlyMyPapers) {
+		try {
+			return ResponseEntity.ok(sciencePapersService.searchByText(text, authorUserName, searchOnlyMyPapers));
+		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}

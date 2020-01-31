@@ -5,6 +5,8 @@ import { Router } from "@angular/router";
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { SciencePapersService } from '../../services/sciencepapers.service';
 import { MessageService } from 'src/app/shared/services/message.service';
+import { formatDate } from '@angular/common';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-science-papers-list',
@@ -22,6 +24,14 @@ export class SciencePapersListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
 
+  keywordsForSearch = '';
+  textForSearch = '';
+  paperPublishDate: Date = new Date(1);
+  foundPapers = [];
+  searchOnlyMyPapers = false;
+  user: User;
+
+
   constructor(
     private sciencePapersService: SciencePapersService,
     private router: Router,
@@ -30,6 +40,7 @@ export class SciencePapersListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   ngOnChanges(changes: SimpleChange) {
@@ -125,6 +136,21 @@ export class SciencePapersListComponent implements OnInit {
           window.URL.revokeObjectURL(data);
       }, 100);
     })
+  }
+
+  performSearch() {
+    this.keywordsForSearch = this.keywordsForSearch.trim();
+    this.textForSearch = this.textForSearch.trim();
+
+    this.sciencePapersService.searchByMetadata(this.keywordsForSearch,
+      formatDate(this.paperPublishDate, 'dd-MM-yyyy', 'en-US'), '', this.searchOnlyMyPapers).subscribe(res => {
+        this.foundPapers.push(...res);
+        console.log(this.foundPapers);
+      });
+    this.sciencePapersService.searchByText(this.textForSearch, '', this.searchOnlyMyPapers).subscribe(res => {
+      this.foundPapers.push(...res);
+      console.log(this.foundPapers);
+    });
   }
 
 }
