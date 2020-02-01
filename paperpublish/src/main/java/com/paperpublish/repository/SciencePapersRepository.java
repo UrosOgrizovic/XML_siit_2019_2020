@@ -422,7 +422,7 @@ public class SciencePapersRepository {
 		if (!searchOnlyMyPapers) {
 			// search all papers
 			try {
-				String returned = XQuery.run(ConnectionProperties.loadProperties(), "", text);
+				String returned = XQuery.run(ConnectionProperties.loadProperties(), authorUserName, text, searchOnlyMyPapers);
 				String[] splitReturned = returned.split("\n");
 				if (splitReturned[0].trim().equals("")) {
 					splitReturned = new String[0];
@@ -438,7 +438,7 @@ public class SciencePapersRepository {
 		} else {
 			// search own papers
 			try {
-				String returned = XQuery.run(ConnectionProperties.loadProperties(), authorUserName, text);
+				String returned = XQuery.run(ConnectionProperties.loadProperties(), authorUserName, text, searchOnlyMyPapers);
 				String[] splitReturned = returned.split("\n");
 				if (splitReturned[0].trim().equals("")) {
 					splitReturned = new String[0];

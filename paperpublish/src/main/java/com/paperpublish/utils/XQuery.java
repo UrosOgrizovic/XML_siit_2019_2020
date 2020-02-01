@@ -28,7 +28,7 @@ public class XQuery {
 		ConnectionProperties.createDB();
 		ConnectionProperties.initData();
 		ConnectionProperties.readDataTest();
-		XQuery.run(ConnectionProperties.loadProperties(), "admin", "a different one");
+		XQuery.run(ConnectionProperties.loadProperties(), "admin", "", false);
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class XQuery {
      * args[0] Should be the collection ID to access
      * args[1] Should be the xquery file path
      */
-    public static String run(ConnectionProperties conn, String authorUserName, String textToMatch) throws Exception {
+    public static String run(ConnectionProperties conn, String authorUserName, String textToMatch, boolean searchOnlyMyPapers) throws Exception {
     	String toReturn = "";
     	System.out.println("[INFO] " + XQuery.class.getSimpleName());
     	
@@ -48,15 +48,6 @@ public class XQuery {
     	xqueryFilePathAllPapers = RESOURCES_PATH + "/data/xquery/findAllPapersByText.xqy";
     	xqueryFilePathMyPapers = RESOURCES_PATH + "/data/xquery/findMyPapersByText.xqy";
 
-        /*
-    	// initialize database driver
-    	System.out.println("[INFO] Loading driver class: " + conn.driver);
-        Class<?> cl = Class.forName(conn.driver);
-        
-        Database database = (Database) cl.newInstance();
-        database.setProperty("create-database", "true");
-        
-        DatabaseManager.registerDatabase(database);*/
         
         Collection col = null;
         
@@ -75,7 +66,7 @@ public class XQuery {
 
             
              
-            if (authorUserName.equals("")) {
+            if (!searchOnlyMyPapers) {
             	xqueryFilePath = xqueryFilePathAllPapers;
             } else {
             	xqueryFilePath = xqueryFilePathMyPapers;

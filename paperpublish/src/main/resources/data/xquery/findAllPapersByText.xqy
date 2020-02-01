@@ -1,6 +1,7 @@
 xquery version "3.0";
 declare namespace Papers = "http://localhost:8080/SciencePapers";
 declare variable $textToMatch as xs:string external;
+declare variable $authorUserName as xs:string external;
 let $nl := "&#10;"
 
  
@@ -11,9 +12,9 @@ let $nl := "&#10;"
     let $status := $statuses[index-of($titles, $title)] 
     let $papers := $doc/Papers:SciencePapers/Papers:SciencePaper
     let $paper := $papers[index-of($titles, $title)]
+    let $authorUN := $paper/Papers:PaperData/Papers:Author/Papers:authorUserName/text()
     
-    
-    where $paper//*[fn:contains(text(), $textToMatch)] and 
-     $status = "accepted"
+    where ($status = "accepted" or ($status = "in_procedure" and $authorUN = $authorUserName)) and $paper//*[fn:contains(text(), $textToMatch)] 
+     
     return ($title, $nl)
     
