@@ -7,6 +7,7 @@ import { SciencePapersService } from '../../services/sciencepapers.service';
 import { MessageService } from 'src/app/shared/services/message.service';
 import { formatDate } from '@angular/common';
 import { User } from 'src/app/models/user.model';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-science-papers-list',
@@ -27,7 +28,6 @@ export class SciencePapersListComponent implements OnInit {
   keywordsForSearch = '';
   textForSearch = '';
   paperPublishDate: Date = new Date(1);
-  foundPapers = [];
   searchOnlyMyPapers = false;
   user: User;
 
@@ -98,7 +98,7 @@ export class SciencePapersListComponent implements OnInit {
         window.navigator.msSaveOrOpenBlob(result);
         return;
       } 
-      // For other browsers: 
+      // For other browsers:
       // Create a link pointing to the ObjectURL containing the blob.
       const data = window.URL.createObjectURL(result);
 
@@ -141,16 +141,20 @@ export class SciencePapersListComponent implements OnInit {
   performSearch() {
     this.keywordsForSearch = this.keywordsForSearch.trim();
     this.textForSearch = this.textForSearch.trim();
+    let username = '';
+    if (this.user != null) {
+      username = this.user.username;
+    }
+    if ((document.getElementById('paperPublishDatepicker') as HTMLInputElement).value !== '') {
+      this.paperPublishDate = new Date((document.getElementById('paperPublishDatepicker') as HTMLInputElement).value);
+    }
 
-    this.sciencePapersService.searchByMetadata(this.keywordsForSearch,
-      formatDate(this.paperPublishDate, 'dd-MM-yyyy', 'en-US'), '', this.searchOnlyMyPapers).subscribe(res => {
-        this.foundPapers.push(...res);
-        console.log(this.foundPapers);
+
+    this.sciencePapersService.performSearch(this.keywordsForSearch,
+      formatDate(this.paperPublishDate, 'dd-MM-yyyy', 'en-US'), this.textForSearch, username, this.searchOnlyMyPapers)
+      .subscribe(res => {
+        this.dataSource.data = res;
       });
-    this.sciencePapersService.searchByText(this.textForSearch, '', this.searchOnlyMyPapers).subscribe(res => {
-      this.foundPapers.push(...res);
-      console.log(this.foundPapers);
-    });
   }
 
 }

@@ -25,7 +25,9 @@ const ENDPOINTS = {
   SEARCH_BY_METADATA: (keywords: string, paperPublishDate: string, authorUserName: string, searchOnlyMyPapers: boolean) =>
   `/sciencepapers/searchByMetadata?keywords=${keywords}&paperPublishDate=${paperPublishDate}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`,
   SEARCH_BY_TEXT: (text: string, authorUserName: string, searchOnlyMyPapers: boolean) =>
-  `/sciencepapers/searchByText?text=${text}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`
+  `/sciencepapers/searchByText?text=${text}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`,
+  PERFORM_SEARCH: (keywords: string, paperPublishDate: string, text: string, authorUserName: string, searchOnlyMyPapers: boolean) =>
+  `/sciencepapers/performSearch?keywords=${keywords}&paperPublishDate=${paperPublishDate}&text=${text}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`
 };
 
 
@@ -190,7 +192,8 @@ export class SciencePapersService extends BaseService {
 
 
   searchByMetadata(keywords: string, paperPublishDate: string, authorUserName: string, searchOnlyMyPapers: boolean) {
-    return this.http.get(`${this.baseUrl}${ENDPOINTS.SEARCH_BY_METADATA(keywords, paperPublishDate, authorUserName, searchOnlyMyPapers)}`).pipe(
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.SEARCH_BY_METADATA(keywords, paperPublishDate, authorUserName, searchOnlyMyPapers)}`)
+    .pipe(
       map((res: any) => {
         return res;
       }));
@@ -198,6 +201,14 @@ export class SciencePapersService extends BaseService {
 
   searchByText(text: string, authorUserName: string, searchOnlyMyPapers: boolean) {
     return this.http.get(`${this.baseUrl}${ENDPOINTS.SEARCH_BY_TEXT(text, authorUserName, searchOnlyMyPapers)}`).pipe(
+      map((res: any) => {
+        return res;
+      }));
+  }
+
+  performSearch(keywords: string, paperPublishDate: string, text: string, authorUserName: string, searchOnlyMyPapers: boolean) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.PERFORM_SEARCH(keywords, paperPublishDate, text, authorUserName, searchOnlyMyPapers)}`)
+    .pipe(
       map((res: any) => {
         return res;
       }));

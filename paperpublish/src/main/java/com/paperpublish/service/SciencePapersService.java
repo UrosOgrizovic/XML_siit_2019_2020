@@ -7,12 +7,16 @@ import com.paperpublish.model.users.User;
 import com.paperpublish.repository.UsersRepository;
 import org.apache.fop.area.RegionViewport;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.paperpublish.model.sciencepapers.ObjectFactory;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.repository.SciencePapersRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -160,7 +164,17 @@ public class SciencePapersService {
 	 * @param authorUserName
 	 * @return list of science paper titles that match criteria
 	 */
-	public List<String> searchByMetadata(String keywords, Date paperPublishDate, String authorUserName, boolean searchOnlyMyPapers) {
+	public List<String> searchByMetadata(String keywords, String paperPublishDateString, String authorUserName, boolean searchOnlyMyPapers) {
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		Date paperPublishDate = new Date(1);
+		if (!paperPublishDateString.equals("01-01-1970")) {
+			try {
+				paperPublishDate = formatter.parse(paperPublishDateString);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+				return null;
+			}
+		}
 		return sciencePapersRepository.searchByMetadata(keywords, paperPublishDate, authorUserName, searchOnlyMyPapers);
 	}
 

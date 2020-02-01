@@ -378,16 +378,19 @@ public class SciencePapersRepository {
 			ignoreKeywords = true;
 		}
 		keywords = keywords.toLowerCase();
-		List<String> titlesOfFoundPapers = new ArrayList<String>();
+		List<String> idsOfFoundPapers = new ArrayList<String>();
 		if (!searchOnlyMyPapers) {
 			// search all papers
 			try {
 				List<TSciencePaper> allPapers = this.getAll();
 				for (TSciencePaper sciencePaper : allPapers) {
-					if (sciencePaper.getStatus().equalsIgnoreCase("accepted")) {
+					
+					if (sciencePaper.getStatus().equalsIgnoreCase("accepted") || 
+							(sciencePaper.getStatus().equalsIgnoreCase("in_procedure") && 
+									this.doesContainAuthorUserName(sciencePaper, authorUserName))) {
 						for (String keyword : sciencePaper.getPaperData().getKeywords().getKeyword()) {
 							if (this.doKeywordAndDateSearch(keywords, keyword, paperPublishDate, ignoreKeywords, ignoreDate, sciencePaper, c)) {
-								titlesOfFoundPapers.add(sciencePaper.getPaperData().getTitle().getValue());
+								idsOfFoundPapers.add(sciencePaper.getDocumentId());
 								break;
 							}			
 						}
@@ -404,7 +407,7 @@ public class SciencePapersRepository {
 				for (TSciencePaper sciencePaper : papersOfAuthor) {
 					for (String keyword : sciencePaper.getPaperData().getKeywords().getKeyword()) {
 						if (this.doKeywordAndDateSearch(keywords, keyword, paperPublishDate, ignoreKeywords, ignoreDate, sciencePaper, c)) {
-							titlesOfFoundPapers.add(sciencePaper.getPaperData().getTitle().getValue());
+							idsOfFoundPapers.add(sciencePaper.getDocumentId());
 							break;
 						}
 					}
@@ -413,12 +416,27 @@ public class SciencePapersRepository {
 				e.printStackTrace();
 			}
 		}
-		return titlesOfFoundPapers;
+		return idsOfFoundPapers;
+	}
+
+	private boolean doesContainAuthorUserName(TSciencePaper sciencePaper, String authorUserName) {
+		boolean isAuthorOfPaper = false;
+		for (TAuthors ta : sciencePaper.getPaperData().getAuthor()) {
+			for (String aun : ta.getAuthorUserName()) {
+				if (aun.equals(authorUserName)) {
+					isAuthorOfPaper = true;
+					break;
+				}
+			}
+			if (isAuthorOfPaper) {
+				break;
+			}
+		}
+		return isAuthorOfPaper;
 	}
 
 	public List<String> searchByText(String text, String authorUserName, boolean searchOnlyMyPapers) {
-		System.out.println("TEXT TO MATCH: " + text);
-		List<String> titlesOfFoundPapers = new ArrayList<String>();
+		List<String> idsOfFoundPapers = new ArrayList<String>();
 		if (!searchOnlyMyPapers) {
 			// search all papers
 			try {
@@ -428,7 +446,7 @@ public class SciencePapersRepository {
 					splitReturned = new String[0];
 				} else {
 					for (String title : splitReturned) {
-						titlesOfFoundPapers.add(title);
+						idsOfFoundPapers.add(title);
 					}
 				}
 				
@@ -444,14 +462,14 @@ public class SciencePapersRepository {
 					splitReturned = new String[0];
 				} else {
 					for (String title : splitReturned) {
-						titlesOfFoundPapers.add(title);
+						idsOfFoundPapers.add(title);
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return titlesOfFoundPapers;
+		return idsOfFoundPapers;
 	}
 
 	private boolean doKeywordAndDateSearch(String keywords, String keyword, Date paperPublishDate, boolean ignoreKeywords, boolean ignoreDate, TSciencePaper sciencePaper, GregorianCalendar c) throws DatatypeConfigurationException {

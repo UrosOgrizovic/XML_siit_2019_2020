@@ -41,7 +41,7 @@
 <div style="float: left; width: 20%;">
   <h2>Metadata</h2>
   <mat-form-field>
-    <input matInput [matDatepicker]="pickerPublishedDateInput" placeholder="Paper publish date" (ngModel)="paperPublishDate" disabled>
+    <input matInput [matDatepicker]="pickerPublishedDateInput" placeholder="Paper publish date" id="paperPublishDatepicker" disabled>
     <mat-datepicker-toggle matSuffix [for]="pickerPublishedDateInput"></mat-datepicker-toggle>
     <mat-datepicker #pickerPublishedDateInput disabled="false"></mat-datepicker>
   </mat-form-field>

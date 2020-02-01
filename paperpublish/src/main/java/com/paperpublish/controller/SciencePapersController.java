@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -217,7 +218,7 @@ public class SciencePapersController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
+	/*
 	@GetMapping(path="searchByMetadata", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> searchByMetadata(@RequestParam(value="keywords", required=false) String keywords, 
 											  @RequestParam(value="paperPublishDate", required=false) String paperPublishDateString, 
@@ -226,7 +227,7 @@ public class SciencePapersController {
 
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		Date paperPublishDate = new Date(1);
-		if (!paperPublishDateString.equals("")) {
+		if (!paperPublishDateString.equals("01-01-1970")) {
 			try {
 				paperPublishDate = formatter.parse(paperPublishDateString);
 			} catch (ParseException e1) {
@@ -250,6 +251,43 @@ public class SciencePapersController {
 			return ResponseEntity.ok(sciencePapersService.searchByText(text, authorUserName, searchOnlyMyPapers));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	*/
+	@GetMapping(path="performSearch", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> performSearch(@RequestParam(value="keywords", required=false) String keywords, 
+										   @RequestParam(value="paperPublishDate", required=false) String paperPublishDateString, 
+										   @RequestParam(value="text", required=false) String text, 
+										   @RequestParam(value="authorUserName", required=false) String authorUserName,
+										   @RequestParam(value="searchOnlyMyPapers", required=true) boolean searchOnlyMyPapers) {
+		
+
+		List<String> returnedIdsMetadataSearch = sciencePapersService.searchByMetadata(keywords, paperPublishDateString, authorUserName, searchOnlyMyPapers);
+		List<String> returnedIdsTextSearch = sciencePapersService.searchByText(text, authorUserName, searchOnlyMyPapers);
+		List<String> crossSectionIds = new ArrayList<String>();
+		List<TSciencePaper> toReturn = new ArrayList<TSciencePaper>();
+		if (returnedIdsMetadataSearch == null || returnedIdsTextSearch == null) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		} else {
+			for (String id : returnedIdsMetadataSearch) {
+				if (returnedIdsTextSearch.contains(id)) {
+					crossSectionIds.add(id);
+					try {
+						TSciencePaper sciencePaper = sciencePapersService.findByDocumentId(id);
+						if (!sciencePaper.getStatus().equals("accepted") && !paperPublishDateString.equals("01-01-1970")) {
+							// do nothing - if a publish date has been chosen, papers that have not been accepted
+							// should not be returned
+						} else {
+							toReturn.add(sciencePaper);
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
+						return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+					}
+				}
+			}
+			return ResponseEntity.ok(toReturn);
 		}
 	}
 
