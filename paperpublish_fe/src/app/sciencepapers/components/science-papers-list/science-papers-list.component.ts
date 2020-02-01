@@ -5,6 +5,9 @@ import { Router } from "@angular/router";
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { SciencePapersService } from '../../services/sciencepapers.service';
 import { MessageService } from 'src/app/shared/services/message.service';
+import { formatDate } from '@angular/common';
+import { User } from 'src/app/models/user.model';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-science-papers-list',
@@ -22,6 +25,13 @@ export class SciencePapersListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
 
+  keywordsForSearch = '';
+  textForSearch = '';
+  paperPublishDate: Date = new Date(1);
+  searchOnlyMyPapers = false;
+  user: User;
+
+
   constructor(
     private sciencePapersService: SciencePapersService,
     private router: Router,
@@ -30,6 +40,7 @@ export class SciencePapersListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   ngOnChanges(changes: SimpleChange) {
@@ -87,7 +98,7 @@ export class SciencePapersListComponent implements OnInit {
         window.navigator.msSaveOrOpenBlob(result);
         return;
       } 
-      // For other browsers: 
+      // For other browsers:
       // Create a link pointing to the ObjectURL containing the blob.
       const data = window.URL.createObjectURL(result);
 
@@ -125,6 +136,25 @@ export class SciencePapersListComponent implements OnInit {
           window.URL.revokeObjectURL(data);
       }, 100);
     })
+  }
+
+  performSearch() {
+    this.keywordsForSearch = this.keywordsForSearch.trim();
+    this.textForSearch = this.textForSearch.trim();
+    let username = '';
+    if (this.user != null) {
+      username = this.user.username;
+    }
+    if ((document.getElementById('paperPublishDatepicker') as HTMLInputElement).value !== '') {
+      this.paperPublishDate = new Date((document.getElementById('paperPublishDatepicker') as HTMLInputElement).value);
+    }
+
+
+    this.sciencePapersService.performSearch(this.keywordsForSearch,
+      formatDate(this.paperPublishDate, 'dd-MM-yyyy', 'en-US'), this.textForSearch, username, this.searchOnlyMyPapers)
+      .subscribe(res => {
+        this.dataSource.data = res;
+      });
   }
 
 }

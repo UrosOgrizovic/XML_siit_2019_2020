@@ -21,8 +21,14 @@ const ENDPOINTS = {
   DELETE: (id) => `/sciencepapers/${id}`,
   PROPOSALS: (id) => `/sciencepapers/${id}/proposals`,
   ADD_REVIEWER: (id: number, username: string) => `/sciencepapers/${id}/reviewers/${username}`,
-  CHANGE_STATUS: (id: number, status: string) => `/sciencepapers/${id}/status/${status}`
-}
+  CHANGE_STATUS: (id: number, status: string) => `/sciencepapers/${id}/status/${status}`,
+  SEARCH_BY_METADATA: (keywords: string, paperPublishDate: string, authorUserName: string, searchOnlyMyPapers: boolean) =>
+  `/sciencepapers/searchByMetadata?keywords=${keywords}&paperPublishDate=${paperPublishDate}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`,
+  SEARCH_BY_TEXT: (text: string, authorUserName: string, searchOnlyMyPapers: boolean) =>
+  `/sciencepapers/searchByText?text=${text}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`,
+  PERFORM_SEARCH: (keywords: string, paperPublishDate: string, text: string, authorUserName: string, searchOnlyMyPapers: boolean) =>
+  `/sciencepapers/performSearch?keywords=${keywords}&paperPublishDate=${paperPublishDate}&text=${text}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`
+};
 
 
 @Injectable({
@@ -160,19 +166,19 @@ export class SciencePapersService extends BaseService {
   }
 
   getHTML(id: number, resType: string) {
-  
+
     if (resType === 'blob') {
       return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_HTML(id)}`, {responseType: 'blob'}).pipe(
         map((res: any) => {
           return res;
         })
-      );  
+      );
     } else if (resType === 'text') {
       return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_HTML(id)}`, {responseType: 'text'}).pipe(
         map((res: any) => {
           return res;
         })
-      );  
+      );
     }
   }
 
@@ -183,5 +189,29 @@ export class SciencePapersService extends BaseService {
       })
     );
   }
-  
+
+
+  searchByMetadata(keywords: string, paperPublishDate: string, authorUserName: string, searchOnlyMyPapers: boolean) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.SEARCH_BY_METADATA(keywords, paperPublishDate, authorUserName, searchOnlyMyPapers)}`)
+    .pipe(
+      map((res: any) => {
+        return res;
+      }));
+  }
+
+  searchByText(text: string, authorUserName: string, searchOnlyMyPapers: boolean) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.SEARCH_BY_TEXT(text, authorUserName, searchOnlyMyPapers)}`).pipe(
+      map((res: any) => {
+        return res;
+      }));
+  }
+
+  performSearch(keywords: string, paperPublishDate: string, text: string, authorUserName: string, searchOnlyMyPapers: boolean) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.PERFORM_SEARCH(keywords, paperPublishDate, text, authorUserName, searchOnlyMyPapers)}`)
+    .pipe(
+      map((res: any) => {
+        return res;
+      }));
+  }
+
 }
