@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 
 import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatDialogModule,
-  MatSortModule, MatTableModule, MatIconModule, MatButtonModule, MatFormFieldModule } from "@angular/material";
+  MatSortModule, MatTableModule, MatIconModule, MatButtonModule, MatFormFieldModule, 
+  MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
 
 @NgModule({
@@ -14,7 +15,9 @@ import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatDialog
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatPaginatorModule,
@@ -25,7 +28,8 @@ import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatDialog
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatNativeDateModule
   ]
 })
 export class SharedMaterialModule { }

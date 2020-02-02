@@ -4,11 +4,13 @@ import com.paperpublish.model.DTO.XMLDTO;
 import com.paperpublish.model.sciencepapers.ObjectFactory;
 import com.paperpublish.model.sciencepapers.SciencePapers;
 import com.paperpublish.model.sciencepapers.TAuthors;
+import com.paperpublish.model.sciencepapers.TParagraf;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.model.users.User;
 import com.paperpublish.utils.ConnectionProperties;
 import com.paperpublish.utils.FileUtil;
 import com.paperpublish.utils.SparqlUtil;
+import com.paperpublish.utils.XQuery;
 import com.paperpublish.utils.XUpdateTemplate;
 
 import org.apache.jena.query.ResultSet;
@@ -32,16 +34,26 @@ import org.xmldb.api.modules.XUpdateQueryService;
 
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Date;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Spliterator;
 
 @Component
 public class SciencePapersRepository {
@@ -361,4 +373,147 @@ public class SciencePapersRepository {
 		ConnectionProperties.executeUpdateMetadata(sparqlUpdate);
 		
 	}
+
+	public List<String> searchByMetadata(String keywords, Date paperPublishDate, String authorUserName, boolean searchOnlyMyPapers) {
+		boolean ignoreDate = false;
+		GregorianCalendar c = new GregorianCalendar();
+		if (paperPublishDate.getTime() == 1) {
+			ignoreDate = true;
+		}
+		boolean ignoreKeywords = false;
+		if (keywords.contentEquals("")) {
+			ignoreKeywords = true;
+		}
+		keywords = keywords.toLowerCase();
+		List<String> idsOfFoundPapers = new ArrayList<String>();
+		if (!searchOnlyMyPapers) {
+			// search all papers
+			try {
+				List<TSciencePaper> allPapers = this.getAll();
+				for (TSciencePaper sciencePaper : allPapers) {
+					
+					if (sciencePaper.getStatus().equalsIgnoreCase("accepted") || 
+							(sciencePaper.getStatus().equalsIgnoreCase("in_procedure") && 
+									this.doesContainAuthorUserName(sciencePaper, authorUserName))) {
+						for (String keyword : sciencePaper.getPaperData().getKeywords().getKeyword()) {
+							if (this.doKeywordAndDateSearch(keywords, keyword, paperPublishDate, ignoreKeywords, ignoreDate, sciencePaper, c)) {
+								idsOfFoundPapers.add(sciencePaper.getDocumentId());
+								break;
+							}			
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else {
+			// search own papers
+			try {
+				List<TSciencePaper> papersOfAuthor = this.getByAuthorUsername(authorUserName);
+				for (TSciencePaper sciencePaper : papersOfAuthor) {
+					for (String keyword : sciencePaper.getPaperData().getKeywords().getKeyword()) {
+						if (this.doKeywordAndDateSearch(keywords, keyword, paperPublishDate, ignoreKeywords, ignoreDate, sciencePaper, c)) {
+							idsOfFoundPapers.add(sciencePaper.getDocumentId());
+							break;
+						}
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return idsOfFoundPapers;
+	}
+
+	private boolean doesContainAuthorUserName(TSciencePaper sciencePaper, String authorUserName) {
+		boolean isAuthorOfPaper = false;
+		for (TAuthors ta : sciencePaper.getPaperData().getAuthor()) {
+			for (String aun : ta.getAuthorUserName()) {
+				if (aun.equals(authorUserName)) {
+					isAuthorOfPaper = true;
+					break;
+				}
+			}
+			if (isAuthorOfPaper) {
+				break;
+			}
+		}
+		return isAuthorOfPaper;
+	}
+
+	public List<String> searchByText(String text, String authorUserName, boolean searchOnlyMyPapers) {
+		List<String> idsOfFoundPapers = new ArrayList<String>();
+		if (!searchOnlyMyPapers) {
+			// search all papers
+			try {
+				String returned = XQuery.run(ConnectionProperties.loadProperties(), authorUserName, text, searchOnlyMyPapers);
+				String[] splitReturned = returned.split("\n");
+				if (splitReturned[0].trim().equals("")) {
+					splitReturned = new String[0];
+				} else {
+					for (String title : splitReturned) {
+						idsOfFoundPapers.add(title);
+					}
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			// search own papers
+			try {
+				String returned = XQuery.run(ConnectionProperties.loadProperties(), authorUserName, text, searchOnlyMyPapers);
+				String[] splitReturned = returned.split("\n");
+				if (splitReturned[0].trim().equals("")) {
+					splitReturned = new String[0];
+				} else {
+					for (String title : splitReturned) {
+						idsOfFoundPapers.add(title);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return idsOfFoundPapers;
+	}
+
+	private boolean doKeywordAndDateSearch(String keywords, String keyword, Date paperPublishDate, boolean ignoreKeywords, boolean ignoreDate, TSciencePaper sciencePaper, GregorianCalendar c) throws DatatypeConfigurationException {
+		boolean doesMatch = false;
+		if (ignoreKeywords) {
+			if (ignoreDate) {
+				// everything matches, as both keywords and date are ignored
+				doesMatch = true;
+			} else {
+				c.setTime(paperPublishDate);
+				int result = sciencePaper.getPaperData().getPublicationDate().toGregorianCalendar().compareTo(c);
+				if (result == 0) {
+					doesMatch = true;
+				} else {
+					doesMatch = false;
+				}
+			}
+		} else {
+			// if keyword in passed keywords
+			if (keywords.contains(keyword.toLowerCase())) {
+				if (ignoreDate) {
+					doesMatch = true;
+				} else {
+					c.setTime(paperPublishDate);
+					int result = sciencePaper.getPaperData().getPublicationDate().toGregorianCalendar().compareTo(c);
+					if (result == 0) {
+						doesMatch = true;
+					} else {
+						doesMatch = false;
+					}
+				}
+			} else {
+				doesMatch = false;
+			}
+		}
+		return doesMatch;
+	}
+
+    
 }

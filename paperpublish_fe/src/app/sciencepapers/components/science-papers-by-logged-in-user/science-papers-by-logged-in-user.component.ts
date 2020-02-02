@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnChanges } from '@angular/core';
 import { SciencePapersService } from '../../services/sciencepapers.service';
 import { SciencePaper } from 'src/app/models/science-paper.model';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
@@ -11,21 +11,20 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
   templateUrl: './science-papers-by-logged-in-user.component.html',
   styleUrls: ['./science-papers-by-logged-in-user.component.css']
 })
-export class SciencePapersByLoggedInUserComponent implements OnInit {
+export class SciencePapersByLoggedInUserComponent implements OnInit, OnChanges {
   sciencePapers: SciencePaper[];
 
   displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'reviews', 'details', 'update', 'delete'];
 
   dataSource: MatTableDataSource<SciencePaper>;
 
-  
+
   constructor(private sciencePapersService: SciencePapersService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
-    let user: User = JSON.parse(localStorage.getItem('user'));
+    const user: User = JSON.parse(localStorage.getItem('user'));
     this.sciencePapersService.getByAuthorUsername(user.username).subscribe((data: any) => {
       this.sciencePapers = data;
-      console.log(data);
       this.initializeDataSource();
     })
   }

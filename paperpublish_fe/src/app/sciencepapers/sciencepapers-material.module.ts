@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatDialogModule,
-  MatSortModule, MatTableModule, MatIconModule, MatButtonModule, MatFormFieldModule } from "@angular/material";
+  MatSortModule, MatTableModule, MatIconModule, MatButtonModule, MatFormFieldModule, MatDatepickerModule, MatCheckboxModule } from "@angular/material";
 
 
 @NgModule({
@@ -14,7 +14,9 @@ import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatDialog
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatCheckboxModule
   ],
   exports: [
     MatPaginatorModule,
@@ -25,7 +27,9 @@ import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatDialog
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDatepickerModule,
+    MatCheckboxModule
   ]
 })
 export class SciencePapersMaterialModule { }
