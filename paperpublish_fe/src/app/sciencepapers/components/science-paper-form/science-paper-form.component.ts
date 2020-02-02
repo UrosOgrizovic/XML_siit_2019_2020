@@ -9,6 +9,21 @@ declare global {
 }
 let Xonomy = window.Xonomy || {};
 
+function addNewParagraph(htmlID, param) {
+  let xmlString = Xonomy.harvest();
+  let maxParagrafId = -1
+  let re = /\paragrafId=(\"|\')[0-9]+(\"|\')/g;
+  let listOfMatches = xmlString.match(re) || [];
+  listOfMatches.forEach((labelAndValue) => {
+    let id = parseInt(labelAndValue.match(new RegExp("[0-9]+"))[0]);
+    if (maxParagrafId < id) {
+      maxParagrafId = id;
+    }
+  });
+
+  Xonomy.newElementChild(htmlID, `<Papers:Paragraf paragrafId='${maxParagrafId + 1}' xmlns:Papers='http://localhost:8080/SciencePapers'><Papers:content>Placeholder text</Papers:content></Papers:Paragraf>`)
+}
+
 const CREATE_SCIENCE_PAPER_SPECIFICATION = {
   elements: {
     "Papers:SciencePaper": {
@@ -23,7 +38,7 @@ const CREATE_SCIENCE_PAPER_SPECIFICATION = {
         },
         {
           caption: "Add a paragraph",
-          action: Xonomy.newElementChild,
+          action: addNewParagraph,
           actionParameter: "<Papers:Paragraf xmlns:Papers='http://localhost:8080/SciencePapers'><Papers:content>Placeholder text</Papers:content></Papers:Paragraf>"
         },
         {
@@ -255,7 +270,7 @@ const UPDATE_SCIENCE_PAPER_SPECIFICATION = {
         },
         {
           caption: "Add a paragraph",
-          action: Xonomy.newElementChild,
+          action: addNewParagraph,
           actionParameter: "<Papers:Paragraf xmlns:Papers='http://localhost:8080/SciencePapers'><Papers:content>Placeholder text</Papers:content></Papers:Paragraf>"
         },
         {
@@ -619,6 +634,7 @@ export class SciencePaperFormComponent implements OnInit {
   isSciencePaperMade = false;
   submitButtonLabel = "Next";
   isEditMode = false;
+  maxParagrafId = 0;
 
   private routeSub: Subscription;
 
@@ -645,6 +661,19 @@ export class SciencePaperFormComponent implements OnInit {
 
   switchMode() {
     Xonomy.mode === "nerd" ? Xonomy.setMode("laic") : Xonomy.setMode("nerd");
+  }
+
+  extractMaxParagrafId() {
+    if (this.isEditMode) {
+      let re = /\paragrafId=(\"|\')[0-9]+(\"|\')/g;
+      let listOfMatches = this.xmlSciencePaperContent.match(re)
+      listOfMatches.forEach((labelAndValue) => {
+        let id = parseInt(labelAndValue.match(new RegExp("[0-9]+"))[0]);
+        if (this.maxParagrafId < id) {
+          this.maxParagrafId = id;
+        }
+      })
+    }
   }
 
   onSubmit() {

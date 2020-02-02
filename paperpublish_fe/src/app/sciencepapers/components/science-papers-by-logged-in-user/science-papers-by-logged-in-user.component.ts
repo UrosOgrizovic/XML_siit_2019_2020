@@ -14,7 +14,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
 export class SciencePapersByLoggedInUserComponent implements OnInit, OnChanges {
   sciencePapers: SciencePaper[];
 
-  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'details', 'update', 'delete'];
+  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'reviews', 'details', 'update', 'delete'];
 
   dataSource: MatTableDataSource<SciencePaper>;
 
@@ -46,6 +46,10 @@ export class SciencePapersByLoggedInUserComponent implements OnInit, OnChanges {
 
   redirectToUpdate(id: number) {
     this.router.navigate(['/science-papers/edit', id]);
+  }
+
+  redirectToReviews(id: number) {
+    this.router.navigate(['/paper-reviews', id])
   }
 
   redirectToDetails(id: number) {

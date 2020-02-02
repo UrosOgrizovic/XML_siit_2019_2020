@@ -5,6 +5,7 @@ import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/m
 import { User } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { ReviewsService } from '../../services/reviews.service';
 
 
 @Component({
@@ -15,11 +16,11 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
 export class AllSciencePapersComponent implements OnInit {
   sciencePapers: SciencePaper[];
 
-  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'assign'];
+  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'assign', 'accept', 'reject', 'merge'];
 
   dataSource: MatTableDataSource<SciencePaper>;
 
-  constructor(private sciencePapersService: SciencePapersService, private router: Router, public dialog: MatDialog) { }
+  constructor(private reviewsService: ReviewsService, private sciencePapersService: SciencePapersService, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.sciencePapersService.getAll().subscribe((data: any) => {
@@ -42,6 +43,51 @@ export class AllSciencePapersComponent implements OnInit {
 
   redirectToAssign(id: number) {
     this.router.navigate(['/science-papers/assign', id]);
+  }
+
+  showAcceptModal(id: number) {
+    let dialogData = {
+      width: '350px',
+      data: "Are you sure you want to accept this document?"
+    };
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogData);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) {
+        return;
+      }
+      this.sciencePapersService.changeStatus(id, 'accepted').subscribe((res: any) => {});
+    });
+  }
+
+  showRejectModal(id: number) {
+    let dialogData = {
+      width: '350px',
+      data: "Are you sure you want to reject this document?"
+    };
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogData);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) {
+        return;
+      }
+      this.sciencePapersService.changeStatus(id, 'rejected').subscribe((res: any) => {});
+    });
+  }
+
+  showMergeModal(id: number) {
+    let dialogData = {
+      width: '350px',
+      data: "Are you sure you want to merge reviews?"
+    };
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogData);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(!result) {
+        return;
+      }
+      this.reviewsService.merge(id).subscribe((res: any) => {});
+    });
   }
 
 

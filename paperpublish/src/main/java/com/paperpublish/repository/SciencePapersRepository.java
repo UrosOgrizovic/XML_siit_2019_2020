@@ -73,6 +73,13 @@ public class SciencePapersRepository {
 		return sp.getSciencePaper();
     }
 
+	public TSciencePaper removeReviewers(String documentId) throws Exception {
+		TSciencePaper paper = this.findByDocumentId(documentId);
+		paper.getPaperData().getReviewer().clear();
+		this.update(paper);
+		return paper;
+	}
+
 	public List<TSciencePaper> getAllAccepted() throws Exception {
 		XPathQueryService queryService = ConnectionProperties.getXPathService(collection);
 		queryService.setNamespace("",ConnectionProperties.SCIENCE_PAPERS_NAMESPACE);

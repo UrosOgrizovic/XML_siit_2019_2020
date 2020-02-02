@@ -119,7 +119,7 @@ export class SciencePapersService extends BaseService {
     return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_ONE(id)}`, {responseType: 'text'})
       .pipe(
         map((res: any) => {
-          console.log(res)
+          console.log(res.toString())
           return res;
         })
       )

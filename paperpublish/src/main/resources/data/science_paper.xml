@@ -29,7 +29,7 @@
                 <Papers:authorInstitution>Institution1</Papers:authorInstitution>
             </Papers:Author>
             <Papers:Author>
-                <Papers:authorUserName property="pred:authorUserName">user</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">user1</Papers:authorUserName>
                 <Papers:authorInstitution>Institution2</Papers:authorInstitution>
             </Papers:Author>
             
@@ -189,7 +189,7 @@
             </Papers:Keywords>
             
             <Papers:Author>
-                <Papers:authorUserName property="pred:authorUserName">user</Papers:authorUserName>
+                <Papers:authorUserName property="pred:authorUserName">user1</Papers:authorUserName>
                 <Papers:authorInstitution>Institution1</Papers:authorInstitution>
             </Papers:Author>
             <Papers:Author>

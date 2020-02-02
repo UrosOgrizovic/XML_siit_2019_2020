@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           targetNamespace="http://localhost:8080/BlindedReviews" xmlns:BlindedReviews="http://localhost:8080/BlindedReviews"
+           xmlns:Users="http://localhost:8080/Users" xmlns:Papers="http://localhost:8080/SciencePapers">
+
+    <xs:import namespace="http://localhost:8080/SciencePapers" schemaLocation="science_paper.xsd"/>
+    <xs:import namespace="http://localhost:8080/Users" schemaLocation="User.xsd"/>
+
+    <xs:element name="BlindedReviews">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="BlindedReview" type="BlindedReviews:TBlindedReview" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TBlindedReview">
+        <xs:all>
+
+            <xs:element name="Paper" maxOccurs="1" minOccurs="1">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="paperId" type="xs:string" use="required"/>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+                <xs:keyref name="paperIdRef" refer="Papers:paperId">
+                    <xs:selector xpath="BlindedReviews:Paper"/>
+                    <xs:field xpath="."/>
+                </xs:keyref>
+
+                <xs:keyref name="paperTitleRef" refer="Papers:paperTitle">
+                    <xs:selector xpath="BlindedReviews:Paper"/>
+                    <xs:field xpath="@paperId"/>
+                </xs:keyref>
+            </xs:element>
+            <xs:element ref="BlindedReviews:Comments"></xs:element>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:element name="Comments">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="BlindedReviews:Comment" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:keyref name="paperParagrafId" refer="Papers:paragrafIdKey">
+            <xs:selector xpath="./BlindedReviews:Comment"></xs:selector>
+            <xs:field xpath="@paragrafId"></xs:field>
+        </xs:keyref>
+    </xs:element>
+
+    <xs:element name="Comment">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="paragrafId" type="xs:string" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TAuthors">
+        <xs:sequence>
+            <xs:element name="authorUserName" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { CommentDialogComponent } from 'src/app/shared/components/comment-dialog/comment-dialog.component';
 import { AuthService } from 'src/app/home/services/auth.service';
 import { ReviewsService } from '../../services/reviews.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-science-paper-review-form',
@@ -17,6 +18,7 @@ export class SciencePaperReviewFormComponent implements OnInit {
 
   constructor(private sciencePapersService: SciencePapersService, private authService: AuthService, public dialog: MatDialog,
     private route: ActivatedRoute,
+    private router: Router,
     private reviewsService: ReviewsService) { }
 
   ngOnInit() {
@@ -47,7 +49,7 @@ export class SciencePaperReviewFormComponent implements OnInit {
 
   onSubmit() {
     this.reviewsService.create({"xml": this.generateReviewXML()}).subscribe((res: any) => {
-
+      this.router.navigateByUrl('/');
     });
   }
 
