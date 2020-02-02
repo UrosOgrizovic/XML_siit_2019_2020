@@ -1,0 +1,10 @@
+<blin:BlindedReviews xmlns:blin="http://localhost:8080/BlindedReviews">
+  <!--1 or more repetitions:-->
+  <blin:BlindedReview>
+    <blin:Paper paperId="string">string</blin:Paper>
+    <blin:Comments>
+      <!--1 or more repetitions:-->
+      <blin:Comment paragrafId="string">string</blin:Comment>
+    </blin:Comments>
+  </blin:BlindedReview>
+</blin:BlindedReviews>

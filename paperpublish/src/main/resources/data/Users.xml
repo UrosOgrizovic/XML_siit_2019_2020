@@ -4,10 +4,24 @@
     xmlns:pred="http://localhost:8080/Users/predicate/"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:schemaLocation="http://localhost:8080/Users file:/D:/FAKS/7.semestar/xml/projekat/User.xsd">
-    <user:User about="http://localhost:8080/Users/user">
-        <user:UserName  property="pred:username" datatype="xs:string">user</user:UserName>
+    <user:User about="http://localhost:8080/Users/user1">
+        <user:UserName  property="pred:username" datatype="xs:string">user1</user:UserName>
         <user:Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</user:Password>
         <user:FullName>User One</user:FullName>
+        <user:Institution>Ns UNS</user:Institution>
+        <user:Expertises>
+            <user:expertise>production</user:expertise>
+            <user:expertise>agriculture</user:expertise>
+        </user:Expertises>
+        <user:EMail property="pred:email" datatype="xs:string">EMail0</user:EMail>
+        <user:Roles>
+            <user:Role>ROLE_USER</user:Role>
+        </user:Roles>
+    </user:User>
+    <user:User about="http://localhost:8080/Users/user2">
+        <user:UserName  property="pred:username" datatype="xs:string">user2</user:UserName>
+        <user:Password>$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra</user:Password>
+        <user:FullName>User Two</user:FullName>
         <user:Institution>Ns UNS</user:Institution>
         <user:Expertises>
             <user:expertise>production</user:expertise>

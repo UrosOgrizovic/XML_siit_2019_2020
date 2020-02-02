@@ -10,7 +10,8 @@
     <span *ngIf="isUserLoggedIn && userType == 'ROLE_USER';"> <!-- AUTOR/RECEZENT -->
       <button id="science-papers" mat-button routerLink="/science-papers">Published Papers</button>
       <button id="my-science-papers" mat-button routerLink="/my-science-papers">My Science Papers</button>
-      <button id="my-science-papers" mat-button routerLink="/papers-to-review">Papers to Review</button>
+      <button id="papers-to-review" mat-button routerLink="/papers-to-review">Papers to Review</button>
+      <button id="papers-to-review" mat-button routerLink="/assignments">Assignments</button>
       <button id="logout" mat-button (click)="logOut()">Logout</button>
     </span>
     <span *ngIf="isUserLoggedIn && userType == 'ROLE_EDITOR';"> <!-- UREDNIK -->

@@ -8,6 +8,8 @@ import { AllSciencePapersComponent } from './components/all-science-papers/all-s
 import { SciencePaperAssignFormComponent } from './components/science-paper-assign-form/science-paper-assign-form.component';
 import { ReviewSciencePapersComponent } from './components/review-science-papers/review-science-papers.component';
 import { SciencePaperReviewFormComponent } from './components/science-paper-review-form/science-paper-review-form.component';
+import { PaperReviewsComponent } from './components/paper-reviews/paper-reviews.component';
+import { AssignmentsComponent } from './components/assignments/assignments.component';
 
 
 const routes: Routes = [
@@ -46,6 +48,14 @@ const routes: Routes = [
   {
     path: 'papers-to-review',
     component: ReviewSciencePapersComponent
+  },
+  {
+    path: 'paper-reviews/:id',
+    component: PaperReviewsComponent
+  },
+  {
+    path: 'assignments',
+    component: AssignmentsComponent
   }
 ];
 

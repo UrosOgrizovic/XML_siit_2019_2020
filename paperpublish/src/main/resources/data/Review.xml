@@ -5,7 +5,7 @@
       <!--1 or more repetitions:-->
       <rev:authorUserName>user</rev:authorUserName>
     </rev:Authors>
-    <rev:Paper paperId="1"></rev:Paper>
+    <rev:Paper paperId="1"/>
     <rev:Comments>
       <!--1 or more repetitions:-->
       <rev:Comment paragrafId="1">mfsalkmkflsamlk</rev:Comment>

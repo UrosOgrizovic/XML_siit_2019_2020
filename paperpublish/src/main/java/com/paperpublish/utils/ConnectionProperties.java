@@ -47,13 +47,17 @@ public class ConnectionProperties {
 
     public static final String initDataPath = "src/main/resources/data/";
     public static final String SCIENCE_PAPER_ID = "science_paper.xml";
+    public static final String BLINDED_REVIEWS_ID = "BlindedReview.xml";
     public static final String ROLES_ID = "Roles.xml";
     public static final String USERS_ID = "Users.xml";
     public static final String COVER_LETTERS_ID = "journal_cover_letter.xml";
     public static final String REVIEWS_ID = "Review.xml";
+    public static final String REVIEW_ASSIGNMENTS_ID = "ReviewAssignment.xml";
 
     public static final String PACKAGE_PATH = "com.paperpublish.model.";
     public static final String SCIENCE_PAPER_PACKAGE = "sciencepapers";
+    public static final String REVIEW_ASSIGNMENTS_PACKAGE = "reviewassignments";
+    public static final String BLINDED_REVIEWS_PACKAGE = "blindedreviews";
     public static final String REVIEWS_PACKAGE = "reviews";
     public static final String COVER_LETTERS_PACKAGE = "letter";
     public static final String ROLES_PACKAGE = "users";
@@ -61,6 +65,8 @@ public class ConnectionProperties {
 
     public static final String USERS_NAMESPACE = "http://localhost:8080/Users";
     public static final String SCIENCE_PAPERS_NAMESPACE = "http://localhost:8080/SciencePapers";
+    public static final String REVIEW_ASSIGNMENTS_NAMESPACE = "http://localhost:8080/ReviewAssignments";
+    public static final String BLINDED_REVIEWS_NAMESPACE = "http://localhost:8080/BlindedReviews";
     public static final String COVER_LETTERS_NAMESPACE = "http://localhost:8080/Letter";
     public static final String REVIEWS_NAMESPACE = "http://localhost:8080/Reviews";
 
@@ -257,6 +263,20 @@ public class ConnectionProperties {
 
         resource = (XMLResource) col.createResource(REVIEWS_ID,XMLResource.RESOURCE_TYPE);
         f = new File(initDataPath + REVIEWS_ID);
+        resource.setContent(f);
+        col.storeResource(resource);
+
+        initMetadataUpload();
+
+        resource = (XMLResource) col.createResource(REVIEW_ASSIGNMENTS_ID,XMLResource.RESOURCE_TYPE);
+        f = new File(initDataPath + REVIEW_ASSIGNMENTS_ID);
+        resource.setContent(f);
+        col.storeResource(resource);
+
+        initMetadataUpload();
+
+        resource = (XMLResource) col.createResource(BLINDED_REVIEWS_ID,XMLResource.RESOURCE_TYPE);
+        f = new File(initDataPath + BLINDED_REVIEWS_ID);
         resource.setContent(f);
         col.storeResource(resource);
 

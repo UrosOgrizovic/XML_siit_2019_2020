@@ -180,9 +180,9 @@ public class SciencePapersController {
 	}
 
 	@PostMapping(path="{documentId}/reviewers/{userName}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> addReviewer(@PathVariable String documentId, @PathVariable String userName) {
+	public ResponseEntity<?> addReviewerAssignment(@PathVariable String documentId, @PathVariable String userName) {
     	try {
-    		return ResponseEntity.ok(sciencePapersService.addReviewer(documentId, userName));
+    		return ResponseEntity.ok(sciencePapersService.addReviewerAssignment(documentId, userName));
 		} catch(Exception e) {
 			if (e.getClass() == ResourceNotFoundException.class) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

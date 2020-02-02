@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+           targetNamespace="http://localhost:8080/ReviewAssignments" xmlns:ReviewAssignments="http://localhost:8080/ReviewAssignments"
+           xmlns:Users="http://localhost:8080/Users" xmlns:Papers="http://localhost:8080/SciencePapers">
+
+    <xs:import namespace="http://localhost:8080/SciencePapers" schemaLocation="science_paper.xsd"/>
+    <xs:import namespace="http://localhost:8080/Users" schemaLocation="User.xsd"/>
+
+    <xs:element name="ReviewAssignments">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ReviewAssignment" type="ReviewAssignments:TReviewAssignment" maxOccurs="unbounded">
+                    <xs:keyref name="paperIdRef" refer="Papers:paperId">
+                        <xs:selector xpath="ReviewAssignments:Paper"/>
+                        <xs:field xpath="."/>
+                    </xs:keyref>
+                    <xs:keyref name="reviewer" refer="Users:userName">
+                        <xs:selector xpath="ReviewAssignments:Author/ReviewAssignments:reviewerUserName"/>
+                        <xs:field xpath="."/>
+                    </xs:keyref>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TReviewAssignment">
+        <xs:all>
+            <xs:element name="reviewerUserName"/>
+        </xs:all>
+        <xs:attribute name="paperId" type="xs:string" use="required"/>
+    </xs:complexType>
+</xs:schema>

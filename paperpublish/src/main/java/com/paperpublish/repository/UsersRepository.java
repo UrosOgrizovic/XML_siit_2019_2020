@@ -1,5 +1,7 @@
 package com.paperpublish.repository;
 
+import com.paperpublish.model.letter.TAuthor;
+import com.paperpublish.model.sciencepapers.TAuthors;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.model.users.User;
 import com.paperpublish.model.users.Users;
@@ -16,10 +18,7 @@ import org.xmldb.api.modules.XPathQueryService;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class UsersRepository {
@@ -56,7 +55,21 @@ public class UsersRepository {
 
     public List<User> getProposals(TSciencePaper sciencePaper) throws Exception {
         List<User> users = this.getAuthors();
-        System.out.println(UsersRepository.findMatchCount(users.get(0).getExpertises() != null ? users.get(0).getExpertises().getExpertise() : new ArrayList<>(), sciencePaper.getPaperData().getKeywords() != null ? sciencePaper.getPaperData().getKeywords().getKeyword() : new ArrayList<>()));
+        List<TAuthors> authors = sciencePaper.getPaperData().getAuthor();
+
+        Iterator<User> iterator = users.iterator();
+        while(iterator.hasNext()) {
+            User u = iterator.next();
+            boolean found = false;
+            for(TAuthors a: authors) {
+                if (a.getAuthorUserName().contains(u.getUserName())) {
+                    found = true;
+                }
+            }
+            if (found) {
+                iterator.remove();
+            }
+        }
 
         Collections.sort(users, Comparator.comparingInt(o -> -1 * UsersRepository.findMatchCount(o.getExpertises() != null ? o.getExpertises().getExpertise() : new ArrayList<>(), sciencePaper.getPaperData().getKeywords() != null ? sciencePaper.getPaperData().getKeywords().getKeyword() : new ArrayList<>())));
         return users;

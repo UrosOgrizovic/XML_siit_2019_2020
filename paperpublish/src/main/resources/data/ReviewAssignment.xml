@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReviewAssignments:ReviewAssignments
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ReviewAssignments="http://localhost:8080/ReviewAssignments"
+        xsi:schemaLocation="http://localhost:8080/ReviewAssignments"
+>
+<ReviewAssignment xmlns="http://localhost:8080/ReviewAssignments" paperId="1">
+  <reviewerUserName>user</reviewerUserName>
+</ReviewAssignment>
+</ReviewAssignments:ReviewAssignments>

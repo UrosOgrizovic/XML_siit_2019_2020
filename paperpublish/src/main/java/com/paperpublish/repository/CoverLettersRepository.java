@@ -40,7 +40,6 @@ public class CoverLettersRepository {
             long res = updateQueryService.updateResource(ConnectionProperties.COVER_LETTERS_ID,
                     String.format(XUpdateTemplate.APPEND, ConnectionProperties.COVER_LETTERS_NAMESPACE, "//Letter", writer.toString()));
 
-            saveRDFModel(coverLetter);
             return res;
 
         } catch (Exception e) {
@@ -61,28 +60,4 @@ public class CoverLettersRepository {
         return -1L;
     }
 
-    public void saveRDFModel(TCoverLetter coverLetter) {
-        Model model = ModelFactory.createDefaultModel();
-
-        org.apache.jena.rdf.model.Resource resource = ResourceFactory.createResource("http://localhost:8080/Letter/" + coverLetter.getJournalName());
-        this.addPropertyAndLiteralToModel(model, resource, "journalName", coverLetter.getJournalName());
-        this.addPropertyAndLiteralToModel(model, resource, "articleType", coverLetter.getArticleType());
-        for (TAuthor author : coverLetter.getAuthor()) {
-            this.addPropertyAndLiteralToModel(model, resource, "authorFullName", author.getFullName());
-        }
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        model.write(out, SparqlUtil.NTRIPLES);
-
-        String sparqlUpdate = SparqlUtil.insertData(ConnectionProperties.dataEndpoint + ConnectionProperties.COVER_LETTER_METADATA, new String(out.toByteArray()));
-        System.out.println(sparqlUpdate);
-
-        ConnectionProperties.executeUpdateMetadata(sparqlUpdate);
-    }
-
-    public void addPropertyAndLiteralToModel(Model model, org.apache.jena.rdf.model.Resource resource, String propertyLocalName, String literalValue) {
-        Property property = model.createProperty(ConnectionProperties.COVER_LETTER_PREDICATE_NAMESPACE, propertyLocalName);
-        Literal literal = model.createLiteral(literalValue);
-        model.add(model.createStatement(resource, property, literal));
-    }
 }

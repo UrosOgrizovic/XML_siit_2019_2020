@@ -1,0 +1,41 @@
+<table mat-table style="width: 100%; margin-top: 1em;" class="mat-elevation-z8" [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+    <td mat-cell *matCellDef="let assignment"> {{assignment.paperId}}</td>
+  </ng-container>
+  
+  <ng-container matColumnDef="details">
+    <th mat-header-cell *matHeaderCellDef> Details </th>
+    <td mat-cell *matCellDef="let assignment">
+      <button mat-icon-button color="primary" (click)="redirectToDetails(assignment.paperId)">
+          <mat-icon class="mat-18">reorder</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  
+  <ng-container matColumnDef="accept">
+    <th mat-header-cell *matHeaderCellDef> Accept </th>
+    <td mat-cell *matCellDef="let assignment">
+      <button mat-icon-button color="accent" (click)="showAcceptModal(assignment.paperId)">
+          <mat-icon class="mat-18">done</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="decline">
+    <th mat-header-cell *matHeaderCellDef> Decline </th>
+    <td mat-cell *matCellDef="let assignment">
+      <button mat-icon-button color="warn" (click)="showDeclineModal(assignment.paperId)">
+          <mat-icon class="mat-18">delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+

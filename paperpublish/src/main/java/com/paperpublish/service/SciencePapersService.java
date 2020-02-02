@@ -2,8 +2,11 @@ package com.paperpublish.service;
 
 import com.paperpublish.model.DTO.TSciencePaperDTO;
 import com.paperpublish.model.DTO.XMLDTO;
+import com.paperpublish.model.reviewassignments.TReviewAssignment;
+import com.paperpublish.model.reviewassignments.TReviewer;
 import com.paperpublish.model.sciencepapers.TReviewers;
 import com.paperpublish.model.users.User;
+import com.paperpublish.repository.ReviewAssignmentsRepository;
 import com.paperpublish.repository.UsersRepository;
 import org.apache.fop.area.RegionViewport;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +16,8 @@ import com.paperpublish.model.sciencepapers.ObjectFactory;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
 import com.paperpublish.repository.SciencePapersRepository;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -22,6 +27,9 @@ public class SciencePapersService {
 
     @Autowired
 	UsersRepository usersRepository;
+
+    @Autowired
+	ReviewAssignmentsRepository reviewAssignmentsRepository;
 
     public List<TSciencePaper> getAllAccepted(){
         List<TSciencePaper> papers = null;
@@ -41,6 +49,17 @@ public class SciencePapersService {
 			System.out.println(e.getMessage());
 		}
 		return papers;
+	}
+
+	public Long acceptReviewAssignment(String documentId, String userName) throws Exception {
+    	this.addReviewer(documentId, userName);
+		this.reviewAssignmentsRepository.delete(documentId, userName);
+		return 1l;
+	}
+
+	public Long declineReviewAssignment(String documentId, String userName) throws Exception {
+    	this.reviewAssignmentsRepository.delete(documentId, userName);
+    	return 1l;
 	}
 
     public List<User> getProposals(String documentId) throws Exception {
@@ -122,7 +141,15 @@ public class SciencePapersService {
         	e.printStackTrace();
         }
         return papers;
-		
+	}
+
+	public TReviewAssignment addReviewerAssignment(String documentId, String userName) throws Exception {
+		TReviewAssignment reviewAssignment = new TReviewAssignment();
+		reviewAssignment.setPaperId(documentId);
+		reviewAssignment.setReviewerUserName(userName);
+
+		this.reviewAssignmentsRepository.create(reviewAssignment);
+		return reviewAssignment;
 	}
 
 	public TSciencePaper addReviewer(String documentId, String userName) throws Exception {

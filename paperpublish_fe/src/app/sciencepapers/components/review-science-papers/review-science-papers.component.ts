@@ -18,7 +18,7 @@ export class ReviewSciencePapersComponent implements OnInit {
   sciencePapers: SciencePaper[];
   private routeSub: Subscription;
 
-  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'review', 'accept', 'reject'];
+  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'review'];
 
   dataSource: MatTableDataSource<SciencePaper>;
 
@@ -47,37 +47,5 @@ export class ReviewSciencePapersComponent implements OnInit {
   redirectToReview(id: number) {
     this.router.navigate(['/science-papers/review', id]);
   }
-
-  showAcceptModal(id: number) {
-    let dialogData = {
-      width: '350px',
-      data: "Are you sure you want to accept this document?"
-    };
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogData);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(!result) {
-        return;
-      }
-      this.sciencePapersService.changeStatus(id, 'accepted').subscribe((res: any) => {});
-    });
-  }
-
-  showRejectModal(id: number) {
-    let dialogData = {
-      width: '350px',
-      data: "Are you sure you want to reject this document?"
-    };
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, dialogData);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(!result) {
-        return;
-      }
-      this.sciencePapersService.changeStatus(id, 'rejected').subscribe((res: any) => {});
-    });
-  }
-
-
 
 }
