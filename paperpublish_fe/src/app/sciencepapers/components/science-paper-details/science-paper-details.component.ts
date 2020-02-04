@@ -21,13 +21,13 @@ export class SciencePaperDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.tempMetadata = [];
-    
+
     this.id = +this.route.snapshot.paramMap.get('id');
     this.sciencePapersService.getHTML(this.id, 'text').subscribe(result => {
       document.getElementById('sciencePaperHtml').innerHTML = result;
-      let allTempMetadata = Array.from(document.getElementById('sciencePaperHtml').getElementsByTagName('meta'));
+      const allTempMetadata = Array.from(document.getElementById('sciencePaperHtml').getElementsByTagName('meta'));
       for (let i = 0; i < allTempMetadata.length; i++) {
-        if (allTempMetadata[i].name != '') {
+        if (allTempMetadata[i].name !== '') {
           this.tempMetadata.push(allTempMetadata[i]);
         }
       }

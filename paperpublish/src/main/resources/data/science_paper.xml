@@ -212,32 +212,21 @@
         
         <Papers:Paragraf paragrafId="1">
             <Papers:content>
-                <!--<bold>Document phenomenology:
-                        a framework for holistic analysis
-                    </bold>
-                        <bold>Tim Gorichanaz</bold>
-                    Drexel University, Philadelphia, Pennsylvania, USA, and
-                        <bold>Kiersten F. Latham</bold>
-                    Kent State University, Kent, Ohio, USA
-                    
-                    <bold>Purpose</bold> - The purpose of ...
-                    <bold>Design/methodology/approach</bold> - Understanding is positioned as ...
-                                       ...
-                        <bold>Paper type</bold> Conceptual paper-->     
-                
-                
                 <Papers:quote citation="1">Life is as infinitely great ...</Papers:quote>
-                <!--                        
-                   <bold>Purpose</bold>
-                    Do documents exist? Or, perhaps more to the point: how do documents exist...
-                        -->
-                
             </Papers:content>
         </Papers:Paragraf>
         <Papers:Paragraf paragrafId="2">
             <Papers:content>
                 in the days of their progenitor but today furnish a different one altogether...
                 <Papers:quote citation="2">not inherent, but rather the product of will, eith..</Papers:quote>
+            </Papers:content>
+        </Papers:Paragraf>
+        <Papers:Paragraf paragrafId="3">
+            <Papers:content>
+                Adding some more text. Adding some more text. Adding some more text. Adding some more text.
+                Adding some more text. Adding some more text. Adding some more text. Adding some more text. 
+                Adding some more text. Adding some more text. Adding some more text. Adding some more text. 
+                Adding some more text. Adding some more text. Adding some more text. Adding some more text. 
             </Papers:content>
         </Papers:Paragraf>
         

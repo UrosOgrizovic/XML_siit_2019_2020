@@ -13,8 +13,9 @@ const ENDPOINTS = {
   MERGE: (id) => `/reviews/${id}/merge`,
   ALL_ASSIGNMENTS: (username) => `/reviews/${username}/assignments`,
   ACCEPT_ASSIGNMENT: (id, username) => `/reviews/${id}/accept-assign/${username}`,
-  DECLINE_ASSIGNMENT: (id, username) => `/reviews/${id}/decline-assign/${username}`
-}
+  DECLINE_ASSIGNMENT: (id, username) => `/reviews/${id}/decline-assign/${username}`,
+  GET_REVIEWS_HTML: (id) => `/reviews/getReviewsHtml/${id}`
+};
 
 
 @Injectable({
@@ -81,6 +82,13 @@ export class ReviewsService extends BaseService {
           console.log(response);
         })
       )
+  }
+
+  viewMergedReviews(documentId: number) {
+    return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_REVIEWS_HTML(documentId)}`, {responseType: 'text'})
+    .pipe(map((res: any) => {
+      return res;
+    }));
   }
   
 }

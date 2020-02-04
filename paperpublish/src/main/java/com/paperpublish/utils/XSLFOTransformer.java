@@ -37,11 +37,15 @@ public class XSLFOTransformer {
 	
 	public static final String RESOURCES_PATH = "src/main/resources"; 
 	
-	public static final String INPUT_FILE = RESOURCES_PATH + "/data/science_paper.xml";
+	public static final String INPUT_FILE_SCIENCE_PAPER = RESOURCES_PATH + "/data/science_paper.xml";
+	
+	public static final String INPUT_FILE_BLINDED_REVIEW = RESOURCES_PATH + "/data/BlindedReview.xml";
 	
 	public static final String SCIENCE_PAPER_XSL_PDF_FILE = RESOURCES_PATH + "/data/xsl/science_paper_pdf.xsl";
 	
 	public static final String SCIENCE_PAPER_XSL_HTML_FILE = RESOURCES_PATH + "/data/xsl/science_paper_html.xsl";
+	
+	public static final String BLINDED_REVIEW_XSL_HTML_FILE = RESOURCES_PATH + "/data/xsl/blinded_review_html.xsl";
 	
 	public static final String OUTPUT_FILE_BASE = RESOURCES_PATH + "/science_paper";
 	
@@ -67,7 +71,7 @@ public class XSLFOTransformer {
 		StreamSource transformSourcePdf = new StreamSource(xslPdfFile);
 		
 		// Initialize the transformation subject
-		StreamSource source = new StreamSource(new File(INPUT_FILE));
+		StreamSource source = new StreamSource(new File(INPUT_FILE_SCIENCE_PAPER));
 
 		// Initialize user agent needed for the transformation
 		FOUserAgent userAgent = fopFactory.newFOUserAgent();
@@ -92,15 +96,24 @@ public class XSLFOTransformer {
 		return outStream;
 	}
 	
-	public ByteArrayOutputStream generateHTML(String documentId) throws Exception {
+	public ByteArrayOutputStream generateHTML(String documentId, boolean generateForBlindedReview) throws Exception {
+		String fileName = "";
+		String inputFileName = "";
 		// Point to the XSL-FO file
-		File xslHtmlFile = new File(SCIENCE_PAPER_XSL_HTML_FILE);
+		if (generateForBlindedReview) {
+			fileName = BLINDED_REVIEW_XSL_HTML_FILE;
+			inputFileName = INPUT_FILE_BLINDED_REVIEW;
+		} else {
+			fileName = SCIENCE_PAPER_XSL_HTML_FILE;
+			inputFileName = INPUT_FILE_SCIENCE_PAPER;
+		}
+		File xslHtmlFile = new File(fileName);
 
 		// Create transformation source
 		StreamSource transformSourceHtml = new StreamSource(xslHtmlFile);
 		
 		// Initialize the transformation subject
-		StreamSource source = new StreamSource(new File(INPUT_FILE));
+		StreamSource source = new StreamSource(new File(inputFileName));
 
 		// Initialize the XSL-FO transformer object
 		Transformer xslFoTransformerHtml = transformerFactory.newTransformer(transformSourceHtml);
@@ -117,7 +130,7 @@ public class XSLFOTransformer {
 	public static void main(String[] args) {
 		try {
 			new XSLFOTransformer().generatePDF("1");
-			new XSLFOTransformer().generateHTML("2");
+			new XSLFOTransformer().generateHTML("2", false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
