@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Notifications xmlns="http://localhost:8080/Notifications"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Notification>
+ <PaperName>SomeWorke</PaperName>
+ <NewState>published</NewState>
+</Notification>
+<Notification>
+ <PaperName>SomeWorke2</PaperName>
+ <NewState>published</NewState>
+</Notification>
+</Notifications>

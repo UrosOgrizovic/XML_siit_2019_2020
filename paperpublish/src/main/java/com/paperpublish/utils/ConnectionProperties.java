@@ -53,6 +53,7 @@ public class ConnectionProperties {
     public static final String COVER_LETTERS_ID = "journal_cover_letter.xml";
     public static final String REVIEWS_ID = "Review.xml";
     public static final String REVIEW_ASSIGNMENTS_ID = "ReviewAssignment.xml";
+    public static final String NOTIFICATIONS_ID = "Notifications.xml";
 
     public static final String PACKAGE_PATH = "com.paperpublish.model.";
     public static final String SCIENCE_PAPER_PACKAGE = "sciencepapers";
@@ -62,6 +63,7 @@ public class ConnectionProperties {
     public static final String COVER_LETTERS_PACKAGE = "letter";
     public static final String ROLES_PACKAGE = "users";
     public static final String USERS_PACKAGE = "users";
+    public static final String NOTIFICATIONS_PACKAGE = "notifications";
 
     public static final String USERS_NAMESPACE = "http://localhost:8080/Users";
     public static final String SCIENCE_PAPERS_NAMESPACE = "http://localhost:8080/SciencePapers";
@@ -69,6 +71,7 @@ public class ConnectionProperties {
     public static final String BLINDED_REVIEWS_NAMESPACE = "http://localhost:8080/BlindedReviews";
     public static final String COVER_LETTERS_NAMESPACE = "http://localhost:8080/Letter";
     public static final String REVIEWS_NAMESPACE = "http://localhost:8080/Reviews";
+    public static final String NOTIFICATIONS_NAMESPACE = "http://localhost:8080/Notifications";
 
 //------------------ MetaData ------------------
     public static final String QUERY_LOCATION = "src/main/resources/sparql/";
@@ -270,6 +273,11 @@ public class ConnectionProperties {
 
         resource = (XMLResource) col.createResource(REVIEW_ASSIGNMENTS_ID,XMLResource.RESOURCE_TYPE);
         f = new File(initDataPath + REVIEW_ASSIGNMENTS_ID);
+        resource.setContent(f);
+        col.storeResource(resource);
+
+        resource = (XMLResource) col.createResource(NOTIFICATIONS_ID,XMLResource.RESOURCE_TYPE);
+        f = new File(initDataPath + NOTIFICATIONS_ID);
         resource.setContent(f);
         col.storeResource(resource);
 
