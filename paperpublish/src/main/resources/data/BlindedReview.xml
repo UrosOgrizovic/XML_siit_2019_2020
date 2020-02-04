@@ -7,4 +7,12 @@
       <blin:Comment paragrafId="string">string</blin:Comment>
     </blin:Comments>
   </blin:BlindedReview>
+  <BlindedReview xmlns="http://localhost:8080/BlindedReviews">
+        <Paper paperId="2"/>
+        <Comments>
+            <Comment paragrafId="1">Comment for paragraph 1</Comment>
+          <Comment paragrafId="2">Comment for paragraph 2</Comment>
+          <Comment paragrafId="3">Comment for paragraph 3</Comment>
+        </Comments>
+  </BlindedReview>
 </blin:BlindedReviews>

@@ -142,7 +142,7 @@ public class SciencePapersController {
     @GetMapping(path = "getHTML/{documentId}", produces = MediaType.APPLICATION_XHTML_XML_VALUE)
     public ResponseEntity<?> getHTML(@PathVariable String documentId) {
     	try {
-    		ByteArrayOutputStream out = xslfoTransformer.generateHTML(documentId);
+    		ByteArrayOutputStream out = xslfoTransformer.generateHTML(documentId, false);
     		InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(out.toByteArray()));
     		return ResponseEntity.ok()
     	            .contentLength(out.size())
@@ -218,42 +218,7 @@ public class SciencePapersController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	/*
-	@GetMapping(path="searchByMetadata", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> searchByMetadata(@RequestParam(value="keywords", required=false) String keywords, 
-											  @RequestParam(value="paperPublishDate", required=false) String paperPublishDateString, 
-											  @RequestParam(value="authorUserName", required=false) String authorUserName,
-											  @RequestParam(value="searchOnlyMyPapers", required=true) boolean searchOnlyMyPapers) {
-
-		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		Date paperPublishDate = new Date(1);
-		if (!paperPublishDateString.equals("01-01-1970")) {
-			try {
-				paperPublishDate = formatter.parse(paperPublishDateString);
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Invalid date format");
-			}
-		}
-		
-		try {
-			return ResponseEntity.ok(sciencePapersService.searchByMetadata(keywords, paperPublishDate, authorUserName, searchOnlyMyPapers));
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
 	
-	@GetMapping(path="searchByText", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> searchByText(@RequestParam(value="text", required=false) String text, 
-										  @RequestParam(value="authorUserName", required=false) String authorUserName,
-										  @RequestParam(value="searchOnlyMyPapers", required=true) boolean searchOnlyMyPapers) {
-		try {
-			return ResponseEntity.ok(sciencePapersService.searchByText(text, authorUserName, searchOnlyMyPapers));
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-	*/
 	@GetMapping(path="performSearch", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> performSearch(@RequestParam(value="keywords", required=false) String keywords, 
 										   @RequestParam(value="paperPublishDate", required=false) String paperPublishDateString, 

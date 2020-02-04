@@ -4,7 +4,13 @@ import com.paperpublish.model.DTO.XMLDTO;
 import com.paperpublish.service.CoverLettersService;
 import com.paperpublish.service.ReviewsService;
 import com.paperpublish.service.SciencePapersService;
+import com.paperpublish.utils.XSLFOTransformer;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +27,8 @@ public class ReviewsController {
 
     @Autowired
     public SciencePapersService sciencePapersService;
+    
+    public XSLFOTransformer xslfoTransformer = new XSLFOTransformer();
 
     @PostMapping(path = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> create(@RequestBody XMLDTO paperXMLDTO) {
@@ -84,6 +92,21 @@ public class ReviewsController {
         } catch(Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+    }
+    
+    @GetMapping(path="getReviewsHtml/{documentId}",  produces = MediaType.APPLICATION_XHTML_XML_VALUE)
+    public ResponseEntity<?> getReviewsHTML(@PathVariable String documentId) {
+    	try {
+    		ByteArrayOutputStream out = xslfoTransformer.generateHTML(documentId, true);
+    		InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(out.toByteArray()));
+    		return ResponseEntity.ok()
+    	            .contentLength(out.size())
+    	            .contentType(MediaType.parseMediaType("application/xhtml+xml"))
+    	            .body(resource); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
     }
 
 }
