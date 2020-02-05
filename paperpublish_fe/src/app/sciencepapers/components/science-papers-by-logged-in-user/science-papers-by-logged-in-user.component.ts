@@ -14,7 +14,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/components/confirmat
 export class SciencePapersByLoggedInUserComponent implements OnInit, OnChanges {
   sciencePapers: SciencePaper[];
 
-  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'reviews', 'details', 'update', 'delete'];
+  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'status', 'reviews', 'details', 'update', 'delete'];
 
   dataSource: MatTableDataSource<SciencePaper>;
 
@@ -77,7 +77,11 @@ export class SciencePapersByLoggedInUserComponent implements OnInit, OnChanges {
 
   deleteEntry(id: number) {
     this.sciencePapersService.delete(id).subscribe((data: any) => {
-      // TO-DO: emit event
+      const user: User = JSON.parse(localStorage.getItem('user'));
+      this.sciencePapersService.getByAuthorUsername(user.username).subscribe((data: any) => {
+        this.sciencePapers = data;
+        this.initializeDataSource();
+      });
     });
   }
 

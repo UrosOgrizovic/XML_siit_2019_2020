@@ -3,6 +3,8 @@ import { SciencePapersService } from '../../services/sciencepapers.service';
 import { CoverLettersService } from '../../services/coverletters.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import {Router} from '@angular/router';
+import { AuthService } from 'src/app/home/services/auth.service';
 
 declare global {
   interface Window { Xonomy: any; }
@@ -627,7 +629,7 @@ const COVER_LETTER_SPECIFICATION = {
 })
 export class SciencePaperFormComponent implements OnInit {
 
-  xmlSciencePaperContent: string = "<Papers:SciencePaper status='in_procedure' versionId='1' documentId='' xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:SciencePaper>";
+  xmlSciencePaperContent: string = "<Papers:SciencePaper status='in_procedure' versionId='1' documentId='' xmlns:Papers='http://localhost:8080/SciencePapers'><Papers:PaperData><Papers:Title documentTitle='something' property='pred:title' xml:space='preserve'>Placeholder text</Papers:Title><Papers:ShortTitle property='pred:shortTitle' xml:space='preserve'>Placeholder text</Papers:ShortTitle></Papers:PaperData></Papers:SciencePaper>";
   xmlCoverLetterContent = "<let:CoverLetter xmlns:let='http://localhost:8080/Letter'></let:CoverLetter>";
   // xmlSciencePaperContent = "<Papers:SciencePaper versionId='1' documentId='' xmlns:Papers='http://localhost:8080/SciencePapers'><Papers:PaperData numberOfReferences='3' contact='sava@gmail.com' numberOfDownloads='3'><Papers:ShortTitle property='pred:shortTitle' xml:space='preserve'>NEKI TAJTL dobar</Papers:ShortTitle><Papers:Author><Papers:authorUserName property='pred:authorUserName' xml:space='preserve'>user</Papers:authorUserName></Papers:Author><Papers:DocumentLink xml:space='preserve'>neki link</Papers:DocumentLink><Papers:Title property='pred:title' documentTitle='something' xml:space='preserve'>neki tajtl bas dobar</Papers:Title></Papers:PaperData><Papers:Paragraf><Papers:content xml:space='preserve'>PARAGRAAAAAAAF</Papers:content></Papers:Paragraf></Papers:SciencePaper>";
   // xmlCoverLetterContent = "<let:CoverLetter journalName='something' journalAddress='something' manuscriptTitle='something' articleType='research' xmlns:let='http://localhost:8080/Letter'><let:Author><let:FullName xml:space='preserve'>Placeholder text</let:FullName><let:Institution xml:space='preserve'>Placeholder text</let:Institution><let:EMail xml:space='preserve'>Placeholder text</let:EMail></let:Author><let:Content xml:space='preserve'>Placeholder text</let:Content></let:CoverLetter>";
@@ -641,10 +643,13 @@ export class SciencePaperFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private sciencePapersService: SciencePapersService,
-    private coverLettersService: CoverLettersService
+    private coverLettersService: CoverLettersService,
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+    this.xmlSciencePaperContent = `<Papers:SciencePaper status='in_procedure' versionId='1' documentId='' xmlns:Papers='http://localhost:8080/SciencePapers'><Papers:PaperData><Papers:Title documentTitle='something' property='pred:title' xml:space='preserve'>Placeholder text</Papers:Title><Papers:ShortTitle property='pred:shortTitle' xml:space='preserve'>Placeholder text</Papers:ShortTitle><Papers:Author><Papers:authorUserName property='pred:authorUserName' xml:space='preserve'>${this.authService.activeUser.username}</Papers:authorUserName></Papers:Author></Papers:PaperData></Papers:SciencePaper>`;
     this.routeSub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.sciencePapersService.getOne(params['id']).subscribe((data: any) => {
@@ -677,7 +682,7 @@ export class SciencePaperFormComponent implements OnInit {
         this.coverLettersService.create({
           "xml": this.xmlCoverLetterContent
         }).subscribe((data: any) => {
-          console.log(data);
+          this.router.navigateByUrl('/my-science-papers')
         })
       })
     }
@@ -696,7 +701,7 @@ export class SciencePaperFormComponent implements OnInit {
         this.coverLettersService.create({
           "xml": this.xmlCoverLetterContent
         }).subscribe((data: any) => {
-          console.log(data);
+          this.router.navigateByUrl('/my-science-papers')
         })
       })
     }
