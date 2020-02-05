@@ -13,7 +13,7 @@
             <user:expertise>production</user:expertise>
             <user:expertise>agriculture</user:expertise>
         </user:Expertises>
-        <user:EMail property="pred:email" datatype="xs:string">EMail0</user:EMail>
+        <user:EMail property="pred:email" datatype="xs:string">pub1@mailinator.com</user:EMail>
         <user:Roles>
             <user:Role>ROLE_USER</user:Role>
         </user:Roles>
@@ -27,7 +27,7 @@
             <user:expertise>production</user:expertise>
             <user:expertise>agriculture</user:expertise>
         </user:Expertises>
-        <user:EMail property="pred:email" datatype="xs:string">EMail0</user:EMail>
+        <user:EMail property="pred:email" datatype="xs:string">pub2@mailinator.com</user:EMail>
         <user:Roles>
             <user:Role>ROLE_USER</user:Role>
         </user:Roles>
@@ -40,7 +40,7 @@
         <user:Expertises>
             <user:expertise>information technology</user:expertise>
         </user:Expertises>
-        <user:EMail property="pred:email" datatype="xs:string">EMail1</user:EMail>
+        <user:EMail property="pred:email" datatype="xs:string">adminpub1@mailinator.com</user:EMail>
         <user:Roles>
             <user:Role>ROLE_EDITOR</user:Role>
         </user:Roles>

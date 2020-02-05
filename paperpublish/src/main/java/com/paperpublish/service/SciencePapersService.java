@@ -4,14 +4,20 @@ import com.paperpublish.model.DTO.TSciencePaperDTO;
 import com.paperpublish.model.DTO.XMLDTO;
 import com.paperpublish.model.reviewassignments.TReviewAssignment;
 import com.paperpublish.model.reviewassignments.TReviewer;
+import com.paperpublish.model.sciencepapers.TAuthors;
 import com.paperpublish.model.sciencepapers.TReviewers;
 import com.paperpublish.model.users.User;
+import com.paperpublish.repository.NotificationsRepository;
 import com.paperpublish.repository.ReviewAssignmentsRepository;
 import com.paperpublish.repository.UsersRepository;
+import com.paperpublish.security.repository.UserRepository;
+import com.paperpublish.security.service.UserService;
 import org.apache.fop.area.RegionViewport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.paperpublish.model.sciencepapers.ObjectFactory;
@@ -33,6 +39,15 @@ public class SciencePapersService {
 
     @Autowired
 	ReviewAssignmentsRepository reviewAssignmentsRepository;
+
+    @Autowired
+	NotificationsRepository notificationsRepository;
+
+    @Autowired
+	UserRepository userRepository;
+
+    @Autowired
+	MailService mailService;
 
     public List<TSciencePaper> getAllAccepted(){
         List<TSciencePaper> papers = null;
@@ -177,14 +192,28 @@ public class SciencePapersService {
 	public TSciencePaper changeStatus(String documentId, String status) throws Exception {
 		TSciencePaper paper = sciencePapersRepository.findByDocumentId(documentId);
 		paper.setStatus(status);
+		sendNotification(paper);
 		sciencePapersRepository.update(paper);
 		return paper;
+	}
+
+	public void sendNotification(TSciencePaper sciencePaper){
+		notificationsRepository.sendNotification(sciencePaper);
+		for(TAuthors author : sciencePaper.getPaperData().getAuthor()){
+			try {
+				User user = userRepository.findByUsername(author.getAuthorUserName().get(0));
+				mailService.sendEmail(user.getEMail(), sciencePaper.getPaperData().getTitle().getValue(), sciencePaper.getStatus());
+			}catch (Exception e){
+				e.printStackTrace();
+				continue;
+			}
+		}
 	}
 
 	/**
 	 * 
 	 * @param keywords
-	 * @param paperPublishDate
+	 * @param paperPublishDateString
 	 * @param authorUserName
 	 * @return list of science paper titles that match criteria
 	 */

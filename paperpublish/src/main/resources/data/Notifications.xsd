@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+    targetNamespace="http://localhost:8080/Notifications" xmlns="http://localhost:8080/Notifications"> 
+    <xs:element name="Notifications">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Notification" type="TNotification" minOccurs="0"
+                    maxOccurs="unbounded">
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:complexType name="TNotification">
+        <xs:all >
+            <xs:element name="PaperName" type="xs:string" />
+            <xs:element name="NewState" type="xs:string" />
+        </xs:all>
+    </xs:complexType>
+    
+</xs:schema>
