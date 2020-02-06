@@ -16,7 +16,7 @@ import { ReviewsService } from '../../services/reviews.service';
 export class AllSciencePapersComponent implements OnInit {
   sciencePapers: SciencePaper[];
 
-  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'author', 'assign', 'accept', 'reject', 'merge'];
+  displayedColumns: string[] = ['id', 'shortTitle', 'downloadHTML', 'downloadPDF', 'status', 'author', 'assign', 'accept', 'reject', 'merge'];
 
   dataSource: MatTableDataSource<SciencePaper>;
 
@@ -56,7 +56,12 @@ export class AllSciencePapersComponent implements OnInit {
       if(!result) {
         return;
       }
-      this.sciencePapersService.changeStatus(id, 'accepted').subscribe((res: any) => {});
+      this.sciencePapersService.changeStatus(id, 'accepted').subscribe((res: any) => {
+        this.sciencePapersService.getAll().subscribe((data: any) => {
+          this.sciencePapers = data;
+          this.initializeDataSource();
+        })
+      });
     });
   }
 
@@ -71,7 +76,12 @@ export class AllSciencePapersComponent implements OnInit {
       if(!result) {
         return;
       }
-      this.sciencePapersService.changeStatus(id, 'rejected').subscribe((res: any) => {});
+      this.sciencePapersService.changeStatus(id, 'rejected').subscribe((res: any) => {
+        this.sciencePapersService.getAll().subscribe((data: any) => {
+          this.sciencePapers = data;
+          this.initializeDataSource();
+        })    
+      });
     });
   }
 

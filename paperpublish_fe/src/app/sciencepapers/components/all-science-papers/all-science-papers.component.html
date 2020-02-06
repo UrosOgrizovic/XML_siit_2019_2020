@@ -24,6 +24,11 @@
       <th mat-header-cell *matHeaderCellDef><mat-icon class="mat-18">cloud_download</mat-icon></th>
       <td mat-cell *matCellDef="let sciencePaper"><a href="javascript:void(0)" (click)="downloadPDF(sciencePaper.documentId)">PDF</a></td>
     </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Status</th>
+      <td mat-cell *matCellDef="let sciencePaper">{{ sciencePaper.status }}</td>
+  </ng-container>
     
     <ng-container matColumnDef="author">
         <th mat-header-cell *matHeaderCellDef>Author</th>
