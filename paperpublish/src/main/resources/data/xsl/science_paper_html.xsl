@@ -12,22 +12,27 @@
 
     
     <xsl:template match="Papers:quote">
-        <a>
-            <xsl:attribute name="href">
-                <xsl:value-of select="''"></xsl:value-of>
-            </xsl:attribute>
-            <xsl:attribute name="onclick">
-                <xsl:value-of select="concat('event.preventDefault(); document.querySelector(''#qt_', @citation ,''').scrollIntoView()')"></xsl:value-of>
-            </xsl:attribute>
-            <xsl:value-of select="concat('[', @citation, ']')"></xsl:value-of>
-        </a>
+        <p style="font-size: 12pt;">
+            <xsl:value-of select="."></xsl:value-of>
+            <a>
+                <xsl:attribute name="href">
+                    <xsl:value-of select="''"></xsl:value-of>
+                </xsl:attribute>
+                <xsl:attribute name="onclick">
+                    <xsl:value-of select="concat('event.preventDefault(); document.querySelector(''#qt_', @citation ,''').scrollIntoView()')"></xsl:value-of>
+                </xsl:attribute>
+                <xsl:value-of select="concat('[', @citation, ']')"></xsl:value-of>
+            </a>
+        </p> 
     </xsl:template>
     
     <xsl:template match="Papers:content">
-        <div style="margin-left: 1in; margin-right: 1in; margin-top: 0.15in; margin-bottom: 0.15in; text-align: justify;">
-            <p style="font-size: 12pt;">
-                <xsl:value-of select="."></xsl:value-of>
-                <xsl:apply-templates select="Papers:quote"/>
+        <div>
+            <p>
+                <xsl:value-of select="text()"></xsl:value-of>
+                <div style="margin-left: 1in; margin-right: 1in; margin-top: 0.15in; margin-bottom: 0.15in; text-align: justify;">
+                    <xsl:apply-templates select="Papers:quote"/>
+                </div>
             </p>
         </div>
     </xsl:template>
