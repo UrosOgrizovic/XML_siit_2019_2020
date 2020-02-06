@@ -124,6 +124,23 @@ public class SciencePapersController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
     }
+
+    @GetMapping(path = "getPDFbyTitle/{title}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<?> getPDFbyTitle(@PathVariable String title) {
+        try {
+            String documentId = sciencePapersService.getPaperByTitle(title);
+            ByteArrayOutputStream out = xslfoTransformer.generatePDF(documentId);
+            InputStreamResource resource = new InputStreamResource(new ByteArrayInputStream(out.toByteArray()));
+            return ResponseEntity.ok()
+                    .contentLength(out.size())
+                    .contentType(MediaType.parseMediaType("application/pdf"))
+                    .body(resource);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
     
     @GetMapping(path = "getPDF/{documentId}", produces = MediaType.APPLICATION_PDF_VALUE)
     public ResponseEntity<?> getPDF(@PathVariable String documentId) {
