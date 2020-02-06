@@ -46,7 +46,7 @@ const CREATE_SCIENCE_PAPER_SPECIFICATION = {
         {
           caption: "Add a citation",
           action: Xonomy.newElementChild,
-          actionParameter: "<Papers:Citations xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:Citations>"
+          actionParameter: "<Papers:Citations xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:Citations>"
         },
         {
           caption: "Add cited by segment",
@@ -220,40 +220,83 @@ const CREATE_SCIENCE_PAPER_SPECIFICATION = {
           }]
         }
       },
-      "Papers:Citations": {
-        menu: [
-          {
-            caption: "Add a citation",
-            action: Xonomy.newElementChild,
-            actionParameter: "<Papers:citation xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:citation>"
+    },
+    "Papers:Citations": {
+      menu: [
+        {
+          caption: "Add a single citation",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:citation xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:citation>"
+        }
+      ]
+    },
+    "Papers:citation": {
+      menu: [
+        {
+          caption: "Add @cID='something'",
+          action: Xonomy.newAttribute,
+          actionParameter: {name: "cID", value: "something"},
+          hideIf: function(jsElement){
+            return jsElement.hasAttribute("cID");
           }
-        ]
-      },
-      "Papers:citation": {
-        menu: [
-          {
-            caption: "Add @cID='something'",
-            action: Xonomy.newAttribute,
-            actionParameter: {name: "cID", value: "something"},
-            hideIf: function(jsElement){
-              return jsElement.hasAttribute("cID");
-            }
-          },
-          {
-            caption: "Delete this element",
-            action: Xonomy.deleteElement
-          }
-        ],
-        attributes: {
-          "cID": {
-            asker: Xonomy.askString,
-            menu: [{
-              caption: "Delete this attribute",
-              action: Xonomy.deleteAttribute
-            }]
-          }
+        },
+        {
+          caption: "Delete this element",
+          action: Xonomy.deleteElement
+        },
+        {
+          caption: "Add a citer",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:citer xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:citer>"
+        }
+      ],
+      attributes: {
+        "cID": {
+          asker: Xonomy.askString,
+          menu: [{
+            caption: "Delete this attribute",
+            action: Xonomy.deleteAttribute
+          }]
         }
       }
+    },
+    "Papers:citer": {
+      menu: [
+        {
+          caption: "Add an authorname",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:authorName xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:authorName>"
+        },
+        {
+          caption: "Add year",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:year xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:year>"
+        },
+        {
+          caption: "Add paper title",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:paperTitle xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:paperTitle>"
+        },
+        {
+          caption: "Add journal data",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:journalData xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:journalData>"
+        }
+      ]
+    },
+    "Papers:journalData": {
+      menu: [
+        {
+          caption: "Add a journal title",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:journalTitle xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:journalTitle>"
+        },
+        {
+          caption: "Add a journal info",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:journalInfo xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:journalInfo>"
+        },
+      ]
     }
   }
 }
@@ -451,41 +494,84 @@ const UPDATE_SCIENCE_PAPER_SPECIFICATION = {
             action: Xonomy.deleteAttribute
           }]
         }
-      },
-      "Citations": {
-        menu: [
-          {
-            caption: "Add a citation",
-            action: Xonomy.newElementChild,
-            actionParameter: "<Papers:citation xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:citation>"
+      }
+    },
+    "Citations": {
+      menu: [
+        {
+          caption: "Add a single citation",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:citation xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:citation>"
+        }
+      ]
+    },
+    "citation": {
+      menu: [
+        {
+          caption: "Add @cID='something'",
+          action: Xonomy.newAttribute,
+          actionParameter: {name: "cID", value: "something"},
+          hideIf: function(jsElement){
+            return jsElement.hasAttribute("cID");
           }
-        ]
-      },
-      "citation": {
-        menu: [
-          {
-            caption: "Add @cID='something'",
-            action: Xonomy.newAttribute,
-            actionParameter: {name: "cID", value: "something"},
-            hideIf: function(jsElement){
-              return jsElement.hasAttribute("cID");
-            }
-          },
-          {
-            caption: "Delete this element",
-            action: Xonomy.deleteElement
-          }
-        ],
-        attributes: {
-          "cID": {
-            asker: Xonomy.askString,
-            menu: [{
-              caption: "Delete this attribute",
-              action: Xonomy.deleteAttribute
-            }]
-          }
+        },
+        {
+          caption: "Delete this element",
+          action: Xonomy.deleteElement
+        },
+        {
+          caption: "Add a citer",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:citer xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:citer>"
+        }
+      ],
+      attributes: {
+        "cID": {
+          asker: Xonomy.askString,
+          menu: [{
+            caption: "Delete this attribute",
+            action: Xonomy.deleteAttribute
+          }]
         }
       }
+    },
+    "citer": {
+      menu: [
+        {
+          caption: "Add an authorname",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:authorName xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:authorName>"
+        },
+        {
+          caption: "Add year",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:year xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:year>"
+        },
+        {
+          caption: "Add paper title",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:paperTitle xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:paperTitle>"
+        },
+        {
+          caption: "Add journal data",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:journalData xmlns:Papers='http://localhost:8080/SciencePapers'></Papers:journalData>"
+        }
+      ]
+    },
+    "journalData": {
+      menu: [
+        {
+          caption: "Add a journal title",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:journalTitle xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:journalTitle>"
+        },
+        {
+          caption: "Add a journal info",
+          action: Xonomy.newElementChild,
+          actionParameter: "<Papers:journalInfo xmlns:Papers='http://localhost:8080/SciencePapers'>Placeholder text</Papers:journalInfo>"
+        },
+      ]
     }
   }
 }
