@@ -9,14 +9,29 @@
     <xsl:output method="xml" encoding="utf-8" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"/>
     
     <xsl:param name="document_id" />
+
     
-    <xsl:template match="Papers:content/Papers:quote">
+    <xsl:template match="Papers:quote">
+        <a>
+            <xsl:attribute name="href">
+                <xsl:value-of select="''"></xsl:value-of>
+            </xsl:attribute>
+            <xsl:attribute name="onclick">
+                <xsl:value-of select="concat('event.preventDefault(); document.querySelector(''#qt_', @citation ,''').scrollIntoView()')"></xsl:value-of>
+            </xsl:attribute>
+            <xsl:value-of select="concat('[', @citation, ']')"></xsl:value-of>
+        </a>
+    </xsl:template>
+    
+    <xsl:template match="Papers:content">
         <div style="margin-left: 1in; margin-right: 1in; margin-top: 0.15in; margin-bottom: 0.15in; text-align: justify;">
             <p style="font-size: 12pt;">
                 <xsl:value-of select="."></xsl:value-of>
+                <xsl:apply-templates select="Papers:quote"/>
             </p>
         </div>
     </xsl:template>
+    
 
     <xsl:template match="Papers:Paragraf">
         <div>
@@ -44,9 +59,7 @@
 
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
-                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-                        
-                        
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>                        
                         <meta name="accepted"><xsl:attribute name="content"><xsl:value-of select="$accepted"></xsl:value-of></xsl:attribute></meta>
                         <meta name="status"><xsl:attribute name="content"><xsl:value-of select="$status"></xsl:value-of></xsl:attribute></meta>
                         <meta name="numberOfReferences"><xsl:attribute name="content"><xsl:value-of select="$numberOfReferences"></xsl:value-of></xsl:attribute></meta>
@@ -88,6 +101,9 @@
                                 </div>
                                 <xsl:for-each select="Papers:Citations/Papers:citation/Papers:citer">
                                     <div>
+                                        <xsl:attribute name="id">
+                                            <xsl:value-of select="concat('qt_', position())"/>
+                                        </xsl:attribute>
                                         <xsl:for-each select="Papers:authorName">
                                             <xsl:value-of select="."></xsl:value-of>,
                                         </xsl:for-each>
