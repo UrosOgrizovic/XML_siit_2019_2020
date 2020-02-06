@@ -28,6 +28,7 @@ import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.Resource;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
+import org.xmldb.api.base.XMLDBException;
 import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
 import org.xmldb.api.modules.XUpdateQueryService;
@@ -35,6 +36,7 @@ import org.xmldb.api.modules.XUpdateQueryService;
 import javax.annotation.PostConstruct;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -42,11 +44,16 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -253,6 +260,12 @@ public class SciencePapersRepository {
             
             long res = updateQueryService.updateResource(ConnectionProperties.SCIENCE_PAPER_ID,
                     String.format(XUpdateTemplate.APPEND, ConnectionProperties.SCIENCE_PAPERS_NAMESPACE, "//SciencePapers", writer.toString()));
+            
+            XMLResource allPapersXML = (XMLResource) collection.getResource(ConnectionProperties.SCIENCE_PAPER_ID);
+            FileWriter fw = new FileWriter(new File("src/main/resources/data/science_paper1.xml"));
+            fw.write(allPapersXML.getContent().toString());
+            fw.close();
+            
         	saveRDFModel(sciencePaper);
             return res;
 		} catch (Exception e) {
@@ -267,6 +280,7 @@ public class SciencePapersRepository {
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			TSciencePaper paperToCreate = (TSciencePaper) unmarshaller.unmarshal(new StringReader(xml));
 			paperToCreate.setDocumentId(getNextID(getAllXML().getSciencePaper()));
+//			Files.write(Paths.get("src/main/resources/data/science_paper.xml"), xml.getBytes(), StandardOpenOption.APPEND);
 			return create(paperToCreate);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -513,6 +527,11 @@ public class SciencePapersRepository {
 			}
 		}
 		return doesMatch;
+	}
+
+	public String getPaperTitleById(String documentId) throws Exception {
+		TSciencePaper paper = this.findByDocumentId(documentId);
+		return paper.getPaperData().getTitle().getValue();
 	}
 
     

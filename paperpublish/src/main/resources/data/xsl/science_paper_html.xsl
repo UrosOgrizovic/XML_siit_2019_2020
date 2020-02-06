@@ -23,7 +23,7 @@
             <xsl:attribute name="paragrafId">
                 <xsl:value-of select="@paragrafId"/>
             </xsl:attribute>
-            <xsl:apply-templates select="Papers:content"/>
+            <p><xsl:apply-templates select="Papers:content"/></p>
         </div>
     </xsl:template>
     
@@ -67,15 +67,22 @@
                             <div style="text-align: center; margin-bottom: 1em;">
                                 <xsl:if test="count(Papers:PaperData/Papers:Author) = 1">
                                     <div> <xsl:value-of select="Papers:PaperData/Papers:Author/Papers:authorUserName"/></div>
-                                    <div> <xsl:value-of select="Papers:PaperData/Papers:Author/Papers:authorInstitution"/></div>
+                                    <xsl:if test="count(Papers:authorInstitution) = 1">
+                                        <div style="font-style: italic; margin-bottom: 0.5em;"> 
+                                            <xsl:value-of select="Papers:authorInstitution"/>
+                                        </div>
+                                    </xsl:if>
                                 </xsl:if>
                                 <xsl:if test="count(Papers:PaperData/Papers:Author) &gt; 1">
                                     <xsl:for-each select="Papers:PaperData/Papers:Author">
                                         <xsl:value-of select="Papers:authorUserName"></xsl:value-of>
                                         <br/>
-                                        <div style="font-style: italic; margin-bottom: 0.5em;">
-                                            <xsl:value-of select="Papers:authorInstitution"></xsl:value-of>    
-                                        </div>
+                                        <xsl:if test="count(Papers:authorInstitution) = 1">
+                                            <div style="font-style: italic; margin-bottom: 0.5em;">
+                                                <xsl:value-of select="Papers:authorInstitution"></xsl:value-of>    
+                                            </div>
+                                        </xsl:if>
+                                        
                                     </xsl:for-each>
                                 </xsl:if>
                             </div>

@@ -27,7 +27,8 @@ const ENDPOINTS = {
   SEARCH_BY_TEXT: (text: string, authorUserName: string, searchOnlyMyPapers: boolean) =>
   `/sciencepapers/searchByText?text=${text}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`,
   PERFORM_SEARCH: (keywords: string, paperPublishDate: string, text: string, authorUserName: string, searchOnlyMyPapers: boolean) =>
-  `/sciencepapers/performSearch?keywords=${keywords}&paperPublishDate=${paperPublishDate}&text=${text}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`
+  `/sciencepapers/performSearch?keywords=${keywords}&paperPublishDate=${paperPublishDate}&text=${text}&authorUserName=${authorUserName}&searchOnlyMyPapers=${searchOnlyMyPapers}`,
+  GET_PAPER_TITLE_BY_ID: (id: number) => `/sciencepapers/getPaperTitleById/${id}`
 };
 
 
@@ -212,6 +213,13 @@ export class SciencePapersService extends BaseService {
       map((res: any) => {
         return res;
       }));
+  }
+
+
+  getPaperTitleById(id: number) {
+   return this.http.get(`${this.baseUrl}${ENDPOINTS.GET_PAPER_TITLE_BY_ID(id)}`, {responseType: 'text'}).pipe(map((res: any) => {
+     return res;
+   }));
   }
 
 }

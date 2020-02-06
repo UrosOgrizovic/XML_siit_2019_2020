@@ -1,0 +1,461 @@
+<?xml-stylesheet type="text/xsl" href="science_paper_fo.xsl"?>
+<Papers:SciencePapers xmlns="http://www.w3.org/ns/rdfa#" xmlns:pred="http://localhost:8080/SciencePapers/predicate/" xmlns:Papers="http://localhost:8080/SciencePapers" xmlns:Users="http://localhost:8080/Users" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://localhost:8080/SciencePapers file:/D:/FAKS/7.semestar/xml/projekat/science_paper.xsd">
+    <Papers:SciencePaper accepted="2016-12-01" status="accepted" documentId="1" versionId="1" about="http://localhost:8080/SciencePapers/1">
+        <Papers:PaperData numberOfReferences="52" contact="permissions@emeraldinsight.com" numberOfDownloads="1059">
+            <Papers:Title documentTitle="1" property="pred:title">Document phenomenology: a framework for holistic analysis</Papers:Title>
+            <Papers:ShortTitle property="pred:shortTitle">Document phenomenology</Papers:ShortTitle>
+                <Papers:PublicationDate>2016-12-01</Papers:PublicationDate>
+            <Papers:Citation>Tim Gorichanaz, Kiersten F. Latham, (2016) "Document phenomenology: a framework for holistic
+                analysis", Journal of Documentation, Vol. 72 Issue: 6, pp.1114-1133, 
+            </Papers:Citation>
+            <Papers:DocumentLink>
+                https://doi.org/10.1108/JD-01-2016-0007
+            </Papers:DocumentLink>
+            <Papers:Keywords>
+                <Papers:keyword>information technology</Papers:keyword>
+                <Papers:keyword>deployment</Papers:keyword>
+            </Papers:Keywords>
+            
+            <Papers:Author>
+                <Papers:authorUserName property="pred:authorUserName">admin</Papers:authorUserName>
+                <Papers:authorInstitution>Institution1</Papers:authorInstitution>
+            </Papers:Author>
+            <Papers:Author>
+                <Papers:authorUserName property="pred:authorUserName">user1</Papers:authorUserName>
+                <Papers:authorInstitution>Institution2</Papers:authorInstitution>
+            </Papers:Author>
+            
+            <Papers:DownloadInformation>
+                    <Papers:RecommendedPaper>
+                        (2016),"Landscapes as documents: The relationship between traditional Sámi terminology and the
+                        concepts of document and documentation", Journal of Documentation, Vol. 72 Iss 6 pp. 1181-1196
+                    </Papers:RecommendedPaper>
+                    <Papers:RecommendedPaper>
+                        (2016),"Information seeking and searching strategies as plans and patterns of action: A conceptual
+                        analysis", Journal of Documentation, Vol. 72 Iss 6 pp. 1154-1180
+                    </Papers:RecommendedPaper>
+                
+            </Papers:DownloadInformation>
+        </Papers:PaperData>
+ 
+        <Papers:Paragraf paragrafId="1">
+                <Papers:content>
+                        <!--<bold>Document phenomenology:
+                        a framework for holistic analysis
+                    </bold>
+                        <bold>Tim Gorichanaz</bold>
+                    Drexel University, Philadelphia, Pennsylvania, USA, and
+                        <bold>Kiersten F. Latham</bold>
+                    Kent State University, Kent, Ohio, USA
+                    
+                    <bold>Purpose</bold> - The purpose of ...
+                    <bold>Design/methodology/approach</bold> - Understanding is positioned as ...
+                                       ...
+                        <bold>Paper type</bold> Conceptual paper-->     
+                    
+                    
+                    
+                    <Papers:quote citation="1">Life is as infinitely great ...</Papers:quote>
+                    <!--                        
+                   <bold>Purpose</bold>
+                    Do documents exist? Or, perhaps more to the point: how do documents exist...
+                        -->
+                    
+                </Papers:content>
+            </Papers:Paragraf>
+            <Papers:Paragraf paragrafId="2">
+                <Papers:content>
+                    in the days of their progenitor but today furnish a different one altogether...
+                    <Papers:quote citation="2">not inherent, but rather the product of will, eith..</Papers:quote>
+                </Papers:content>
+            </Papers:Paragraf>
+            <Papers:Paragraf paragrafId="3">
+                <Papers:content>
+                Do documents exist? Or, perhaps more to the point: how do documents exist?
+                </Papers:content>
+            </Papers:Paragraf>
+            <Papers:Paragraf paragrafId="4">
+                <Papers:content>
+                Questions about existence are, of course, not unique to documents, as evidenced by
+                the sprawling literature in ontological philosophy. Yet, as Heidegger (1927/2010)
+                pointed out, most of this inquiry assumes existence as a fait accompli and is more
+                interested in questions regarding, for instance, classification. In Heidegger’s terms,
+                traditional ontology asks questions about beings, not about being.
+                </Papers:content>
+            </Papers:Paragraf>
+            <Papers:Paragraf paragrafId="5">
+                <Papers:content>
+                With documents, assuming existence as self-evident – failing to ask about being –
+                raises a host of issues. If a document is taken to be anything that furnishes evidence or
+                proof of something (Buckland, 1997), how is it that objects become documents? And
+                why do some things become documents while others do not? How can we account for,
+                to give Meyriat’s (1981) example, Napoleon’s letters, which furnished one sort of proof 
+                in the days of their progenitor but today furnish a different one altogether? Academic
+                interest in documents has mostly sidestepped these questions, but the emerging
+                neo-documentalist tradition (see Lund and Buckland, 2009) offers the opportunity to
+                explore documental being and becoming.
+                </Papers:content>
+            </Papers:Paragraf>
+            <Papers:Paragraf paragrafId="6">
+                <Papers:content>
+                As reviewed by Lund (2009), document scholars historically focused on the material
+                aspects of documents; more recently, the academic focus has turned toward the social
+                and perceptual aspects of documents. In this latter vein it is, by now, well accepted that
+                documents only exist in the presence of a human actor. For instance, Meyriat (1981)
+                described the document as:
+                <Papers:quote citation="1">[…] not inherent, but rather the product of will, either to inform or to be informed – the second,
+                    at least, being always necessary. If this will doesn't garner a response from the beholder, the
+                    information remains only potential. The object on which the information is written or
+                    inscribed is not yet a document. It becomes one when a question is asked of it and its
+                    information is activated (p. 54, translation ours).</Papers:quote>
+                </Papers:content>
+            </Papers:Paragraf>
+
+            <Papers:Citations>
+                <Papers:citation cID="1">
+                    <Papers:citer>
+                        <Papers:authorName>Bates, M.J.</Papers:authorName>
+                        <Papers:year>2006</Papers:year>
+                        <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                        <Papers:journalData>
+                            <Papers:journalTitle>Journal of the American Society for Information Science</Papers:journalTitle>
+                            <Papers:journalInfo>Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                        </Papers:journalData>
+                    </Papers:citer>
+                </Papers:citation>
+                <Papers:citation cID="2">
+                    <Papers:citer>
+                        <Papers:authorName>Bates, M.J.</Papers:authorName>
+                        <Papers:year>2006</Papers:year>
+                        <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                        <Papers:journalData>
+                            <Papers:journalTitle>Journal of the American Society for Information Science</Papers:journalTitle>
+                            <Papers:journalInfo>Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                        </Papers:journalData>
+                    </Papers:citer>
+                </Papers:citation>
+            </Papers:Citations>
+        
+        <Papers:CitedBy>
+                <Papers:citer>
+                    <Papers:authorName>Goran Sladić</Papers:authorName>
+                    <Papers:authorName>Igor Cverdelj-Fogaraši</Papers:authorName>
+                    <Papers:authorName>Stevan Gostojić</Papers:authorName>
+                    <Papers:authorName>Goran Savić</Papers:authorName>
+                    <Papers:authorName>Milan Segedinac</Papers:authorName>
+                    <Papers:authorName>Miroslav Zarić</Papers:authorName>
+                    <Papers:year>2017</Papers:year>
+                    <Papers:paperTitle>Multilayer document model for semantic document management services</Papers:paperTitle>
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                        <Papers:journalInfo>73:5, 803-824.</Papers:journalInfo>
+                    </Papers:journalData>
+                </Papers:citer>
+                <Papers:citer>
+                    <Papers:authorName>Tim Gorichanaz</Papers:authorName>
+                    <Papers:year>2017</Papers:year>
+                    <Papers:paperTitle>Information and experience, a dialogue</Papers:paperTitle> 
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                        <Papers:journalInfo>73:5, 500-508.</Papers:journalInfo>
+                    </Papers:journalData>     
+                </Papers:citer>
+        </Papers:CitedBy>
+    </Papers:SciencePaper>
+    <Papers:SciencePaper documentId="2" status="in_procedure" versionId="1" about="http://localhost:8080/SciencePapers/2">
+        <Papers:PaperData numberOfReferences="52" contact="permissions@emeraldinsight.com" numberOfDownloads="1059">
+            <Papers:Title documentTitle="2" property="pred:title">Document phenomenology2: a framework for holistic analysis</Papers:Title>
+            <Papers:ShortTitle property="pred:shortTitle">Document phenomenology2</Papers:ShortTitle>
+            <Papers:PublicationDate>2016-12-01</Papers:PublicationDate>
+            <Papers:Citation>Tim Gorichanaz, Kiersten F. Latham, (2016) "Document phenomenology: a framework for holistic
+                analysis", Journal of Documentation, Vol. 72 Issue: 6, pp.1114-1133, 
+            </Papers:Citation>
+            <Papers:DocumentLink>
+                https://doi.org/10.1108/JD-01-2016-0007
+            </Papers:DocumentLink>
+            <Papers:Keywords>
+                <Papers:keyword>information technology</Papers:keyword>
+                <Papers:keyword>agriculture</Papers:keyword>
+                <Papers:keyword>production</Papers:keyword>
+            </Papers:Keywords>
+            
+            <Papers:Author>
+                <Papers:authorUserName property="pred:authorUserName">user1</Papers:authorUserName>
+                <Papers:authorInstitution>Institution1</Papers:authorInstitution>
+            </Papers:Author>
+            <Papers:Author>
+                <Papers:authorUserName property="pred:authorUserName">admin</Papers:authorUserName>
+                <Papers:authorInstitution>Institution2</Papers:authorInstitution>
+            </Papers:Author>
+            
+            <Papers:DownloadInformation>
+                <Papers:RecommendedPaper>
+                    (2016),"Landscapes as documents: The relationship between traditional Sámi terminology and the
+                    concepts of document and documentation", Journal of Documentation, Vol. 72 Iss 6 pp. 1181-1196
+                </Papers:RecommendedPaper>
+                <Papers:RecommendedPaper>
+                    (2016),"Information seeking and searching strategies as plans and patterns of action: A conceptual
+                    analysis", Journal of Documentation, Vol. 72 Iss 6 pp. 1154-1180
+                </Papers:RecommendedPaper>
+                
+            </Papers:DownloadInformation>
+        </Papers:PaperData>
+        
+        <Papers:Paragraf paragrafId="1">
+            <Papers:content>
+                <Papers:quote citation="1">Life is as infinitely great ...</Papers:quote>
+            </Papers:content>
+        </Papers:Paragraf>
+        <Papers:Paragraf paragrafId="2">
+            <Papers:content>
+                in the days of their progenitor but today furnish a different one altogether...
+                <Papers:quote citation="2">not inherent, but rather the product of will, eith..</Papers:quote>
+            </Papers:content>
+        </Papers:Paragraf>
+        <Papers:Paragraf paragrafId="3">
+            <Papers:content>
+                Adding some more text. Adding some more text. Adding some more text. Adding some more text.
+                Adding some more text. Adding some more text. Adding some more text. Adding some more text. 
+                Adding some more text. Adding some more text. Adding some more text. Adding some more text. 
+                Adding some more text. Adding some more text. Adding some more text. Adding some more text. 
+            </Papers:content>
+        </Papers:Paragraf>
+        
+        <Papers:Citations>
+            <Papers:citation cID="1">
+                <Papers:citer>
+                    <Papers:authorName>Bates, M.J.</Papers:authorName>
+                    <Papers:year>2006</Papers:year>
+                    <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of the American Society for</Papers:journalTitle>
+                        <Papers:journalInfo>Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                    </Papers:journalData>
+                </Papers:citer>
+            </Papers:citation>
+            <Papers:citation cID="2">
+                <Papers:citer>
+                    <Papers:authorName>Bates, M.J.</Papers:authorName>
+                    <Papers:year>2006</Papers:year>
+                    <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of the American Society for</Papers:journalTitle>
+                        <Papers:journalInfo>Information Science, Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                    </Papers:journalData>
+                </Papers:citer>
+            </Papers:citation>
+        </Papers:Citations>
+        
+        <Papers:CitedBy>
+            <Papers:citer>
+                <Papers:authorName>Goran Sladić</Papers:authorName>
+                <Papers:authorName>Igor Cverdelj-Fogaraši</Papers:authorName>
+                <Papers:authorName>Stevan Gostojić</Papers:authorName>
+                <Papers:authorName>Goran Savić</Papers:authorName>
+                <Papers:authorName>Milan Segedinac</Papers:authorName>
+                <Papers:authorName>Miroslav Zarić</Papers:authorName>
+                <Papers:year>2017</Papers:year>
+                <Papers:paperTitle>Multilayer document model for semantic document management services</Papers:paperTitle>
+                <Papers:journalData>
+                    <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                    <Papers:journalInfo>73:5, 803-824.</Papers:journalInfo>
+                </Papers:journalData>
+            </Papers:citer>
+            <Papers:citer>
+                <Papers:authorName>Tim Gorichanaz</Papers:authorName>
+                <Papers:year>2017</Papers:year>
+                <Papers:paperTitle>Information and experience, a dialogue</Papers:paperTitle>
+                <Papers:journalData>
+                    <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                    <Papers:journalInfo>73:5, 500-508.</Papers:journalInfo>
+                </Papers:journalData>    
+            </Papers:citer>
+        </Papers:CitedBy>
+    </Papers:SciencePaper>
+    <Papers:SciencePaper accepted="2017-09-04" status="accepted" documentId="3" versionId="1" about="http://localhost:8080/SciencePapers/3">
+        <Papers:PaperData numberOfReferences="64" contact="permissions@emeraldinsight.com" numberOfDownloads="917">
+            <Papers:Title documentTitle="1" property="pred:title">Another science paper in our database</Papers:Title>
+            <Papers:ShortTitle property="pred:shortTitle">Another science paper</Papers:ShortTitle>
+            <Papers:PublicationDate>2017-09-04</Papers:PublicationDate>
+            <Papers:Citation>Goran Savić, Milan Segedinac, (2017) "Another science paper in our database", Journal of Documentation, Vol. 77 Issue: 5, pp.952-971, 
+            </Papers:Citation>
+            <Papers:DocumentLink>
+                https://doi.org/10.1108/JD-01-2016-0007
+            </Papers:DocumentLink>
+            <Papers:Keywords>
+                <Papers:keyword>distributed software</Papers:keyword>
+                <Papers:keyword>parallel computing</Papers:keyword>
+                <Papers:keyword>project management</Papers:keyword>
+            </Papers:Keywords>
+            
+            <Papers:Author>
+                <Papers:authorUserName property="pred:authorUserName">gsavic</Papers:authorUserName>
+                <Papers:authorInstitution>Faculty of Technical Sciences, Novi Sad, Serbia</Papers:authorInstitution>
+            </Papers:Author>
+            <Papers:Author>
+                <Papers:authorUserName property="pred:authorUserName">msegedinac</Papers:authorUserName>
+                <Papers:authorInstitution>Faculty of Technical Sciences, Novi Sad, Serbia</Papers:authorInstitution>
+            </Papers:Author>
+            
+            <Papers:DownloadInformation>
+                <Papers:RecommendedPaper>
+                    (2016),"Landscapes as documents: The relationship between traditional Sámi terminology and the
+                    concepts of document and documentation", Journal of Documentation, Vol. 72 Iss 6 pp. 1181-1196
+                </Papers:RecommendedPaper>
+                <Papers:RecommendedPaper>
+                    (2016),"Information seeking and searching strategies as plans and patterns of action: A conceptual
+                    analysis", Journal of Documentation, Vol. 72 Iss 6 pp. 1154-1180
+                </Papers:RecommendedPaper>
+                
+            </Papers:DownloadInformation>
+        </Papers:PaperData>
+        
+        <Papers:Paragraf paragrafId="1">
+            <Papers:content>
+                
+                <Papers:quote citation="1">This quote has been changed to reflect recent trends in...</Papers:quote>
+                
+            </Papers:content>
+        </Papers:Paragraf>
+        <Papers:Paragraf paragrafId="2">
+            <Papers:content>
+                <Papers:quote citation="2">not inherent, but rather the product of will, eith..</Papers:quote>
+            </Papers:content>
+        </Papers:Paragraf>
+        <Papers:Paragraf paragrafId="3">
+            <Papers:content>
+                Do documents exist? Or, perhaps more to the point: how do documents exist?
+            </Papers:content>
+        </Papers:Paragraf>
+        <Papers:Paragraf paragrafId="4">
+            <Papers:content>
+                Questions about existence are, of course, not unique to documents, as evidenced by
+                the sprawling literature in ontological philosophy. Yet, as Heidegger (1927/2010)
+                pointed out, most of this inquiry assumes existence as a fait accompli and is more
+                interested in questions regarding, for instance, classification. In Heidegger’s terms,
+                traditional ontology asks questions about beings, not about being.
+            </Papers:content>
+        </Papers:Paragraf>
+        <Papers:Paragraf paragrafId="5">
+            <Papers:content>
+                With documents, assuming existence as self-evident – failing to ask about being –
+                raises a host of issues. If a document is taken to be anything that furnishes evidence or
+                proof of something (Buckland, 1997), how is it that objects become documents? And
+                why do some things become documents while others do not? How can we account for,
+                to give Meyriat’s (1981) example, Napoleon’s letters, which furnished one sort of proof? Academic
+                interest in documents has mostly sidestepped these questions, but the emerging
+                neo-documentalist tradition (see Lund and Buckland, 2009) offers the opportunity to
+                explore documental being and becoming.
+            </Papers:content>
+        </Papers:Paragraf>
+        <Papers:Paragraf paragrafId="6">
+            <Papers:content>
+                As reviewed by Lund (2009), document scholars historically focused on the material
+                aspects of documents; more recently, the academic focus has turned toward the social
+                and perceptual aspects of documents. In this latter vein it is, by now, well accepted that
+                documents only exist in the presence of a human actor. For instance, Meyriat (1981)
+                described the document as:
+                <Papers:quote citation="1">[…] not inherent, but rather the product of will, either to inform or to be informed – the second,
+                    at least, being always necessary. If this will doesn't garner a response from the beholder, the
+                    information remains only potential. The object on which the information is written or
+                    inscribed is not yet a document. It becomes one when a question is asked of it and its
+                    information is activated (p. 54, translation ours).</Papers:quote>
+            </Papers:content>
+        </Papers:Paragraf>
+        
+        <Papers:Citations>
+            <Papers:citation cID="1">
+                <Papers:citer>
+                    <Papers:authorName>Bates, M.J.</Papers:authorName>
+                    <Papers:year>2006</Papers:year>
+                    <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of the American Society for Information Science</Papers:journalTitle>
+                        <Papers:journalInfo>Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                    </Papers:journalData>
+                </Papers:citer>
+            </Papers:citation>
+            <Papers:citation cID="2">
+                <Papers:citer>
+                    <Papers:authorName>Bates, M.J.</Papers:authorName>
+                    <Papers:year>2006</Papers:year>
+                    <Papers:paperTitle>Fundamental forms of information</Papers:paperTitle>
+                    <Papers:journalData>
+                        <Papers:journalTitle>Journal of the American Society for Information Science</Papers:journalTitle>
+                        <Papers:journalInfo>Vol. 57 No. 8, pp. 1033-1045.</Papers:journalInfo>
+                    </Papers:journalData>
+                </Papers:citer>
+            </Papers:citation>
+        </Papers:Citations>
+        
+        <Papers:CitedBy>
+            <Papers:citer>
+                <Papers:authorName>Goran Sladić</Papers:authorName>
+                <Papers:authorName>Igor Cverdelj-Fogaraši</Papers:authorName>
+                <Papers:authorName>Stevan Gostojić</Papers:authorName>
+                <Papers:authorName>Goran Savić</Papers:authorName>
+                <Papers:authorName>Milan Segedinac</Papers:authorName>
+                <Papers:authorName>Miroslav Zarić</Papers:authorName>
+                <Papers:year>2017</Papers:year>
+                <Papers:paperTitle>Multilayer document model for semantic document management services</Papers:paperTitle>
+                <Papers:journalData>
+                    <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                    <Papers:journalInfo>73:5, 803-824.</Papers:journalInfo>
+                </Papers:journalData>
+            </Papers:citer>
+            <Papers:citer>
+                <Papers:authorName>Tim Gorichanaz</Papers:authorName>
+                <Papers:year>2017</Papers:year>
+                <Papers:paperTitle>Information and experience, a dialogue</Papers:paperTitle> 
+                <Papers:journalData>
+                    <Papers:journalTitle>Journal of Documentation</Papers:journalTitle>
+                    <Papers:journalInfo>73:5, 500-508.</Papers:journalInfo>
+                </Papers:journalData>     
+            </Papers:citer>
+        </Papers:CitedBy>
+    </Papers:SciencePaper>
+<SciencePaper xmlns="http://localhost:8080/SciencePapers" documentId="4" status="in_procedure" versionId="1">
+        <PaperData>
+            <Title>Placeholder text</Title>
+            <ShortTitle>Placeholder text</ShortTitle>
+            <Author>
+                <authorUserName>user1
+</authorUserName>
+            </Author>
+        </PaperData>
+        <Paragraf paragrafId="0">
+            <content>Placeholder text</content>
+        </Paragraf>
+        <Paragraf paragrafId="1">
+            <content>Placeholder text</content>
+        </Paragraf>
+    </SciencePaper>
+    <SciencePaper xmlns="http://localhost:8080/SciencePapers" documentId="5" status="in_procedure" versionId="1">
+        <PaperData>
+            <Title documentTitle="something">Placeholder text</Title>
+            <ShortTitle>Placeholder text</ShortTitle>
+            <Citation>Placeholder text</Citation>
+            <Author>
+                <authorUserName>user1</authorUserName>
+            </Author>
+        </PaperData>
+        <Paragraf paragrafId="0">
+            <content>Placeholder text</content>
+        </Paragraf>
+        <Citations/>
+    </SciencePaper>
+    <SciencePaper xmlns="http://localhost:8080/SciencePapers" documentId="6" status="in_procedure" versionId="1">
+        <PaperData>
+            <Title>Placeholder text</Title>
+            <ShortTitle>Placeholder text</ShortTitle>
+            <Author>
+                <authorUserName>user1</authorUserName>
+            </Author>
+        </PaperData>
+        <Paragraf paragrafId="0">
+            <content>Content knowledge hustle grind respect loyalty<quote>ANCIENT</quote>
+            </content>
+        </Paragraf>
+        <Citations/>
+    </SciencePaper>
+</Papers:SciencePapers>
