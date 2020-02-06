@@ -416,46 +416,21 @@
     </Papers:SciencePaper>
 <SciencePaper xmlns="http://localhost:8080/SciencePapers" documentId="4" status="in_procedure" versionId="1">
         <PaperData>
-            <Title>Placeholder text</Title>
+            <Title documentTitle="something">Placeholder text</Title>
             <ShortTitle>Placeholder text</ShortTitle>
             <Author>
-                <authorUserName>user1
-</authorUserName>
+                <authorUserName>user1</authorUserName>
             </Author>
         </PaperData>
         <Paragraf paragrafId="0">
             <content>Placeholder text</content>
         </Paragraf>
         <Paragraf paragrafId="1">
-            <content>Placeholder text</content>
-        </Paragraf>
-    </SciencePaper>
-    <SciencePaper xmlns="http://localhost:8080/SciencePapers" documentId="5" status="in_procedure" versionId="1">
-        <PaperData>
-            <Title documentTitle="something">Placeholder text</Title>
-            <ShortTitle>Placeholder text</ShortTitle>
-            <Citation>Placeholder text</Citation>
-            <Author>
-                <authorUserName>user1</authorUserName>
-            </Author>
-        </PaperData>
-        <Paragraf paragrafId="0">
-            <content>Placeholder text</content>
-        </Paragraf>
-        <Citations/>
-    </SciencePaper>
-    <SciencePaper xmlns="http://localhost:8080/SciencePapers" documentId="6" status="in_procedure" versionId="1">
-        <PaperData>
-            <Title>Placeholder text</Title>
-            <ShortTitle>Placeholder text</ShortTitle>
-            <Author>
-                <authorUserName>user1</authorUserName>
-            </Author>
-        </PaperData>
-        <Paragraf paragrafId="0">
-            <content>Content knowledge hustle grind respect loyalty<quote>ANCIENT</quote>
+            <content>Placeholder text<quote>Placeholder text</quote>
             </content>
         </Paragraf>
-        <Citations/>
+        <Paragraf paragrafId="2">
+            <content>Placeholder text</content>
+        </Paragraf>
     </SciencePaper>
 </Papers:SciencePapers>
