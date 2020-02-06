@@ -335,6 +335,11 @@ public class SciencePapersRepository {
             this.delete(sciencePaper.getDocumentId());
             this.saveRDFModel(sciencePaper);
             
+            XMLResource allPapersXML = (XMLResource) collection.getResource(ConnectionProperties.SCIENCE_PAPER_ID);
+            FileWriter fw = new FileWriter(new File("src/main/resources/data/science_paper1.xml"));
+            fw.write(allPapersXML.getContent().toString());
+            fw.close();
+            
             return updateQueryService.updateResource(ConnectionProperties.SCIENCE_PAPER_ID,
                     String.format(XUpdateTemplate.APPEND, ConnectionProperties.SCIENCE_PAPERS_NAMESPACE, "//SciencePapers", writer.toString()));
 		} catch (Exception e) {
