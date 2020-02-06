@@ -97,21 +97,23 @@ export class SciencePapersListComponent implements OnInit {
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(result);
         return;
-      } 
+      }
       // For other browsers:
       // Create a link pointing to the ObjectURL containing the blob.
       const data = window.URL.createObjectURL(result);
 
       var link = document.createElement('a');
       link.href = data;
-      link.download = "science_paper.pdf";
-      // this is necessary as link.click() does not work on the latest firefox
-      link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-
-      setTimeout(function () {
-          // For Firefox it is necessary to delay revoking the ObjectURL
-          window.URL.revokeObjectURL(data);
-      }, 100);
+      this.sciencePapersService.getPaperTitleById(id).subscribe(title => { 
+        link.download = title + '.pdf';
+        // this is necessary as link.click() does not work on the latest firefox
+        link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+  
+        setTimeout(function () {
+            // For Firefox it is necessary to delay revoking the ObjectURL
+            window.URL.revokeObjectURL(data);
+        }, 100);
+      });
     });
   }
 
@@ -127,14 +129,16 @@ export class SciencePapersListComponent implements OnInit {
 
       var link = document.createElement('a');
       link.href = data;
-      link.download = "science_paper.html";
-      // this is necessary as link.click() does not work on the latest firefox
-      link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+      this.sciencePapersService.getPaperTitleById(id).subscribe(title => {
+        link.download = title + '.html';
+        // this is necessary as link.click() does not work on the latest firefox
+        link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
 
-      setTimeout(function () {
+        setTimeout(function () {
           // For Firefox it is necessary to delay revoking the ObjectURL
           window.URL.revokeObjectURL(data);
-      }, 100);
+        }, 100);
+      });
     })
   }
 

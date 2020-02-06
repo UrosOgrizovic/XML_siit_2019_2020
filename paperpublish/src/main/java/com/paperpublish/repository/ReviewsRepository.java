@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.xmldb.api.base.Collection;
 import org.xmldb.api.base.ResourceIterator;
 import org.xmldb.api.base.ResourceSet;
+import org.xmldb.api.modules.XMLResource;
 import org.xmldb.api.modules.XPathQueryService;
 import org.xmldb.api.modules.XUpdateQueryService;
 
@@ -27,6 +28,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -67,7 +70,11 @@ public class ReviewsRepository {
 
             long res = updateQueryService.updateResource(ConnectionProperties.REVIEWS_ID,
                     String.format(XUpdateTemplate.APPEND, ConnectionProperties.REVIEWS_NAMESPACE, "//Reviews", writer.toString()));
-
+            XMLResource allReviewsXML = (XMLResource) collection.getResource(ConnectionProperties.BLINDED_REVIEWS_ID);
+            FileWriter fw = new FileWriter(new File("src/main/resources/data/BlindedReview1.xml"));
+            fw.write(allReviewsXML.getContent().toString());
+            fw.close();
+            
 //            saveRDFModel(review);
             return res;
 

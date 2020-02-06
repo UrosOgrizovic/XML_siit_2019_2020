@@ -37,9 +37,9 @@ public class XSLFOTransformer {
 	
 	public static final String RESOURCES_PATH = "src/main/resources"; 
 	
-	public static final String INPUT_FILE_SCIENCE_PAPER = RESOURCES_PATH + "/data/science_paper.xml";
+	public static final String INPUT_FILE_SCIENCE_PAPER = RESOURCES_PATH + "/data/science_paper1.xml";
 	
-	public static final String INPUT_FILE_BLINDED_REVIEW = RESOURCES_PATH + "/data/BlindedReview.xml";
+	public static final String INPUT_FILE_BLINDED_REVIEW = RESOURCES_PATH + "/data/BlindedReview1.xml";
 	
 	public static final String SCIENCE_PAPER_XSL_PDF_FILE = RESOURCES_PATH + "/data/xsl/science_paper_pdf.xsl";
 	
@@ -72,7 +72,7 @@ public class XSLFOTransformer {
 		
 		// Initialize the transformation subject
 		StreamSource source = new StreamSource(new File(INPUT_FILE_SCIENCE_PAPER));
-
+		
 		// Initialize user agent needed for the transformation
 		FOUserAgent userAgent = fopFactory.newFOUserAgent();
 		

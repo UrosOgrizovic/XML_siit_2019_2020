@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.xmldb.api.base.XMLDBException;
 
 import com.paperpublish.model.sciencepapers.ObjectFactory;
 import com.paperpublish.model.sciencepapers.TSciencePaper;
@@ -28,6 +29,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.xml.bind.JAXBException;
 
 @Service
 public class SciencePapersService {
@@ -239,6 +242,10 @@ public class SciencePapersService {
 	 */
 	public List<String> searchByText(String text, String authorUserName, boolean searchOnlyMyPapers) {
 		return sciencePapersRepository.searchByText(text, authorUserName, searchOnlyMyPapers);		
+	}
+
+	public String getPaperTitleById(String documentId) throws Exception {
+		return sciencePapersRepository.getPaperTitleById(documentId);
 	}
 
 }
