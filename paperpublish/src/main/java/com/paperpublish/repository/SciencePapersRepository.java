@@ -186,6 +186,26 @@ public class SciencePapersRepository {
 			throw e;
 		}
     }
+
+    public TSciencePaper findByTitle(String title) throws Exception {
+        XPathQueryService queryService = ConnectionProperties.getXPathService(collection);
+        try {
+            queryService.setNamespace("",ConnectionProperties.SCIENCE_PAPERS_NAMESPACE);
+            ResourceSet result = queryService.query("//SciencePapers/SciencePaper[./PaperData/Title[text()='"+ title +"']]");
+
+            JAXBContext jaxbContext = JAXBContext.newInstance(ConnectionProperties.PACKAGE_PATH + ConnectionProperties.SCIENCE_PAPER_PACKAGE);
+            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+            ResourceIterator i = result.getIterator();
+            Resource res = i.nextResource();
+
+            return (TSciencePaper) unmarshaller.unmarshal(new StringReader(res.getContent().toString()));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
     
     /**
      * checks if paper exists in db

@@ -111,6 +111,7 @@
                                         <xsl:attribute name="id">
                                             <xsl:value-of select="concat('qt_', position())"/>
                                         </xsl:attribute>
+                                        <xsl:value-of select="concat('[', position(), ']')"></xsl:value-of>
                                         <xsl:for-each select="Papers:authorName">
                                             <xsl:value-of select="."></xsl:value-of>,
                                         </xsl:for-each>
@@ -121,6 +122,15 @@
                                         </i>,
                                         <xsl:text> </xsl:text>
                                         <xsl:value-of select="Papers:journalData/Papers:journalInfo"></xsl:value-of>
+                                        <a>
+                                            <xsl:attribute name="href">
+                                                <xsl:value-of select="''"></xsl:value-of>
+                                            </xsl:attribute>
+                                            <xsl:attribute name="onclick">
+                                                <xsl:value-of select="concat('event.preventDefault(); window.open(''http://localhost:8888/api/sciencepapers/getPDFbyTitle/', Papers:paperTitle,''')')"></xsl:value-of>
+                                            </xsl:attribute>
+                                            <xsl:value-of select="'[PDF]'"></xsl:value-of>
+                                        </a>
                                     </div>    
                                 </xsl:for-each>
                             </div>

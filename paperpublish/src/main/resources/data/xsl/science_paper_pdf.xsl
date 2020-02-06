@@ -5,14 +5,22 @@
     
     <xsl:param name="document_id" />
     
-    <xsl:template match="Papers:content/Papers:quote">
+    
+    <xsl:template match="Papers:quote">
+        <fo:basic-link color="blue" internal-destination="{concat('qt_', @citation)}">
+            
+            <xsl:value-of select="concat('[', @citation, ']')"></xsl:value-of>
+        </fo:basic-link>
+    </xsl:template>
+    
+    <xsl:template match="Papers:content">
         <fo:block margin-left="1in" margin-right="1in" margin-top="0.15in" margin-bottom="0.15in" text-align="justify">
             <fo:inline font-size="10pt">
                 <xsl:value-of select="."></xsl:value-of>
             </fo:inline>
+            <xsl:apply-templates select="Papers:quote"></xsl:apply-templates>
         </fo:block>
     </xsl:template>
-    
     
     <xsl:template match="/">
         <fo:root>
@@ -73,7 +81,8 @@
                                         References
                                     </fo:block>
                                     <xsl:for-each select="Papers:Citations/Papers:citation/Papers:citer">
-                                        <fo:block>
+                                        <fo:block id="{concat('qt_', position())}">
+                                            <xsl:value-of select="concat('[', position(), ']')"></xsl:value-of>
                                             <xsl:for-each select="Papers:authorName">
                                                 <xsl:value-of select="."></xsl:value-of>,
                                             </xsl:for-each>
@@ -84,6 +93,10 @@
                                             </fo:inline>
                                             <xsl:text> </xsl:text>
                                             <xsl:value-of select="Papers:journalData/Papers:journalInfo"></xsl:value-of>
+                                            <fo:basic-link color="blue" external-destination="{concat('http://localhost:8888/api/sciencepapers/getPDFbyTitle/', Papers:paperTitle)}">
+                                                
+                                                <xsl:value-of select="'[PDF]'"></xsl:value-of>
+                                            </fo:basic-link>
                                         </fo:block>    
                                     </xsl:for-each>
                                 </fo:block>

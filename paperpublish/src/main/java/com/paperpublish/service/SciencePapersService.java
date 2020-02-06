@@ -123,6 +123,15 @@ public class SciencePapersService {
 		}
 	}
 
+	public String getPaperByTitle(String title) throws Exception {
+		try {
+			TSciencePaper paper = sciencePapersRepository.findByTitle(title);
+			return paper.getDocumentId();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
 	public Long create(TSciencePaperDTO sciencePaperDTO) throws Exception {
 		try {
 			TSciencePaper sciencePaper = (new ObjectFactory()).createTSciencePaper();
